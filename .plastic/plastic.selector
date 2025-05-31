@@ -1,0 +1,4 @@
+repository "Bug_Cord/Bug_Cord@15668535698387@cloud"
+  path "/"
+    br "/main"
+    co "/main"

@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+#JSONファイルは特にLFに固定
+*.json text eol=lf

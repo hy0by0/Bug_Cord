@@ -25,8 +25,17 @@ public class UIManager : MonoBehaviour
     public void DamagedBar(int Atack)
     {
         enemy_hp_remain -= Atack;
-        score_manager.getScore += Atack;
-        Debug.Log(score_manager.getScore);
+        // ScoreManagerのシングルトンInstanceを使う
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.getScore += Atack;
+            Debug.Log(ScoreManager.Instance.getScore);
+        }
+        else
+        {
+            Debug.LogWarning("ScoreManager Instance が見つかりません");
+        }
+
         float gauge = enemy_hp_remain/ enemy_hp_max;
         enemy_hp_bar.GetComponent<Image>().fillAmount = gauge;
     }

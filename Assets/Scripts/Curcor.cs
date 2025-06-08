@@ -75,7 +75,7 @@ public class Curcor : MonoBehaviour
                     Debug.LogError("ScreenFader がシーン内に見つかりませんでした");
                 }
 
-                Invoke(nameof(GoTItle), 2.0f);
+                Invoke(nameof(GoGame), 2.0f);
             }
         }
     }
@@ -92,7 +92,7 @@ public class Curcor : MonoBehaviour
         hitbox.SetActive(false);
     }
 
-    private void GoTItle()
+    private void GoGame()
     {
         SceneManager.LoadScene("SampleScene");
 

@@ -564,7 +564,7 @@ MonoBehaviour:
   enemy_hp_bar: {fileID: 251305818}
   enemy_hp_max: 10000
   enemy_hp_remain: 0
-  score_manager: {fileID: 2105566273}
+  score_manager: {fileID: 0}
 --- !u!4 &328830246
 Transform:
   m_ObjectHideFlags: 0
@@ -965,7 +965,7 @@ GameObject:
   - component: {fileID: 512121423}
   - component: {fileID: 512121422}
   m_Layer: 5
-  m_Name: ScoreText
+  m_Name: DamageScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1029,7 +1029,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 240, y: -60}
+  m_AnchoredPosition: {x: 240, y: -277}
   m_SizeDelta: {x: 480, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &519420028
@@ -3312,10 +3312,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-
-  - {fileID: 38555478}
+  - {fileID: 251305819}
   - {fileID: 512121424}
-
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3764,7 +3762,6 @@ GameObject:
   - component: {fileID: 2105566272}
   - component: {fileID: 2105566271}
   - component: {fileID: 2105566270}
-  - component: {fileID: 2105566273}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3815,21 +3812,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2105566273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2105566269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e3bce34b85aead49b772be777e6f195, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damaggeScore: {fileID: 512121422}
-  enemyController: {fileID: 1439537198}
-  getScore: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

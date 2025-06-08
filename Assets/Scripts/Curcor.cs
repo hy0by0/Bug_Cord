@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Curcor : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Curcor : MonoBehaviour
 
     //コントローラー時の速さ
     float moveSpeed = 5f;
+
+
 
     void Start()
     {
@@ -50,9 +53,30 @@ public class Curcor : MonoBehaviour
         // 攻撃ボタンをここで変更してください。
         if (Input.GetMouseButtonDown(0)||Input.GetButton("btnA"))
         {
-            Invoke("ActivateHitbox", 0.2f); // 入力してからＮ秒後に攻撃判定を有効化
-            Invoke("DeactivateHitbox", 0.25f); // 入力してからＭ秒後に攻撃判定を無効化
-            //ここは攻撃があたるまでの時間をどうするか調整してください。あと、有効化から無効化の間は一瞬にしてください
+            if (SceneManager.GetActiveScene().name == "SampleScene")
+            {
+
+                Invoke("ActivateHitbox", 0.2f); // 入力してからＮ秒後に攻撃判定を有効化
+                Invoke("DeactivateHitbox", 0.25f); // 入力してからＭ秒後に攻撃判定を無効化
+                                                   //ここは攻撃があたるまでの時間をどうするか調整してください。あと、有効化から無効化の間は一瞬にしてください
+            }
+            if (SceneManager.GetActiveScene().name == "Title")
+            {
+                Debug.Log("ゲームに行きました");
+
+                ScreenFader screenFader = FindObjectOfType<ScreenFader>();
+
+                if (screenFader != null)
+                {
+                    StartCoroutine(screenFader.BackBlack());
+                }
+                else
+                {
+                    Debug.LogError("ScreenFader がシーン内に見つかりませんでした");
+                }
+
+                Invoke(nameof(GoTItle), 2.0f);
+            }
         }
     }
 
@@ -66,5 +90,11 @@ public class Curcor : MonoBehaviour
     void DeactivateHitbox()
     {
         hitbox.SetActive(false);
+    }
+
+    private void GoTItle()
+    {
+        SceneManager.LoadScene("SampleScene");
+
     }
 }

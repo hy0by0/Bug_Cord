@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScreenFader : MonoBehaviour
 {
     [Header("<=== Image ===>")]
-    [SerializeField] Image image;
+    [SerializeField] Image fadePanel;
 
     float fadeDuration = 2f;  // フェード時間
     // Start is called before the first frame update
@@ -23,20 +24,21 @@ public class ScreenFader : MonoBehaviour
 
     public IEnumerator BackBlack()
     {
-        image.gameObject.SetActive(true);
-        float timer = 0.0f;
+        fadePanel.gameObject.SetActive(true);
+        //fadePanel.enabled = true;                 // パネルを有効化
+        float elapsedTime = 0.0f;                 // 経過時間を初期化
+        Color startColor = fadePanel.color;       // フェードパネルの開始色を取得
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // フェードパネルの最終色を設定
 
-        Color color = image.color;
-
-        while (timer < fadeDuration)
+        // フェードアウトアニメーションを実行
+        while (elapsedTime < fadeDuration)
         {
-            timer += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, 1f, timer / fadeDuration);
-            image.color = new Color(color.r, color.g, color.b, alpha);
-            yield return null;
+            elapsedTime += Time.deltaTime;                        // 経過時間を増やす
+            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // フェードの進行度を計算
+            fadePanel.color = Color.Lerp(startColor, endColor, t); // パネルの色を変更してフェードアウト
+            yield return null;                                     // 1フレーム待機
         }
 
-        // 完全に黒に
-        image.color = new Color(color.r, color.g, color.b, 1f);
+        fadePanel.color = endColor;  // フェードが完了したら最終色に設定
     }
 }

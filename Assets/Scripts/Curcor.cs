@@ -31,7 +31,7 @@ public class Curcor : MonoBehaviour
         this.transform.position = worldPosition; //ここで位置を反映。
 
         // 攻撃ボタンをここで変更してください。
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)||Input.GetButton("btnA"))
         {
             Invoke("ActivateHitbox", 0.2f); // 入力してからＮ秒後に攻撃判定を有効化
             Invoke("DeactivateHitbox", 0.25f); // 入力してからＭ秒後に攻撃判定を無効化

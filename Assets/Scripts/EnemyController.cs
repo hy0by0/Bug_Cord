@@ -5,6 +5,7 @@ using UnityEngine;
 // 敵に関する処理全般を担うスクリプト。以下に２つのクラスがある。
 
 // 敵の行動パターンの一覧のenum ここに追加したりしてください。これは実装しきれませんでした。
+
 public enum EnemyState
 {
     Normal,
@@ -32,6 +33,9 @@ public class QRHintPair
 // EnemyHitAreaスクリプトからダメージを受け取る。HPに関してはUIManagerクラスを呼びだして変更を反映させたりもしている。
 public class EnemyController : MonoBehaviour
 {
+
+    private Animator animator; // Animatorコンポーネントを取得するための変数
+
     public int enemy_hp = 10000; //敵の最大ＨＰを入力してね
     [SerializeField] UIManager uimanager; //UIManagerクラスのメソッドを呼びだしたいため
     public static string enemy_state = "Normal"; //敵の状態。普通、ひより、死亡、の３段階は最低限考えたい。
@@ -183,6 +187,9 @@ public class EnemyController : MonoBehaviour
     public void HitCritical(int playerAtackdamage)
     {
         Debug.Log("効果は抜群だ！今がチャンスだ！");
+
+        Animator animator = GetComponent<Animator>();
+        animator.SetTrigger("Critical"); // "Trigger"にはパラメータ名が入ります
 
         //受けるダメージを計算し、敵のＨＰとＵＩに反映
         int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 2.0f); //ダメージ式は、ここを変更してください。

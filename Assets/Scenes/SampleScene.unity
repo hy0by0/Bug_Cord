@@ -4693,7 +4693,7 @@ MonoBehaviour:
   criticalEffectPrefab: {fileID: 8729074581977840526, guid: dac2672f3a1c2fd46880612ed9be4b8c, type: 3}
   hitEffectPrefab: {fileID: 7402612426004475247, guid: cd431f9a3ec71694a95574194c7dedba, type: 3}
   enemy_hp: 200000
-  uimanager: {fileID: 0}
+  uimanager: {fileID: 328830245}
   count_hit: 0
   count_hit_QRFlag: 5
   spawnPairs:

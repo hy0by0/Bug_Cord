@@ -60,8 +60,6 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //UIManagerという名前のオブジェクトから取得してもらう。
-        uimanager = GameObject.Find("UIManager").GetComponent<UIManager>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();// オブジェクトの画像コンポーネントを取得(攻撃時に赤色へ敵を変えるため)
         originalColor = spriteRenderer.color;

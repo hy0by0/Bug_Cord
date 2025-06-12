@@ -36,6 +36,11 @@ public class EnemyController : MonoBehaviour
 
     private Animator animator; // Animatorコンポーネントを取得するための変数
 
+    private SpriteRenderer spriteRenderer; // オブジェクトの画像コンポーネントを保持するための変数
+    private Color originalColor;
+
+    private Coroutine flashCoroutine;    // 実行中のコルーチンを保持するための変数
+
     public int enemy_hp = 10000; //敵の最大ＨＰを入力してね
     [SerializeField] UIManager uimanager; //UIManagerクラスのメソッドを呼びだしたいため
     public static string enemy_state = "Normal"; //敵の状態。普通、ひより、死亡、の３段階は最低限考えたい。
@@ -54,7 +59,11 @@ public class EnemyController : MonoBehaviour
     {
         //UIManagerという名前のオブジェクトから取得してもらう。
         uimanager = GameObject.Find("UIManager").GetComponent<UIManager>();
-        
+
+        spriteRenderer = GetComponent<SpriteRenderer>();// オブジェクトの画像コンポーネントを取得(攻撃時に赤色へ敵を変えるため)
+        originalColor = spriteRenderer.color;
+
+
         //UIManagerへ最大ＨＰの値を反映させる(比率を合わせるために)
         uimanager.enemy_hp_max = enemy_hp;
         uimanager.enemy_hp_remain = enemy_hp;
@@ -132,6 +141,22 @@ public class EnemyController : MonoBehaviour
         hasSpawned = false; // 次の出現に備える
     }
 
+    // 色を一定時間変更して元に戻すコルーチン
+    private IEnumerator FlashColorCoroutine()
+    {
+        // 1. スプライトの色を赤に変更する
+        spriteRenderer.color = Color.red;
+
+        // 2. 指定した秒数だけ処理を待つ
+        yield return new WaitForSeconds(0.15f);
+
+        // 3. Start()で保存しておいた「本来の色」に戻す
+        spriteRenderer.color = originalColor;
+
+        // 4. 処理が終わったので、保持していたコルーチン情報をnullにする
+        flashCoroutine = null;
+    }
+
 
     //以下、あたった部位ごとに受ける処理を変えるための処理群。必要に応じてメソッドを変更したり、コピペして追加してください。
     // 防御が硬いところにあたった時に呼び出す
@@ -154,6 +179,12 @@ public class EnemyController : MonoBehaviour
     public void HitNormal(int playerAtackdamage)
     {
         Debug.Log("ダメージが入った");
+
+        if (flashCoroutine != null)        // もし既に色の変更コルーチンが実行中なら、それを停止する
+        {
+            StopCoroutine(flashCoroutine);
+        }
+        flashCoroutine = StartCoroutine(FlashColorCoroutine());        // 新しく色の変更コルーチンを開始し、その情報を変数に保存する
 
         //受けるダメージを計算し、敵のＨＰとＵＩに反映
         int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.0f); //ダメージ式は、ここを変更してください。

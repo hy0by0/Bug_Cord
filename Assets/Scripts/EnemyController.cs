@@ -41,6 +41,9 @@ public class EnemyController : MonoBehaviour
 
     private Coroutine flashCoroutine;    // 実行中のコルーチンを保持するための変数
 
+    [SerializeField] private GameObject criticalEffectPrefab;
+    [SerializeField] private GameObject hitEffectPrefab;
+
     public int enemy_hp = 10000; //敵の最大ＨＰを入力してね
     [SerializeField] UIManager uimanager; //UIManagerクラスのメソッドを呼びだしたいため
     public static string enemy_state = "Normal"; //敵の状態。普通、ひより、死亡、の３段階は最低限考えたい。
@@ -163,6 +166,8 @@ public class EnemyController : MonoBehaviour
     public void HitResist(int playerAtackdamage)
     {
         Debug.Log("効果はいまひとつ");
+        //Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);// ヒットエフェクトを生，効果は今一つでもエフェクトは出すならコメントアウトを外す
+
 
         //受けるダメージを計算し、敵のＨＰとＵＩに反映
         int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 0.5f); //ダメージ式は、ここを変更してください。
@@ -179,6 +184,7 @@ public class EnemyController : MonoBehaviour
     public void HitNormal(int playerAtackdamage)
     {
         Debug.Log("ダメージが入った");
+        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);// ヒットエフェクトを生成
 
         if (flashCoroutine != null)        // もし既に色の変更コルーチンが実行中なら、それを停止する
         {
@@ -200,6 +206,7 @@ public class EnemyController : MonoBehaviour
     public void HitWeak(int playerAtackdamage)
     {
         Debug.Log("急所に当たった");
+        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);// ヒットエフェクトを生成
 
         //受けるダメージを計算し、敵のＨＰとＵＩに反映
         int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.5f); //ダメージ式は、ここを変更してください。
@@ -218,6 +225,7 @@ public class EnemyController : MonoBehaviour
     public void HitCritical(int playerAtackdamage)
     {
         Debug.Log("効果は抜群だ！今がチャンスだ！");
+        Instantiate(criticalEffectPrefab, transform.position, Quaternion.identity);// クリティカルエフェクトを生成
 
         Animator animator = GetComponent<Animator>();
         animator.SetTrigger("Critical"); // "Trigger"にはパラメータ名が入ります

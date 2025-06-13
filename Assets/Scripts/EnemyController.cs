@@ -18,14 +18,12 @@ public enum EnemyState
 }
 
 
-// 出現させるQRヒントとそれに対応する当たり判定オブジェクトを格納する場所 inspector上に追加・変更をしていってください。
+// 特定条件で出現させるクリティカル当たり判定オブジェクトを格納する場所 inspector上に追加・変更をしていってください。
 [System.Serializable]
-public class QRHintPair
+public class CriticalHitBox_Spawnded
 {
-    public string pairID;  // 呼びだすQRヒントと当たり判定オブジェクトのペアの識別用変数
-    public GameObject QRObject;         // 出現させるQRコードオブジェクト
+    public string pairID;  // 呼びだす当たり判定オブジェクトのペアの識別用変数
     public GameObject hitboxObject;       // 出現させる当たり判定
-    public Transform spawnPoint;          // 出現させる位置（Transform参照）
 }
 
 
@@ -34,28 +32,37 @@ public class QRHintPair
 public class EnemyController : MonoBehaviour
 {
 
+//// 以下、敵グラフィック関連の変数
+
     private Animator animator; // Animatorコンポーネントを取得するための変数
 
     private SpriteRenderer spriteRenderer; // オブジェクトの画像コンポーネントを保持するための変数
     private Color originalColor;
 
-    private Coroutine flashCoroutine;    // 実行中のコルーチンを保持するための変数
+    private Coroutine flashCoroutine;    // 実行中の色変更コルーチンを保持するための変数
 
     [SerializeField] private GameObject criticalEffectPrefab;
     [SerializeField] private GameObject hitEffectPrefab;
+
+/////////////////////////////////////////////////////////////////////////////////// 
+//// 以下、敵のおパラメータ・ステータスに関する変数
 
     public int enemy_hp = 10000; //敵の最大ＨＰを入力してね
     [SerializeField] UIManager uimanager; //UIManagerクラスのメソッドを呼びだしたいため
     public static string enemy_state = "Normal"; //敵の状態。普通、ひより、死亡、の３段階は最低限考えたい。
 
-    public int count_hit = 0; //受けた攻撃回数をカウントするための変数。攻撃回数を条件にした処理を起こすため。
-    public int count_hit_QRFlag = 5; //QRヒントが出てくるまでの攻撃回数。攻撃回数がこれに達するとＱＲとクリティカルが発生するようにする
+///////////////////////////////////////////////////////////////////////////////////   
+//// 以下、特定条件でクリティカル当たり判定オブジェを出現させるための変数
 
-    public List<QRHintPair> spawnPairs;     // 複数の「QRコード＋当たり判定オブジェクト」の組
-    public float activeDuration_QR = 5f;        // QRヒントが出現している時間
+    public int count_hit = 0; //受けた攻撃回数をカウントするための変数。攻撃回数を条件にした処理を起こすため。
+    public int count_hit_Flag = 5; //クリティカル当たり判定オブジェが出てくるまでの攻撃回数。攻撃回数がこれに達するとクリティカル当たり判定オブジェが発生するようにする
+
+    public List<CriticalHitBox_Spawnded> spawnPairs;     // 複数の「クリティカル当たり判定オブジェクト」(ここに、出現させたいクリティカルの当たり判定オブジェと識別名称を入力
     public float activeDuration_HitBox = 8f;        // クリティカル当たり判定が出現している時間
     private bool hasSpawned = false;         // 一度だけ実行されるように制御 (連続で発生してしまわないようにするために必要)
-    
+
+///////////////////////////////////////////////////////////////////////////////////   
+//// 以下からがEnemyContorollerクラスのメソッドの記述
 
     // Start is called before the first frame update
     void Start()
@@ -76,10 +83,11 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!hasSpawned && count_hit >= count_hit_QRFlag)
+        // 以下のＩＦ文の内容を変えることで、クリティカル当たり判定オブジェを出現させる条件を変更できます。
+        if (!hasSpawned && count_hit >= count_hit_Flag)
         {
-            //呼びだしたいQRヒントの組み合わせをメソッドから呼びだす。特定のタイミングで呼びだしたいときもこの記述を使ってください。
-            SpawnPairByID("Test_pattern");
+            //呼びだしたいクリティカル当たり判定オブジェをメソッドから呼びだす。特定のタイミングで呼びだしたいときもこの記述を使ってください。
+            SpawnPairByID("1"); //この記述内の入力を変えることで、複数クリティカル当たり判定オブジェを扱う場合でも、呼び分けられます
         }
 
         if (enemy_hp <= 0)
@@ -88,17 +96,19 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // 特定ＩＤのＱＲヒントの組み合わせを出現させることを要請するメソッド
+
+    //以下のメソッド内からＱＲに関する記載を削除しました。
+    // 特定ＩＤのクリティカル当たり判定オブジェを出現させることを要請するメソッド
     public void SpawnPairByID(string id)
     {
         if (hasSpawned) return;
 
-        QRHintPair targetPair = spawnPairs.Find(p => p.pairID == id);
+        CriticalHitBox_Spawnded targetPair = spawnPairs.Find(p => p.pairID == id);
 
         if (targetPair != null)
         {
-            // 以下のコルーチンを呼びだし、特定の(ID:targetPair)QRと当たり判定の出現処理を実行させる
-            StartCoroutine(SpawnQRAndHitboxCoroutine(targetPair));
+            // 以下のコルーチンを呼びだし、特定の(ID:targetPair)当たり判定オブジェの出現処理を実行させる
+            StartCoroutine(SpawnHitboxCoroutine(targetPair));
         }
         else
         {
@@ -106,41 +116,27 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // 入力されたペアのQRコードと当たり判定オブジェクトを出現させるコルーチン
-    private IEnumerator SpawnQRAndHitboxCoroutine(QRHintPair pair)
+
+    //以下のコルーチンからＱＲに関する記載を削除しました。
+    // 入力されたクリティカル当たり判定オブジェクトを実際に出現させるコルーチン
+    private IEnumerator SpawnHitboxCoroutine(CriticalHitBox_Spawnded pair)
     {
         hasSpawned = true;
-        if (pair.QRObject != null && pair.hitboxObject != null && pair.spawnPoint != null)
+        if (pair.hitboxObject != null) //ここもＱＲ部分を消す
         {
-            // 指定位置に移動＆表示
-            pair.QRObject.transform.position = pair.spawnPoint.position;
-            //pair.hitboxObject.transform.position = pair.spawnPoint.position;
-
-            pair.QRObject.SetActive(true);
             pair.hitboxObject.SetActive(true);
         }
 
-        yield return new WaitForSeconds(activeDuration_QR);
-
-        // 一定時間後にＱＲヒントを非表示
-        if (pair.QRObject != null)
-        {
-            pair.QRObject.SetActive(false);
-        }
-
         // 一定時間後にクリティカル当たり判定を非表示
-        yield return new WaitForSeconds(activeDuration_HitBox - activeDuration_QR);
+        yield return new WaitForSeconds(activeDuration_HitBox);
 
-        if (pair.QRObject != null)
-        {
-            pair.hitboxObject.SetActive(false);
-        }
+        pair.hitboxObject.SetActive(false);
 
         // 以上の全てが終わった後、ヒットカウントをリセット
-
         count_hit = 0;
         hasSpawned = false; // 次の出現に備える
     }
+
 
     // 色を一定時間変更して元に戻すコルーチン
     private IEnumerator FlashColorCoroutine()

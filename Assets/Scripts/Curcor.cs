@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+using System.Runtime.CompilerServices;
 
 public class Curcor : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class Curcor : MonoBehaviour
     //コントローラー時の速さ
     float moveSpeed = 5f;
 
+    // Input System用
+    public ControllerAction inputActions;
 
 
     void Start()
@@ -38,6 +42,7 @@ public class Curcor : MonoBehaviour
         Vector3 thisPosition = Input.mousePosition;  //ここでマウス位置取得
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(thisPosition);// カメラに合わせた座標を算出
         worldPosition.z = 0f;
+
 
         if (Input.GetJoystickNames().Length > 0 && !string.IsNullOrEmpty(Input.GetJoystickNames()[0]))
         {

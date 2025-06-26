@@ -5749,7 +5749,7 @@ MonoBehaviour:
   - {fileID: 2002699425}
   - {fileID: 2008104351}
   - {fileID: 1041392047}
-  attackEffectPrefab: {fileID: 1746926901512590097, guid: 6a1fca8ea56b04240996d48e9d4cf911, type: 3}
+  attackEffectPrefab: {fileID: 2922394331798362088, guid: fadeaa9f6154a334db1a1fdd84e06538, type: 3}
   playerController: {fileID: 564438822}
   interval: 6
   displayDuration: 2

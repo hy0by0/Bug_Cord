@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
     [Tooltip("ゲーム開始時のY座標 (0-2)")]
     public int startY = 0;
 
+
+    [Tooltip("スタン時に非表示にする照準オブジェクト")]
+    [SerializeField] private GameObject aimObject;
+
     // --- 内部で管理する変数 ---
     private Transform[,] gridPositions = new Transform[3, 3];
     private int currentX, currentY; // 論理的な現在座標
@@ -170,8 +174,11 @@ public class PlayerController : MonoBehaviour
         }
         flashCoroutine = StartCoroutine(FlashColorCoroutine());        // 新しく色の変更コルーチンを開始し、その情報を変数に保存する
 
+        aimObject.SetActive(false);
 
         yield return new WaitForSeconds(duration); // 指定時間、待機
+
+        aimObject.SetActive(true);
 
         // ここでスタン演出を元に戻す
 

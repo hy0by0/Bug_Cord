@@ -10,17 +10,6 @@ public class EnemyHitArea : MonoBehaviour
     [SerializeField] private PlayerController playerController2;
     public string hit_area_type = "critical"; //ここで、このあたり判定の部位の設定を行うこと！
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -56,7 +45,7 @@ public class EnemyHitArea : MonoBehaviour
 
 
         }
-        else if (collider.tag == "AttackPlayer2")
+        if (collider.tag == "AttackPlayer2")
         {
 
             // ここでプレイヤーの攻撃判定から攻撃力の値を受け取る

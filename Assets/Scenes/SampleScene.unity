@@ -727,8 +727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: normal
 --- !u!212 &306945850
 SpriteRenderer:
@@ -983,8 +983,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: weak
 --- !u!212 &384061583
 SpriteRenderer:
@@ -1149,7 +1149,6 @@ GameObject:
   m_Component:
   - component: {fileID: 415694876}
   - component: {fileID: 415694875}
-  - component: {fileID: 415694874}
   - component: {fileID: 415694873}
   m_Layer: 0
   m_Name: Aim2_prot
@@ -1175,51 +1174,6 @@ MonoBehaviour:
   goAtack: 0
   shoot_reload_Flag: 1
   shoot_allow: 1
---- !u!61 &415694874
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415694872}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 2.56, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2}
-  m_EdgeRadius: 0
 --- !u!212 &415694875
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1301,7 +1255,7 @@ GameObject:
   - component: {fileID: 458840534}
   m_Layer: 0
   m_Name: AtackSensor_1
-  m_TagString: Atack_player1
+  m_TagString: AttackPlayer1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1368,7 +1322,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0597be8b4fae69c4c8a7aa4951a39f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atack_damage: 1000
+  playerController: {fileID: 564438822}
+  baseDamage: 10
+  frontRowMultiplier: 1
+  middleRowMultiplier: 1.1
+  backRowMultiplier: 1.2
 --- !u!1 &507706789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,10 +1683,14 @@ MonoBehaviour:
   - {fileID: 1989836906}
   - {fileID: 249067428}
   moveDuration: 0.3
+  frontRowCooldown: 2
+  middleRowCooldown: 3
+  backRowCooldown: 5
   frontRowScale: 1
   backRowScale: 0.7
   startX: 1
   startY: 0
+  aimObject: {fileID: 569559010}
 --- !u!95 &564438823
 Animator:
   serializedVersion: 5
@@ -1944,8 +1906,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: critical
 --- !u!212 &579107281
 SpriteRenderer:
@@ -2012,7 +1974,7 @@ GameObject:
   - component: {fileID: 585680108}
   m_Layer: 0
   m_Name: AtackSensor_2
-  m_TagString: Atack_player2
+  m_TagString: AttackPlayer2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2044,7 +2006,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0597be8b4fae69c4c8a7aa4951a39f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atack_damage: 1000
+  playerController: {fileID: 922459355}
+  baseDamage: 10
+  frontRowMultiplier: 1
+  middleRowMultiplier: 1.1
+  backRowMultiplier: 1.2
 --- !u!58 &585680109
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2378,8 +2344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: normal
 --- !u!212 &648017408
 SpriteRenderer:
@@ -2889,8 +2855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: normal
 --- !u!212 &787060854
 SpriteRenderer:
@@ -3035,8 +3001,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: resist
 --- !u!212 &790812238
 SpriteRenderer:
@@ -3452,10 +3418,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionMarkers: []
   moveDuration: 0.3
+  frontRowCooldown: 2
+  middleRowCooldown: 3
+  backRowCooldown: 5
   frontRowScale: 1
   backRowScale: 0.7
   startX: 1
   startY: 0
+  aimObject: {fileID: 415694872}
 --- !u!95 &922459356
 Animator:
   serializedVersion: 5
@@ -3568,8 +3538,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: critical
 --- !u!212 &928856082
 SpriteRenderer:
@@ -3722,8 +3692,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 922459355}
+  playerController2: {fileID: 922459355}
   hit_area_type: normal
 --- !u!61 &976750968
 BoxCollider2D:
@@ -4929,8 +4899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: weak
 --- !u!212 &1228846089
 SpriteRenderer:
@@ -5288,7 +5258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   criticalEffectPrefab: {fileID: 8729074581977840526, guid: dac2672f3a1c2fd46880612ed9be4b8c, type: 3}
   hitEffectPrefab: {fileID: 7402612426004475247, guid: cd431f9a3ec71694a95574194c7dedba, type: 3}
-  enemy_hp: 200000
+  enemy_hp: 2000
   uimanager: {fileID: 328830245}
   count_hit: 0
   count_hit_Flag: 5

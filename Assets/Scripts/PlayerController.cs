@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     //// 以下、プレイヤーグラフィック関連の変数
 
+    private Animator animator; // Animatorコンポーネントを取得するための変数
     private SpriteRenderer spriteRenderer; // オブジェクトの画像コンポーネントを保持するための変数
     private Color originalColor;
 
@@ -145,6 +146,13 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(StunCoroutine(duration));
         }
+    }
+
+
+    public void Attack()
+    {
+        Animator animator = GetComponent<Animator>();
+        animator.SetTrigger("Attack1"); // "Trigger"にはパラメータ名が入ります
     }
 
     /// <summary>

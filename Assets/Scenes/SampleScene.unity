@@ -1255,7 +1255,7 @@ GameObject:
   - component: {fileID: 458840534}
   m_Layer: 0
   m_Name: AtackSensor_1
-  m_TagString: Atack_player1
+  m_TagString: AttackPayer1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1322,7 +1322,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0597be8b4fae69c4c8a7aa4951a39f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atack_damage: 10
+  playerController: {fileID: 564438822}
+  baseDamage: 10
+  frontRowMultiplier: 1
+  middleRowMultiplier: 1.1
+  backRowMultiplier: 1.2
 --- !u!1 &507706789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,7 +1974,7 @@ GameObject:
   - component: {fileID: 585680108}
   m_Layer: 0
   m_Name: AtackSensor_2
-  m_TagString: Atack_player2
+  m_TagString: AttackPlayer2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2002,7 +2006,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0597be8b4fae69c4c8a7aa4951a39f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atack_damage: 10
+  playerController: {fileID: 922459355}
+  baseDamage: 10
+  frontRowMultiplier: 1
+  middleRowMultiplier: 1.1
+  backRowMultiplier: 1.2
 --- !u!58 &585680109
 CircleCollider2D:
   m_ObjectHideFlags: 0

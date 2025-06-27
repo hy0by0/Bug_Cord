@@ -727,8 +727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: normal
 --- !u!212 &306945850
 SpriteRenderer:
@@ -983,8 +983,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: weak
 --- !u!212 &384061583
 SpriteRenderer:
@@ -1255,7 +1255,7 @@ GameObject:
   - component: {fileID: 458840534}
   m_Layer: 0
   m_Name: AtackSensor_1
-  m_TagString: AttackPayer1
+  m_TagString: AttackPlayer1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1906,8 +1906,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: critical
 --- !u!212 &579107281
 SpriteRenderer:
@@ -2344,8 +2344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: normal
 --- !u!212 &648017408
 SpriteRenderer:
@@ -2855,8 +2855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: normal
 --- !u!212 &787060854
 SpriteRenderer:
@@ -3001,8 +3001,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: resist
 --- !u!212 &790812238
 SpriteRenderer:
@@ -3538,8 +3538,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: critical
 --- !u!212 &928856082
 SpriteRenderer:
@@ -3692,8 +3692,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 922459355}
+  playerController2: {fileID: 922459355}
   hit_area_type: normal
 --- !u!61 &976750968
 BoxCollider2D:
@@ -4899,8 +4899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be03115d841e7f4496f4bdeb9983f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController1: {fileID: 0}
-  playerController2: {fileID: 0}
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   hit_area_type: weak
 --- !u!212 &1228846089
 SpriteRenderer:

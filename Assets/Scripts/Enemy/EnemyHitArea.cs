@@ -24,13 +24,11 @@ public class EnemyHitArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-
-        Debug.Log("何かがヒット！ タグ: " + collider.tag); // ← この行を追加
-
         //プレイヤーの攻撃を感知したときの処理
         //この当たり判定がどの当たり判定かに応じて処理を変える（防御力とか、敵をひよりにさせるかなど）
         if (collider.tag == "AttackPlayer1")
         {
+
             // ここでプレイヤーの攻撃判定から攻撃力の値を受け取る
             PlayerAttack player_attack = collider.GetComponent<PlayerAttack>();
 

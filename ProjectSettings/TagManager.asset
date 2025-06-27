@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Atack_player1
+  - Atack_player2
   - Atack_player
   layers:
   - Default

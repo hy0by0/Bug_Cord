@@ -61,8 +61,9 @@ public class EnemyController : MonoBehaviour
     public float activeDuration_HitBox = 8f;        // クリティカル当たり判定が出現している時間
     private bool hasSpawned = false;         // 一度だけ実行されるように制御 (連続で発生してしまわないようにするために必要)
 
-///////////////////////////////////////////////////////////////////////////////////   
-//// 以下からがEnemyContorollerクラスのメソッドの記述
+
+    ///////////////////////////////////////////////////////////////////////////////////   
+    //// 以下からがEnemyContorollerクラスのメソッドの記述
 
     // Start is called before the first frame update
     void Start()

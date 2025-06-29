@@ -1,100 +1,111 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class Curcor : MonoBehaviour
 {
-    private Vector3 screenPoint; // offsetに必要な変数。カメラにおけるオブジェクトの位置を記憶するための
-    private Vector3 offset; // クリック位置を導くための補正値用の変数
-    public  bool ClickPosition = false;  // クリック位置を反映させるか否か。falseなら中央をつかむようになる
-    public GameObject hitbox; //攻撃判定となるオブジェクトを入力(子オブジェクトのやつ)
+    public int playerNumber = 1; // 1=Player1, 2=Player2
+    public GameObject hitbox;
 
-    //public PlayerCheck player_statecheck;
-    public bool goAtack = false; //攻撃可能かどうか
-    public bool shoot_reload_Flag = true; //攻撃インターバルは終わっているか
-    public bool shoot_allow = true; //攻撃できる状況か(プレイヤーがひるみ状態なら不可になる)
+    public bool ClickPosition = false;
+    public bool goAtack = false;
+    public bool shoot_reload_Flag = true;
+    public bool shoot_allow = true;
 
-    //コントローラー時の速さ
-    float moveSpeed = 5f;
+    float moveSpeed = 50f;
 
+    private NewActions inputActions;
+    private Vector2 stickInput;
 
-
-    void Start()
+    private void Start()
     {
-        //
-        transform.position = Vector3.zero;
+        int connectedGamepads = Gamepad.all.Count;
+        Debug.Log("接続されているゲームパッドの数: " + connectedGamepads);
+
+
     }
 
+    void Awake()
+    {
+        inputActions = new NewActions();
+
+        if (playerNumber == 1)
+        {
+            inputActions.Player.Enable();
+            inputActions.Player.Cursor.performed += ctx => stickInput = ctx.ReadValue<Vector2>();
+            inputActions.Player.Cursor.canceled += ctx => stickInput = Vector2.zero;
+            inputActions.Player.Shot.performed += ctx => OnAttack();
+        }
+        else if (playerNumber == 2)
+        {
+            inputActions.Player2.Enable(); // キーボード入力も含まれている
+
+            inputActions.Player2.Cursor.performed += ctx =>
+            {
+                stickInput = ctx.ReadValue<Vector2>();
+                Debug.Log("Player2 Input From: " + ctx.control.device.displayName); // 入力デバイスを確認
+            };
+
+            inputActions.Player2.Cursor.canceled += ctx => stickInput = Vector2.zero;
+            inputActions.Player2.Shot.performed += ctx => OnAttack();
+        }
+    }
 
     void Update()
     {
-        // プレイヤーが気絶状態かをチェックする
-        float LX = Input.GetAxis("Horizontal");
-        float LY = Input.GetAxis("Vertical");
-        // shoot_allow = player_statecheck;
-        //以下四行はマウスの位置に応じてオブジェクトを動かすコード
-        Vector3 stickInput = new Vector3 (LX,LY,0)/*Input.mousePosition*/;  //ここでマウス位置取得
-        Vector3 thisPosition = Input.mousePosition;  //ここでマウス位置取得
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(thisPosition);// カメラに合わせた座標を算出
-        worldPosition.z = 0f;
+        Vector3 newPos = transform.position;
 
-        if (Input.GetJoystickNames().Length > 0 && !string.IsNullOrEmpty(Input.GetJoystickNames()[0]))
+        if (playerNumber == 1)
         {
             if (stickInput.magnitude > 0.1f)
             {
-                transform.position += stickInput * moveSpeed * Time.deltaTime;
+                Vector3 move = new Vector3(stickInput.x, stickInput.y, 0f);
+                newPos += move * moveSpeed * Time.deltaTime;
             }
         }
-        else
+        else if (playerNumber == 2)
         {
-            this.transform.position = worldPosition; //ここで位置を反映。
+            // マウスカーソル位置に追従
+            Vector3 mousePosition = Mouse.current.position.ReadValue();
+            mousePosition.z = 10f; // カメラからの距離（調整必要）
+            newPos = Camera.main.ScreenToWorldPoint(mousePosition);
         }
-        // 攻撃ボタンをここで変更してください。
-        if (Input.GetMouseButtonDown(0)||Input.GetButton("btnA"))
+
+        transform.position = newPos;
+    }
+
+    void OnAttack()
+    {
+        if (!shoot_allow) return;
+
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (currentScene == "SampleScene")
         {
-            if (SceneManager.GetActiveScene().name == "SampleScene")
-            {
-
-                Invoke("ActivateHitbox", 0.2f); // 入力してからＮ秒後に攻撃判定を有効化
-                Invoke("DeactivateHitbox", 0.25f); // 入力してからＭ秒後に攻撃判定を無効化
-                                                   //ここは攻撃があたるまでの時間をどうするか調整してください。あと、有効化から無効化の間は一瞬にしてください
-            }
-            if (SceneManager.GetActiveScene().name == "Title")
-            {
-                Debug.Log("ゲームに行きました");
-
-                ScreenFader screenFader = FindObjectOfType<ScreenFader>();
-
-                if (screenFader != null)
-                {
-                    StartCoroutine(screenFader.BackBlack());
-                }
-                else
-                {
-                    Debug.LogError("ScreenFader がシーン内に見つかりませんでした");
-                }
-
-                Invoke(nameof(GoGame), 2.0f);
-            }
+            Invoke(nameof(ActivateHitbox), 0.2f);
+            Invoke(nameof(DeactivateHitbox), 0.25f);
+        }
+        else if (currentScene == "Title")
+        {
+            var screenFader = FindObjectOfType<ScreenFader>();
+            if (screenFader != null) StartCoroutine(screenFader.BackBlack());
+            Invoke(nameof(GoGame), 2.0f);
         }
     }
 
-    //　攻撃判定オブジェクトを有効化
-    void ActivateHitbox()
-    {
-        hitbox.SetActive(true);
-    }
+    void ActivateHitbox() => hitbox?.SetActive(true);
+    void DeactivateHitbox() => hitbox?.SetActive(false);
+    void GoGame() => SceneManager.LoadScene("SampleScene");
 
-    //　攻撃判定オブジェクトを無効化
-    void DeactivateHitbox()
+    void OnDestroy()
     {
-        hitbox.SetActive(false);
-    }
-
-    private void GoGame()
-    {
-        SceneManager.LoadScene("SampleScene");
-
+        if (playerNumber == 1) inputActions.Player.Disable();
+        else if (playerNumber == 2)
+        {
+            inputActions.Player2.Enable();
+            inputActions.Player2.Shot.performed += ctx => OnAttack(); // 右クリック時
+        }
     }
 }

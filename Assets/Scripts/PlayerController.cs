@@ -41,11 +41,28 @@ public class PlayerController : MonoBehaviour
 
     private Coroutine flashCoroutine;    // 実行中の色変更コルーチンを保持するための変数
 
+    private NewActions inputActions;
+
+    public int playerNumber = 1; // 1=Player1, 2=Player2
+    Vector2 move;
+
     /// <summary>
     /// ゲーム開始時に一度だけ呼ばれる初期化処理
     /// </summary>
     void Start()
     {
+        inputActions = new NewActions();
+
+        Debug.Log("番号" + playerNumber);
+
+        if (playerNumber == 1)
+        {
+            inputActions.Player.Enable();
+        }else if (playerNumber == 2)
+        {
+            inputActions.Player2.Enable();
+        }
+
         originalScale = transform.localScale; // 基準となる大きさを記憶
 
         // インスペクターのリストを2次元配列に変換
@@ -83,12 +100,36 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+        if (playerNumber == 1)
+        {
+            move = inputActions.Player.Move.ReadValue<Vector2>();
+        }
+        else if (playerNumber == 2)
+        {
+            move = inputActions.Player2.Move2.ReadValue<Vector2>();
+        }
 
-        // キーが「押された瞬間」に入力を検知
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) AttemptMove(0, 1);
-        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) AttemptMove(0, -1);
-        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) AttemptMove(-1, 0);
-        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) AttemptMove(1, 0);
+
+        if (move.y > 0.5f)
+            AttemptMove(0, 1);        // 上
+
+        else if (move.y < -0.5f)
+            AttemptMove(0, -1);       // 下
+
+        else if (move.x < -0.5f)
+            AttemptMove(-1, 0);       // 左
+
+        else if (move.x > 0.5f)
+            AttemptMove(1, 0);        // 右
+
+        if (playerNumber == 1)
+        {
+            // キーが「押された瞬間」に入力を検知
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) AttemptMove(0, 1);
+            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) AttemptMove(0, -1);
+            else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) AttemptMove(-1, 0);
+            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) AttemptMove(1, 0);
+        }
     }
 
     /// <summary>

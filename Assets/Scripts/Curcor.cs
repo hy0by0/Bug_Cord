@@ -68,9 +68,12 @@ public class Curcor : MonoBehaviour
         else if (playerNumber == 2)
         {
             // マウスカーソル位置に追従
-            Vector3 mousePosition = Mouse.current.position.ReadValue();
-            mousePosition.z = 10f; // カメラからの距離（調整必要）
-            newPos = Camera.main.ScreenToWorldPoint(mousePosition);
+            if (Mouse.current != null)
+            {
+                Vector3 mousePosition = Mouse.current.position.ReadValue();
+                mousePosition.z = 10f;
+                newPos = Camera.main.ScreenToWorldPoint(mousePosition);
+            }
         }
 
         transform.position = newPos;

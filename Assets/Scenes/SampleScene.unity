@@ -1242,6 +1242,69 @@ Transform:
   - {fileID: 585680107}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &456343131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 456343133}
+  - component: {fileID: 456343132}
+  m_Layer: 0
+  m_Name: ItemSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &456343132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456343131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deacbc95425fbbb47865bb8b0696a935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionMarkers:
+  - {fileID: 507706790}
+  - {fileID: 1382393549}
+  - {fileID: 326038788}
+  - {fileID: 817922546}
+  - {fileID: 310100512}
+  - {fileID: 1607713578}
+  - {fileID: 230016774}
+  - {fileID: 1989836906}
+  - {fileID: 249067428}
+  itemPrefabs:
+  - {fileID: 2127130691849892096, guid: fcc765775b045f647b8c460b5e136459, type: 3}
+  - {fileID: 2127130691849892096, guid: d60aee7ef9639df4ea80761dd6ca932e, type: 3}
+  - {fileID: 2127130691849892096, guid: 4ead6869a5563944293554cd90f76564, type: 3}
+  spawnInterval: 1
+  itemLifetime: 10
+  maxItems: 8
+  frontRowScale: 1
+  backRowScale: 0.7
+--- !u!4 &456343133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456343131}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.7185651, y: -1.0032191, z: -0.07874722}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &458840531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,9 +1746,9 @@ MonoBehaviour:
   - {fileID: 1989836906}
   - {fileID: 249067428}
   moveDuration: 0.3
-  frontRowCooldown: 2
-  middleRowCooldown: 3
-  backRowCooldown: 5
+  frontRowCooldown: 0
+  middleRowCooldown: 0
+  backRowCooldown: 0
   frontRowScale: 1
   backRowScale: 0.7
   startX: 1
@@ -3336,7 +3399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &922459353
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7166,6 +7229,7 @@ SceneRoots:
   - {fileID: 1560742365}
   - {fileID: 2105566272}
   - {fileID: 1096235279}
+  - {fileID: 456343133}
   - {fileID: 246518246}
   - {fileID: 569559014}
   - {fileID: 415694876}

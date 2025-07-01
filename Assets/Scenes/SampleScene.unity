@@ -1753,6 +1753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df88b5c9fff7b419432981c5812aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCursor: {fileID: 569559011}
   positionMarkers:
   - {fileID: 507706790}
   - {fileID: 1382393549}
@@ -3497,6 +3498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df88b5c9fff7b419432981c5812aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCursor: {fileID: 415694873}
   positionMarkers:
   - {fileID: 507706790}
   - {fileID: 1382393549}

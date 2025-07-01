@@ -35,6 +35,7 @@ public class Curcor : MonoBehaviour
     // 現在適用されている攻撃間隔の倍率（通常時は1.0）
     private float currentAttackSpeedMultiplier = 1.0f;
 
+    private Coroutine attackSpeedRoutine; // 攻撃速度バフのコルーチンを管理する変数
 
     /// <summary>
     /// このオブジェクトが有効になった（再表示された）時に毎回呼ばれるメソッド
@@ -150,8 +151,19 @@ public class Curcor : MonoBehaviour
 
 
 
-
-
+    /// <summary>
+    /// 攻撃速度バフを強制的に解除し、通常状態に戻す
+    /// </summary>
+    public void ResetAttackBuff()
+    {
+        if (attackSpeedRoutine != null)
+        {
+            StopCoroutine(attackSpeedRoutine);
+            attackSpeedRoutine = null;
+        }
+        currentAttackSpeedMultiplier = 1.0f;
+        Debug.Log("攻撃速度バフがリセットされました。");
+    }
 
     // --- アイテム効果を受け取るためのメソッド群 ---
 
@@ -160,7 +172,10 @@ public class Curcor : MonoBehaviour
     /// </summary>
     public void ApplyAttackSpeedBuff(float duration)
     {
-        StartCoroutine(AttackSpeedRoutine(duration));
+        // もし既に実行中なら、古いタイマーを停止
+        if (attackSpeedRoutine != null) StopCoroutine(attackSpeedRoutine);
+        // 新しいタイマーを開始し、その参照を保存
+        attackSpeedRoutine = StartCoroutine(AttackSpeedRoutine(duration));
     }
 
     /// <summary>
@@ -179,4 +194,6 @@ public class Curcor : MonoBehaviour
         currentAttackSpeedMultiplier = 1.0f;
         Debug.Log("攻撃速度アップ効果、終了。");
     }
+
+
 }

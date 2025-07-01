@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     #region インスペクターで設定する項目
     // =============== インスペクターで設定する項目 ===============
 
+    [Header("■ 自分のカーソル")]
+    [Tooltip("このプレイヤーが操作するカーソルオブジェクト")]
+    public Curcor myCursor;
+
     [Header("グリッドと移動")]
     [Tooltip("9個の移動先マーカー（Transform）を格納します。")]
     public List<Transform> positionMarkers;
@@ -62,6 +66,8 @@ public class PlayerController : MonoBehaviour
     private bool isStunImmune = false; // スタン免疫状態か（Item3元気サイダーを使っているかどうか）
     // --- コルーチン管理 ---
     private Coroutine flashCoroutine;
+    private Coroutine stunImmunityCoroutine;    // 各バフのコルーチンを保存する変数
+    private Coroutine cooldownReductionCoroutine;
     #endregion
 
 
@@ -256,6 +262,8 @@ public class PlayerController : MonoBehaviour
         isStunned = true;
         if (aimObject != null) aimObject.SetActive(false); // 照準をオフ
 
+        ResetAllBuffs(); // スタン開始時に全てのバフをリセット
+
         // 実行中のフラッシュがあれば停止し、新しいフラッシュを開始
         if (flashCoroutine != null) StopCoroutine(flashCoroutine);
         flashCoroutine = StartCoroutine(FlashColorOnceCoroutine());
@@ -300,6 +308,35 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
+    /// <summary>
+    /// このプレイヤーにかかっている全てのアイテム効果をリセットする
+    /// </summary>
+    private void ResetAllBuffs()
+    {
+        // --- スタン無効バフのリセット ---
+        if (stunImmunityCoroutine != null)
+        {
+            StopCoroutine(stunImmunityCoroutine); // タイマーを停止
+            stunImmunityCoroutine = null;
+        }
+        isStunImmune = false; // フラグを元に戻す
+
+        // --- クールタイム短縮バフのリセット ---
+        if (cooldownReductionCoroutine != null)
+        {
+            StopCoroutine(cooldownReductionCoroutine); // タイマーを停止
+            cooldownReductionCoroutine = null;
+        }
+        currentCooldownMultiplier = 1.0f; // 倍率を元に戻す
+
+        // 自分のカーソルに、攻撃バフをリセットするよう命令
+        if (myCursor != null)
+        {
+            myCursor.ResetAttackBuff();
+        }
+
+        Debug.Log("全バフ効果をリセットしました。");
+    }
 
 
 
@@ -309,7 +346,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void ApplyCooldownReductionBuff(float duration)
     {
-        StartCoroutine(CooldownReductionRoutine(duration));
+        // もし既に実行中なら、古いタイマーを停止
+        if (cooldownReductionCoroutine != null) StopCoroutine(cooldownReductionCoroutine);
+        // 新しいタイマーを開始し、その参照を保存
+        cooldownReductionCoroutine = StartCoroutine(CooldownReductionRoutine(duration));
     }
 
     /// <summary>
@@ -337,8 +377,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void ApplyStunImmunityBuff(float duration)
     {
-        // 効果時間のタイマー（コルーチン）を開始
-        StartCoroutine(StunImmunityRoutine(duration));
+        // もし既に実行中なら、古いタイマーを停止
+        if (stunImmunityCoroutine != null) StopCoroutine(stunImmunityCoroutine);
+        // 新しいタイマーを開始し、その参照を保存
+        stunImmunityCoroutine = StartCoroutine(StunImmunityRoutine(duration));
     }
 
     /// <summary>

@@ -11,6 +11,12 @@ public class ItemGetSystem : MonoBehaviour
     public PlayerController player1;
     public PlayerController player2;
 
+    [Header("■ 監視対象のカーソル")]
+    [Tooltip("プレイヤー1に対応するカーソル")]
+    public Curcor cursor1;
+    [Tooltip("プレイヤー2に対応するカーソル")]
+    public Curcor cursor2;
+
     // シーンに存在する全アイテムの座標と情報を管理するリスト
     private Dictionary<Vector2Int, ItemController> activeItems = new Dictionary<Vector2Int, ItemController>();
 
@@ -35,17 +41,27 @@ public class ItemGetSystem : MonoBehaviour
             // その座標にあるアイテムの情報を取得
             ItemController itemToGet = activeItems[playerCoords];
 
-            // アイテムの効果をプレイヤーに適用する（PlayerControllerに後で実装）
+            // アイテムの効果を適用する
             switch (itemToGet.itemType)
             {
+
                 case ItemController.ItemType.SpecialMachineGun:
-                    //player.ApplyAttackSpeedBuff(itemToGet.effectDuration);
+                    // どちらのプレイヤーがアイテムを取得したかによって、対応するカーソルに効果を適用
+                    if (player == player1 && cursor1 != null)
+                    {
+                        cursor1.ApplyAttackSpeedBuff(itemToGet.effectDuration);
+                    }
+                    else if (player == player2 && cursor2 != null)
+                    {
+                        cursor2.ApplyAttackSpeedBuff(itemToGet.effectDuration);
+                    }
                     break;
+
                 case ItemController.ItemType.SwiftBoots:
-                    player.ApplyCooldownReductionBuff(itemToGet.effectDuration); //Item2の効果を適用【俊足ブーツ用】
+                    player.ApplyCooldownReductionBuff(itemToGet.effectDuration);
                     break;
                 case ItemController.ItemType.EnergyCider:
-                    player.ApplyStunImmunityBuff(itemToGet.effectDuration); //Item3の効果を適用【元気サイダー用】
+                    player.ApplyStunImmunityBuff(itemToGet.effectDuration);
                     break;
             }
 
@@ -56,9 +72,7 @@ public class ItemGetSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// アイテムから呼び出され、自身を管理リストに登録してもらうための公開メソッド
-    /// </summary>
+
     public void RegisterItem(Vector2Int coords, ItemController item)
     {
         if (!activeItems.ContainsKey(coords))
@@ -67,9 +81,6 @@ public class ItemGetSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// アイテムから呼び出され、自身を管理リストから削除してもらうための公開メソッド
-    /// </summary>
     public void UnregisterItem(Vector2Int coords)
     {
         if (activeItems.ContainsKey(coords))
@@ -77,6 +88,4 @@ public class ItemGetSystem : MonoBehaviour
             activeItems.Remove(coords);
         }
     }
-
-
 }

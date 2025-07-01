@@ -1169,11 +1169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9be82efcb29e424ba15925af9cbb1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClickPosition: 0
   hitbox: {fileID: 0}
-  goAtack: 0
-  shoot_reload_Flag: 1
-  shoot_allow: 1
+  attackCooldown: 1
+  buffedAttackSpeedMultiplier: 0.001
+  moveSpeed: 5
 --- !u!212 &415694875
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1322,6 +1321,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 564438822}
   player2: {fileID: 922459355}
+  cursor1: {fileID: 569559011}
+  cursor2: {fileID: 415694873}
 --- !u!1 &458840531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,15 +1764,15 @@ MonoBehaviour:
   - {fileID: 1989836906}
   - {fileID: 249067428}
   moveDuration: 0.3
-  frontRowCooldown: 0
-  middleRowCooldown: 0
-  backRowCooldown: 0
+  frontRowCooldown: 5
+  middleRowCooldown: 5
+  backRowCooldown: 5
   frontRowScale: 1
   backRowScale: 0.7
   startX: 1
   startY: 0
   aimObject: {fileID: 569559010}
-  buffedCooldownMultiplier: 0.5
+  buffedCooldownMultiplier: 0.0001
 --- !u!95 &564438823
 Animator:
   serializedVersion: 5
@@ -1823,11 +1824,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9be82efcb29e424ba15925af9cbb1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClickPosition: 0
   hitbox: {fileID: 458840531}
-  goAtack: 0
-  shoot_reload_Flag: 1
-  shoot_allow: 1
+  attackCooldown: 1
+  buffedAttackSpeedMultiplier: 0.001
+  moveSpeed: 5
 --- !u!212 &569559013
 SpriteRenderer:
   m_ObjectHideFlags: 0

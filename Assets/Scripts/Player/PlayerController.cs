@@ -39,6 +39,10 @@ public class PlayerController : MonoBehaviour
     [Header("関連オブジェクト")]
     [Tooltip("スタン時に非表示にする照準オブジェクトなど")]
     [SerializeField] private GameObject aimObject;
+
+    [Header("俊足ブーツでのクールダウンの倍率設定")]
+    [Tooltip("クールタイム短縮バフがかかった時の倍率（例: 0.5にすると半分の時間になる）")]
+    [SerializeField] private float buffedCooldownMultiplier = 0.5f;
     #endregion
 
 
@@ -54,6 +58,8 @@ public class PlayerController : MonoBehaviour
     private bool isStunned = false;     // スタン（行動不能）中か
     private bool isCoolingDown = false; // 移動後のクールタイム中か
 
+    private float currentCooldownMultiplier = 1.0f; // 現在適用されている移動クールタイムの倍率(Item2俊足ブーツ所得時に倍率を変更する用)
+    private bool isStunImmune = false; // スタン免疫状態か（Item3元気サイダーを使っているかどうか）
     // --- コルーチン管理 ---
     private Coroutine flashCoroutine;
     #endregion
@@ -130,7 +136,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="duration">スタンさせる時間（秒）</param>
     public void ApplyStun(float duration)
     {
-        if (!isStunned) // すでにスタン中でなければ
+        if (!isStunImmune && !isStunned) // スタン免疫状態でないか、すでにスタンしていない場合のみ実行
         {
             StartCoroutine(StunCoroutine(duration));
         }
@@ -227,7 +233,6 @@ public class PlayerController : MonoBehaviour
         isCoolingDown = true;
         float cooldownDuration = 0f;
 
-        // Y座標（行）に応じてクールタイムの長さを決定
         switch (rowY)
         {
             case 0: cooldownDuration = frontRowCooldown; break;
@@ -237,7 +242,7 @@ public class PlayerController : MonoBehaviour
 
         if (cooldownDuration > 0)
         {
-            yield return new WaitForSeconds(cooldownDuration);
+            yield return new WaitForSeconds(cooldownDuration * currentCooldownMultiplier);
         }
 
         isCoolingDown = false;
@@ -293,4 +298,67 @@ public class PlayerController : MonoBehaviour
         transform.localScale = CalculateScaleForRow(y);
     }
     #endregion
+
+
+
+
+
+
+    /// <summary>
+    /// 【Item2】【俊足ブーツ用】一定時間、移動クールタイムを短縮する効果を適用します。
+    /// </summary>
+    public void ApplyCooldownReductionBuff(float duration)
+    {
+        StartCoroutine(CooldownReductionRoutine(duration));
+    }
+
+    /// <summary>
+    /// クールタイム短縮効果のタイマー処理を行うコルーチン
+    /// </summary>
+    private IEnumerator CooldownReductionRoutine(float duration)
+    {
+        // 1. クールタイム倍率を0.5などに変更
+        currentCooldownMultiplier = buffedCooldownMultiplier;
+
+        Debug.Log($"俊足ブーツ効果！ 移動クールタイムが{currentCooldownMultiplier}倍に！");
+
+        // 2. 指定された秒数だけ待機
+        yield return new WaitForSeconds(duration);
+
+        // 3. 倍率を1.0に戻す
+        currentCooldownMultiplier = 1.0f;
+
+        Debug.Log("クールタイム短縮効果、終了。");
+    }
+
+    /// <summary>
+    /// 【Item3】【元気サイダー用】一定時間、スタンを無効にする効果を適用します。
+    /// ItemGetSystemから呼び出されます。
+    /// </summary>
+    public void ApplyStunImmunityBuff(float duration)
+    {
+        // 効果時間のタイマー（コルーチン）を開始
+        StartCoroutine(StunImmunityRoutine(duration));
+    }
+
+    /// <summary>
+    /// スタン無効効果のタイマー処理を行うコルーチン
+    /// </summary>
+    private IEnumerator StunImmunityRoutine(float duration)
+    {
+        // 1. スタン無効フラグを立てる
+        isStunImmune = true;
+
+        // （ここに、パワーアップ中だとわかるエフェクトなどを表示する処理を追加すると良い）
+        Debug.Log("元気サイダー効果！ スタン無効！");
+
+        // 2. 指定された秒数だけ待機
+        yield return new WaitForSeconds(duration);
+
+        // 3. スタン無効フラグを下ろして元の状態に戻す
+        isStunImmune = false;
+
+        // （ここでエフェクトを消す処理などを入れる）
+        Debug.Log("スタン無効効果、終了。");
+    }
 }

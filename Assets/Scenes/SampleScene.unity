@@ -1252,6 +1252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 456343133}
   - component: {fileID: 456343132}
+  - component: {fileID: 456343134}
   m_Layer: 0
   m_Name: ItemSystem
   m_TagString: Untagged
@@ -1271,6 +1272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deacbc95425fbbb47865bb8b0696a935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController1: {fileID: 564438822}
+  playerController2: {fileID: 922459355}
   positionMarkers:
   - {fileID: 507706790}
   - {fileID: 1382393549}
@@ -1305,6 +1308,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &456343134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456343131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5966d10125ee95d4d995b57720799909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 564438822}
+  player2: {fileID: 922459355}
 --- !u!1 &458840531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,6 +1771,7 @@ MonoBehaviour:
   startX: 1
   startY: 0
   aimObject: {fileID: 569559010}
+  buffedCooldownMultiplier: 0.5
 --- !u!95 &564438823
 Animator:
   serializedVersion: 5
@@ -3498,6 +3516,7 @@ MonoBehaviour:
   startX: 0
   startY: 0
   aimObject: {fileID: 415694872}
+  buffedCooldownMultiplier: 0.5
 --- !u!95 &922459356
 Animator:
   serializedVersion: 5

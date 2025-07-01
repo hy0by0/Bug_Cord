@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,10 +42,10 @@ public class ItemGetSystem : MonoBehaviour
                     //player.ApplyAttackSpeedBuff(itemToGet.effectDuration);
                     break;
                 case ItemController.ItemType.SwiftBoots:
-                    //player.ApplyCooldownReductionBuff(itemToGet.effectDuration);
+                    player.ApplyCooldownReductionBuff(itemToGet.effectDuration); //Item2の効果を適用【俊足ブーツ用】
                     break;
                 case ItemController.ItemType.EnergyCider:
-                    //player.ApplyStunImmunityBuff(itemToGet.effectDuration);
+                    player.ApplyStunImmunityBuff(itemToGet.effectDuration); //Item3の効果を適用【元気サイダー用】
                     break;
             }
 
@@ -76,4 +77,6 @@ public class ItemGetSystem : MonoBehaviour
             activeItems.Remove(coords);
         }
     }
+
+
 }

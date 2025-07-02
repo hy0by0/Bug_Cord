@@ -5254,6 +5254,7 @@ GameObject:
   - component: {fileID: 1439537198}
   - component: {fileID: 1439537201}
   - component: {fileID: 1439537204}
+  - component: {fileID: 1439537205}
   m_Layer: 0
   m_Name: Enemy_prot
   m_TagString: Enemy
@@ -5984,6 +5985,21 @@ MonoBehaviour:
   displayDuration: 2
   glowCount: 3
   stunDuration: 1.5
+--- !u!114 &1439537205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439537194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9727dbb174bc36642afe0dae571e2954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MoveRepeatInterval: 1
+  m_MoveSpeed: 1
+  m_RandomMoveCount: 0
 --- !u!1 &1445690583
 GameObject:
   m_ObjectHideFlags: 0

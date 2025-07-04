@@ -98,7 +98,7 @@ public class Curcor : MonoBehaviour
             shoot_reload_Flag = false;
 
             // 現在のシーンがゲーム画面（SampleScene）の場合
-            if (SceneManager.GetActiveScene().name == "SampleScene")
+            if (SceneManager.GetActiveScene().name == "SampleScene" || SceneManager.GetActiveScene().name == "Main")
             {
                 // 攻撃アニメーションのタイミングに合わせて当たり判定を有効化・無効化
                 Invoke(nameof(ActivateHitbox), 0.2f);   // 0.2秒後に当たり判定をオン

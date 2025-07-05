@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject startImage; //戦闘開始ＵＩ表示画像。UIManagerが使えないため、このスクリプト内に実装
     public ChangeScene changeSceneManager; // ChangeSceneスクリプトを参照
     [SerializeField] private string nextSceneName = "Result"; // 遷移先のシーン名
 
@@ -12,7 +13,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //戦闘開始時の画像を一定時間後に非表示させる
+        Invoke("InactiveImage", 1.0f);
     }
 
     // Update is called once per frame
@@ -23,6 +25,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("敵の討伐を感知！");
             StartCoroutine(HandleDeathAndSceneChange());
         }
+    }
+
+    // 戦闘開始時の画像を非表示させる
+    void InactiveImage()
+    {
+        startImage.SetActive(false);
     }
 
     // シーン遷移前の演出付き処理

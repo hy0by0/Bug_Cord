@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 740639772}
   - component: {fileID: 740639771}
   m_Layer: 0
-  m_Name: "\u30BF\u30A4\u30C8\u30EB"
+  m_Name: BackGroundSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

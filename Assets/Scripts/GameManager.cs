@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject startImage; //戦闘開始ＵＩ表示画像。UIManagerが使えないため、このスクリプト内に実装
+    public float activeUITime = 1.0f; //シーン開始時のＵＩの表示時間
     public ChangeScene changeSceneManager; // ChangeSceneスクリプトを参照
     [SerializeField] private string nextSceneName = "Result"; // 遷移先のシーン名
 
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //戦闘開始時の画像を一定時間後に非表示させる
-        Invoke("InactiveImage", 1.0f);
+        Invoke("InactiveImage", activeUITime);
     }
 
     // Update is called once per frame

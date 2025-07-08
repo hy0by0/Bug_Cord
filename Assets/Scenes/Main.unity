@@ -7926,6 +7926,7 @@ GameObject:
   - component: {fileID: 1439537201}
   - component: {fileID: 1439537204}
   - component: {fileID: 1439537198}
+  - component: {fileID: 1439537205}
   m_Layer: 0
   m_Name: Enemy_P1
   m_TagString: Enemy
@@ -8657,6 +8658,22 @@ MonoBehaviour:
   displayDuration: 2
   glowCount: 3
   stunDuration: 1.5
+--- !u!114 &1439537205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439537194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9076ac9baf1deb42a00c4f6e3d341e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
+  directionChangeInterval: 3
+  horizontalRange: 1
+  verticalRange: 2
 --- !u!1 &1445690583
 GameObject:
   m_ObjectHideFlags: 0
@@ -10166,6 +10183,7 @@ GameObject:
   - component: {fileID: 1896509098}
   - component: {fileID: 1896509097}
   - component: {fileID: 1896509099}
+  - component: {fileID: 1896509106}
   m_Layer: 0
   m_Name: Enemy_P2
   m_TagString: Enemy
@@ -10897,6 +10915,22 @@ Transform:
   - {fileID: 515723519}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1896509106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896509096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9076ac9baf1deb42a00c4f6e3d341e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
+  directionChangeInterval: 3
+  horizontalRange: 1
+  verticalRange: 2
 --- !u!1 &1948457844
 GameObject:
   m_ObjectHideFlags: 0
@@ -11348,6 +11382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startImage: {fileID: 1381093640}
+  activeUITime: 1
   changeSceneManager: {fileID: 2105566270}
   nextSceneName: Result
   time_changescene: 2.5

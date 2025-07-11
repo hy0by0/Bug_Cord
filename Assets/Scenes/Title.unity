@@ -197,7 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0597be8b4fae69c4c8a7aa4951a39f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atack_damage: 3000
+  playerController: {fileID: 0}
+  baseDamage: 10
+  frontRowMultiplier: 1
+  middleRowMultiplier: 1.1
+  backRowMultiplier: 1.2
 --- !u!58 &579858682
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -789,7 +793,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: d25e218d3a9cbc14c98057046e3b5abc, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.035848916, b: 0.035848916, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -913,7 +917,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0597be8b4fae69c4c8a7aa4951a39f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atack_damage: 3000
+  playerController: {fileID: 0}
+  baseDamage: 10
+  frontRowMultiplier: 1
+  middleRowMultiplier: 1.1
+  backRowMultiplier: 1.2
 --- !u!58 &1250845044
 CircleCollider2D:
   m_ObjectHideFlags: 0

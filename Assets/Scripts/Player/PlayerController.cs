@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Users;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// 3x3グリッド上でのプレイヤーの移動、状態（スタン、クールタイム）、見た目を制御します。
@@ -136,6 +138,33 @@ public class PlayerController : MonoBehaviour
         currentY = startY;
         transform.position = gridPositions[currentX, currentY].position;
         UpdateScaleBasedOnRow(currentY);
+    }
+
+    void Awake()
+    {
+        inputActions = new NewActions();
+
+        if (Gamepad.all.Count >= playerNumber)
+        {
+            var gamepad = Gamepad.all[playerNumber - 1];
+
+            var user = InputUser.CreateUserWithoutPairedDevices();
+            user.AssociateActionsWithUser(inputActions);
+            InputUser.PerformPairingWithDevice(gamepad, user);
+        }
+
+        if (playerNumber == 1)
+        {
+            inputActions.Player.Enable();
+            inputActions.Player.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+            inputActions.Player.Move.canceled += ctx => move = Vector2.zero;
+        }
+        else if (playerNumber == 2)
+        {
+            inputActions.Player2.Enable();
+            inputActions.Player2.Move2.performed += ctx => move = ctx.ReadValue<Vector2>();
+            inputActions.Player2.Move2.canceled += ctx => move = Vector2.zero;
+        }
     }
 
     /// <summary>

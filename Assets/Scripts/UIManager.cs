@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public GameObject enemy_hp_bar; //ＨＰバーのＵＩ画像オブジェクトを入力 (入れるのは長さが変化する部分のパーツ！)
     public int enemy_hp_max = 10000; //敵の最大ＨＰ　EnemyControllerスクリプトから値が反映・優先されます(ここからは変更不可)
     public float enemy_hp_remain = 10000; //敵の残りのＨＰ　EnemyControllerスクリプトから値が反映・優先されます(ここからは変更不可)
-    [SerializeField]ScoreManager score_manager;
+    //[SerializeField]ScoreManager score_manager;
     // Start is called before the first frame update
     void Start()
     {

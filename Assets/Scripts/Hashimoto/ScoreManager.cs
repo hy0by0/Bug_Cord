@@ -34,20 +34,21 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetupTextReference();
+        //SetupTextReference();
     }
+
 
     void SetupTextReference()
     {
-        // ヒエラルキーから Text コンポーネントを探して取得
         GameObject obj = GameObject.Find("DamageScoreText");
         if (obj != null)
         {
             damaggeScore = obj.GetComponent<Text>();
+            Debug.Log("DamageScoreText を取得しました: " + damaggeScore.name);
         }
         else
         {
-            Debug.LogWarning("DamageScoreText が見つかりませんでした");
+            Debug.LogWarning("DamageScoreText が見つかりませんでした（再確認してください）");
         }
     }
 
@@ -63,9 +64,10 @@ public class ScoreManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // UIの参照を取得
         SetupTextReference();
 
-        //titleならスコアをリセット
+        // titleならスコアをリセット
         if (scene.name == "Title")
         {
             getScore = 0;

@@ -10,6 +10,14 @@ public class EnemyHitArea : MonoBehaviour
     [SerializeField] private PlayerController playerController2;
     public string hit_area_type = "critical"; //ここで、このあたり判定の部位の設定を行うこと！
 
+    private void Start()
+    {
+        if (playerController1 == null)
+            playerController1 = GameObject.Find("CharaBody1_prot").GetComponent<PlayerController>();
+
+        if (playerController2 == null)
+            playerController2 = GameObject.Find("CharaBody2_prot").GetComponent<PlayerController>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -31,6 +39,7 @@ public class EnemyHitArea : MonoBehaviour
             {
                 transform.root.gameObject.GetComponent<EnemyController>().HitNormal(player_attack.GetCalculatedDamage());
                 playerController1.Attack();
+                Debug.Log("当たりました1");
             }
             else if (hit_area_type == "weak")
             {
@@ -61,6 +70,8 @@ public class EnemyHitArea : MonoBehaviour
             {
                 transform.root.gameObject.GetComponent<EnemyController>().HitNormal(player_attack.GetCalculatedDamage());
                 playerController2.Attack();
+                Debug.Log("当たりました2");
+
             }
             else if (hit_area_type == "weak")
             {

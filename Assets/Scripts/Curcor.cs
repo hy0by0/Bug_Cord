@@ -8,9 +8,16 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// マウスカーソルやコントローラーの入力に応じて照準を動かし、攻撃処理を行うクラス。
 /// タイトル画面とゲーム画面で、ボタンを押した際の挙動が変わる。
+/// （New Input System 対応版 / 攻撃クールダウン＆速度バフ機能付き）
 /// </summary>
 public class Curcor : MonoBehaviour
 {
+    // --- 未使用の変数 ---
+    // private Vector3 screenPoint;
+    // private Vector3 offset;
+    // public bool ClickPosition = false;
+
+    // 1=Player1, 2=Player2
     public int playerNumber = 1; // 1=Player1, 2=Player2
     public GameObject hitbox;
 
@@ -21,52 +28,43 @@ public class Curcor : MonoBehaviour
 
     float moveSpeed = 50f;
 
-    private NewActions inputActions;
-    private Vector2 stickInput;
-
     //遷移フラグ
     private static bool isSceneTransitioning = false;
 
-    private void Start()
-    {
-        int connectedGamepads = Gamepad.all.Count;
-        Debug.Log("接続されているゲームパッドの数: " + connectedGamepads);
-    // --- 未使用の変数 ---
-    // private Vector3 screenPoint;
-    // private Vector3 offset;
-    // public bool ClickPosition = false;
-
-    [Header("■ 攻撃関連")]
-    [Tooltip("攻撃時に有効化する当たり判定オブジェクト")]
-    public GameObject hitbox;
-    [Tooltip("一度攻撃してから、次に攻撃できるまでの基本時間（秒）")]
+    // --- 攻撃関連 ---
+    // 攻撃時に有効化する当たり判定オブジェクト
+    // public GameObject hitbox;   // ←重複するので上に統合
+    // 一度攻撃してから、次に攻撃できるまでの基本時間（秒）
     public float attackCooldown = 1.0f;
-    [Tooltip("攻撃速度バフがかかった時の攻撃間隔の倍率（例: 0.5にすると2倍速）")]
+    // 攻撃速度バフがかかった時の攻撃間隔の倍率（例: 0.5にすると2倍速）
     public float buffedAttackSpeedMultiplier = 0.5f;
-
-    [Header("■ コントローラー設定")]
-    [Tooltip("コントローラー使用時の照準の移動速度")]
-    public float moveSpeed = 5f;
 
     // --- 内部で管理する変数 ---
     // 攻撃の可否を管理するフラグ
-    private bool shoot_reload_Flag = true; // trueの時だけ攻撃できる
-    // private bool goAtack = false; // 未使用
-    // private bool shoot_allow = true; // 未使用
+    // private bool shoot_reload_Flag = true; // ←重複するので上に統合
+    // private bool goAtack = false;          // 未使用
+    // private bool shoot_allow = true;       // 未使用
 
     // 現在適用されている攻撃間隔の倍率（通常時は1.0）
     private float currentAttackSpeedMultiplier = 1.0f;
 
     private Coroutine attackSpeedRoutine; // 攻撃速度バフのコルーチンを管理する変数
 
-    /// <summary>
-    /// このオブジェクトが有効になった（再表示された）時に毎回呼ばれるメソッド
-    /// </summary>
-    void OnEnable()
+    private NewActions inputActions;
+    private Vector2 stickInput;
+
+    // ★ 新たに追加：共通で扱う InputAction 参照
+    private InputAction cursorAction;
+    private InputAction shotAction;
+
+    // =================== Unity Callback ===================
+    private void Start()
     {
-        // 攻撃関連のフラグを初期状態（攻撃可能）にリセットする
-        shoot_reload_Flag = true;
-        currentAttackSpeedMultiplier = 1.0f; // 念のためバフもリセット
+        int connectedGamepads = Gamepad.all.Count;
+        Debug.Log("接続されているゲームパッドの数: " + connectedGamepads);
+
+        // カーソルの初期位置を画面中央（X:0, Y:0, Z:0）に設定
+        transform.position = Vector3.zero;
     }
 
     private void OnCursorPerformed(InputAction.CallbackContext ctx)
@@ -99,94 +97,88 @@ public class Curcor : MonoBehaviour
             InputUser.PerformPairingWithDevice(gamepad, user);
         }
 
+        // ------------------------------- //
+        // ★ if / else でマップを分岐させる
+        // ------------------------------- //
         if (playerNumber == 1)
         {
             inputActions.Player.Enable();
-            inputActions.Player.Cursor.performed += OnCursorPerformed;
-            inputActions.Player.Cursor.canceled += OnCursorCanceled;
-            inputActions.Player.Shot.performed += OnShotPerformed;
+
+            cursorAction = inputActions.Player.Cursor;
+            shotAction = inputActions.Player.Shot;
         }
-        else if (playerNumber == 2)
+        else // playerNumber == 2 以降
         {
             inputActions.Player2.Enable();
-            inputActions.Player2.Cursor.performed += OnCursorPerformed;
-            inputActions.Player2.Cursor.canceled += OnCursorCanceled;
-            inputActions.Player2.Shot.performed += OnShotPerformed;
+
+            cursorAction = inputActions.Player2.Cursor;
+            shotAction = inputActions.Player2.Shot;
         }
+
+        // 共通の InputAction 型でハンドラ登録
+        cursorAction.performed += OnCursorPerformed;
+        cursorAction.canceled += OnCursorCanceled;
+        shotAction.performed += OnShotPerformed;
     }
 
     /// <summary>
-    /// ゲーム開始時に一度だけ呼ばれる初期化処理
+    /// このオブジェクトが有効になった（再表示された）時に毎回呼ばれるメソッド
     /// </summary>
-    void Start()
+    void OnEnable()
     {
-        // カーソルの初期位置を画面中央（X:0, Y:0, Z:0）に設定
-        transform.position = Vector3.zero;
+        // 攻撃関連のフラグを初期状態（攻撃可能）にリセットする
+        shoot_reload_Flag = true;
+        currentAttackSpeedMultiplier = 1.0f; // 念のためバフもリセット
     }
 
-    /// <summary>
-    /// 毎フレーム呼ばれる更新処理
-    /// </summary>
     void Update()
     {
-        // --- 照準の移動処理 ---
-
-        // コントローラーの左スティックの入力を取得 (-1.0 ~ 1.0)
-        float LX = Input.GetAxis("Horizontal");
-        float LY = Input.GetAxis("Vertical");
-        Vector3 stickInput = new Vector3(LX, LY, 0);
-
-        // マウスのスクリーン座標を取得
-        Vector3 thisPosition = Input.mousePosition;
-        // スクリーン座標をゲーム内のワールド座標に変換
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(thisPosition);
-        worldPosition.z = 0f; // Z座標は0に固定
-
-        // コントローラーが接続されているかチェック
-        if (Input.GetJoystickNames().Length > 0 && !string.IsNullOrEmpty(Input.GetJoystickNames()[0]))
+        // --- 照準の移動処理 (Gamepad のみ) ---
+        if (stickInput.magnitude > 0.1f)
         {
-            // スティックが一定以上傾いている場合のみ移動
-            if (stickInput.magnitude > 0.1f)
-            {
-                transform.position += stickInput * moveSpeed * Time.deltaTime;
-            }
+            transform.position += (Vector3)stickInput * moveSpeed * Time.deltaTime;
         }
-        else // コントローラーが接続されていなければマウスで操作
+        // ※ マウス操作は不要のため削除
+    }
+
+    void OnAttack()
+    {
+        if (!shoot_allow) return;
+        if (!shoot_reload_Flag) return; // クールダウン中は攻撃不可
+
+        shoot_reload_Flag = false; // 連続攻撃防止！
+
+        if (!gameObject.activeInHierarchy)
         {
-            this.transform.position = worldPosition;
+            Debug.LogWarning($"[{playerNumber}] 自身のGameObjectが非アクティブのため、アクティブにします: {gameObject.name}");
+            gameObject.SetActive(true);
+            return;
         }
 
-        // --- 攻撃入力処理 ---
+        string currentScene = SceneManager.GetActiveScene().name;
 
-        // マウスの左クリック、またはコントローラーのAボタンが押され、かつ攻撃可能な状態なら
-        if ((Input.GetMouseButtonDown(0) || Input.GetButton("btnA")) && shoot_reload_Flag)
+        if (currentScene == "SampleScene" || currentScene == "Main")
         {
-            // すぐにフラグをfalseにして、連続で攻撃できないようにする
-            shoot_reload_Flag = false;
+            // 攻撃アニメーションのタイミングに合わせて当たり判定を有効化・無効化
+            Invoke(nameof(ActivateHitbox), 0.2f);   // 0.2秒後に当たり判定をオン
+            Invoke(nameof(DeactivateHitbox), 0.25f); // 0.25秒後に当たり判定をオフ
 
-            // 現在のシーンがゲーム画面（SampleScene）の場合
-            if (SceneManager.GetActiveScene().name == "SampleScene" || SceneManager.GetActiveScene().name == "Main")
-            {
-                // 攻撃アニメーションのタイミングに合わせて当たり判定を有効化・無効化
-                Invoke(nameof(ActivateHitbox), 0.2f);   // 0.2秒後に当たり判定をオン
-                Invoke(nameof(DeactivateHitbox), 0.25f); // 0.25秒後に当たり判定をオフ
-
-                // 攻撃後のクールダウンタイマーを開始
-                StartCoroutine(AttackCooldownCoroutine());
-            }
-
-            // 現在のシーンがタイトル画面（Title）の場合
-            if (SceneManager.GetActiveScene().name == "Title")
-            {
-                // フェードアウト処理を実行し、2秒後にゲームシーンへ遷移
-                ScreenFader screenFader = FindObjectOfType<ScreenFader>();
-                if (screenFader != null)
-                {
-                    StartCoroutine(screenFader.BackBlack());
-                }
-                Invoke(nameof(GoGame), 2.0f);
-            }
+            // 攻撃後のクールダウンタイマーを開始
+            StartCoroutine(AttackCooldownCoroutine());
         }
+        else if (currentScene == "Title")
+        {
+            if (isSceneTransitioning) return;
+
+            isSceneTransitioning = true;
+
+            var screenFader = FindObjectOfType<ScreenFader>();
+            if (screenFader != null) StartCoroutine(screenFader.BackBlack());
+
+            StartCoroutine(GoGameAfterDelay(2.0f));
+        }
+
+        Debug.Log("攻撃が当たりました: " + playerNumber);
     }
 
     // 攻撃判定オブジェクトを有効化する
@@ -207,6 +199,35 @@ public class Curcor : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
     }
 
+    IEnumerator HitboxRoutine()
+    {
+        if (hitbox != null)
+        {
+            Debug.Log("hitbox ON: " + gameObject.name);
+            hitbox.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("hitbox が設定されていません: " + gameObject.name);
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        if (hitbox != null)
+        {
+            hitbox.SetActive(false);
+            Debug.Log("hitbox OFF: " + gameObject.name);
+        }
+
+        Debug.Log("超えました ");
+    }
+
+    IEnumerator GoGameAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (this != null) SceneManager.LoadScene("SampleScene");
+    }
+
     // 攻撃のクールダウンを管理するコルーチン
     private IEnumerator AttackCooldownCoroutine()
     {
@@ -215,8 +236,6 @@ public class Curcor : MonoBehaviour
         // 再び攻撃できるようにフラグをtrueに戻す
         shoot_reload_Flag = true;
     }
-
-
 
     /// <summary>
     /// 攻撃速度バフを強制的に解除し、通常状態に戻す
@@ -262,5 +281,24 @@ public class Curcor : MonoBehaviour
         Debug.Log("攻撃速度アップ効果、終了。");
     }
 
+    void OnDestroy()
+    {
+        // --- コールバック解除 ---
+        if (cursorAction != null)
+        {
+            cursorAction.performed -= OnCursorPerformed;
+            cursorAction.canceled -= OnCursorCanceled;
+        }
+        if (shotAction != null)
+        {
+            shotAction.performed -= OnShotPerformed;
+        }
 
+        // --- マップ無効化 ---
+        if (inputActions != null)
+        {
+            if (playerNumber == 1) inputActions.Player.Disable();
+            else inputActions.Player2.Disable();
+        }
+    }
 }

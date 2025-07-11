@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240db62ae5164924698759d6be472129, type: 3}
+  m_Name: Story
+  m_EditorClassIdentifier: 
+  scenario:
+  - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
+    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
+    characterImageTwo: {fileID: 21300000, guid: ce1679664dab69445b6616e509c021f9, type: 3}
+    ScenarioText: "\u59CB\u307E\u308A\u59CB\u307E\u308A"
+    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    choices: []
+    misakiflag: 1
+    choiceflag: 0
+    bgmchangeflag: 0
+  - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
+    CharacterImage: {fileID: 21300000, guid: ce1679664dab69445b6616e509c021f9, type: 3}
+    characterImageTwo: {fileID: 21300000, guid: f80c39ddaab7f8f4f95cf55f425e0170, type: 3}
+    ScenarioText: "\u5F8C\u306F\u7686\u3055\u3093\u306B\u304A\u4EFB\u305B\u3057\u305F\u3044\u3067\u3059\u3051\u3069"
+    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    choices: []
+    misakiflag: 1
+    choiceflag: 0
+    bgmchangeflag: 0
+  - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
+    CharacterImage: {fileID: 21300000, guid: ce1679664dab69445b6616e509c021f9, type: 3}
+    characterImageTwo: {fileID: 0}
+    ScenarioText: "\u3048\u3048\u3067\u3059\u304B"
+    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    choices: []
+    misakiflag: 0
+    choiceflag: 0
+    bgmchangeflag: 0
+  - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
+    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
+    characterImageTwo: {fileID: 0}
+    ScenarioText: "\u5927\u4E08\u592B"
+    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    choices: []
+    misakiflag: 0
+    choiceflag: 0
+    bgmchangeflag: 0
+  - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
+    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
+    characterImageTwo: {fileID: 21300000, guid: 76b14a08b71db5141a8c2a22d3ea69b2, type: 3}
+    ScenarioText: "\u3067\u3059\u304B\u3002"
+    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    choices: []
+    misakiflag: 1
+    choiceflag: 0
+    bgmchangeflag: 0
+  - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
+    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
+    characterImageTwo: {fileID: 21300000, guid: 098906cd74d252b4ba124cd2bb54a9ab, type: 3}
+    ScenarioText: "\u3053\u308C\u3067"
+    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    choices: []
+    misakiflag: 0
+    choiceflag: 0
+    bgmchangeflag: 0
+  - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
+    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
+    characterImageTwo: {fileID: 21300000, guid: 098906cd74d252b4ba124cd2bb54a9ab, type: 3}
+    ScenarioText: "\u3084\u3063\u3066\u307F\u3066\u3082"
+    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    choices: []
+    misakiflag: 0
+    choiceflag: 0
+    bgmchangeflag: 0

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Users;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// 3x3グリッド上でのプレイヤーの移動、状態（スタン、クールタイム）、見た目を制御します。
@@ -78,6 +80,17 @@ public class PlayerController : MonoBehaviour
     private Color originalColor;
     #endregion
 
+    #region コントローラー関連
+
+    //インプットアクション
+    private NewActions inputActions;
+
+    //プレイヤーの番号
+    public int playerNumber = 1;
+
+    //移動量
+    Vector2 move;
+    #endregion
 
     #region Unityのライフサイクルメソッド
     // =============== Unityのライフサイクルメソッド ===============
@@ -87,6 +100,29 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Start()
     {
+        inputActions = new NewActions();
+
+        Debug.Log("番号" + playerNumber);
+
+        if (playerNumber == 1)
+        {
+            inputActions.Player.Enable();
+        }
+        else if (playerNumber == 2)
+        {
+            inputActions.Player2.Enable();
+        }
+
+        if (playerNumber == 1)
+        {
+            move = inputActions.Player.Move.ReadValue<Vector2>();
+        }
+        else if (playerNumber == 2)
+        {
+            move = inputActions.Player2.Move2.ReadValue<Vector2>();
+        }
+
+
         // 最初にコンポーネントを取得して、毎回GetComponentを呼ばないようにする
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -114,6 +150,33 @@ public class PlayerController : MonoBehaviour
         currentY = startY;
         transform.position = gridPositions[currentX, currentY].position;
         UpdateScaleBasedOnRow(currentY);
+    }
+
+    void Awake()
+    {
+        inputActions = new NewActions();
+
+        if (Gamepad.all.Count >= playerNumber)
+        {
+            var gamepad = Gamepad.all[playerNumber - 1];
+
+            var user = InputUser.CreateUserWithoutPairedDevices();
+            user.AssociateActionsWithUser(inputActions);
+            InputUser.PerformPairingWithDevice(gamepad, user);
+        }
+
+        if (playerNumber == 1)
+        {
+            inputActions.Player.Enable();
+            inputActions.Player.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+            inputActions.Player.Move.canceled += ctx => move = Vector2.zero;
+        }
+        else if (playerNumber == 2)
+        {
+            inputActions.Player2.Enable();
+            inputActions.Player2.Move2.performed += ctx => move = ctx.ReadValue<Vector2>();
+            inputActions.Player2.Move2.canceled += ctx => move = Vector2.zero;
+        }
     }
 
     /// <summary>
@@ -172,6 +235,20 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void HandleInput()
     {
+
+
+        if (move.y > 0.5f)
+            AttemptMove(0, 1);        // 上
+
+        else if (move.y < -0.5f)
+            AttemptMove(0, -1);       // 下
+
+        else if (move.x < -0.5f)
+            AttemptMove(-1, 0);       // 左
+
+        else if (move.x > 0.5f)
+            AttemptMove(1, 0);        // 右
+
         // GetKeyDownはキーが押されたそのフレームのみtrueを返す
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) AttemptMove(0, 1);
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) AttemptMove(0, -1);

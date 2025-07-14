@@ -68,6 +68,18 @@ public class ScenarioManager : MonoBehaviour
                 changeSceneManager.Load("Main"); //ゲーム画面へ遷移させる
             }
 
+        }else if (testAction.Player.Back.triggered)
+        {
+            if (textIndex >0)
+            {
+                if (scenarioDatas[scenarioIndex].scenario[textIndex].choiceflag == false)
+                {
+                    textIndex--;
+                    SetScenarioElement(scenarioIndex, textIndex);
+                    ProgressinCheck(scenarioIndex);
+                }
+
+            }
         }
         //if (Input.GetKeyDown(KeyCode.A))
         //{

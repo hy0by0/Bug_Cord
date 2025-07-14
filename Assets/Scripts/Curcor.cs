@@ -141,13 +141,30 @@ public class Curcor : MonoBehaviour
         {
             transform.position += (Vector3)stickInput * moveSpeed * Time.deltaTime;
         }
-        // ※ マウス操作は不要のため削除
+
+        // === 画面外に出ないように制限 ===
+        ClampPositionToScreen();
 
         //ゲーム終了コマンド
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
+    }
+
+    private void ClampPositionToScreen()
+    {
+        Vector3 pos = transform.position;
+
+        // カメラを基準にスクリーン端をワールド座標に変換
+        Vector3 min = Camera.main.ScreenToWorldPoint(Vector3.zero);
+        Vector3 max = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+        // Z軸はそのまま（2Dなら無視でもOK）
+        pos.x = Mathf.Clamp(pos.x, min.x, max.x);
+        pos.y = Mathf.Clamp(pos.y, min.y, max.y);
+
+        transform.position = pos;
     }
 
     void OnAttack()

@@ -5,49 +5,50 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject startImage; //戦闘開始ＵＩ表示画像。UIManagerが使えないため、このスクリプト内に実装
-    public float activeUITime = 1.0f; //シーン開始時のＵＩの表示時間
-    public ChangeScene changeSceneManager; // ChangeSceneスクリプトを参照
-    [SerializeField] private string nextSceneName = "Result"; // 遷移先のシーン名
-
+    public GameObject startImage;
+    public float activeUITime = 1.0f;
+    public ChangeScene changeSceneManager;
+    [SerializeField] private string nextSceneName = "Result";
     public float time_changescene = 2.5f;
 
-    // Start is called before the first frame update
+    // ★【追加】監視対象となる2体の敵への参照
+    [Header("■ 監視対象の敵")]
+    public EnemyController enemy1;
+    public EnemyController enemy2;
+
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "SampleScene" || (SceneManager.GetActiveScene().name == "Main" && EnemyController.enemy_hp == 10000))
+        // ★【変更】特定の敵インスタンスのHPをチェックする
+        // (ここではenemy1のHPを代表としてチェック)
+        if (SceneManager.GetActiveScene().name == "SampleScene" ||
+           (SceneManager.GetActiveScene().name == "Main" && enemy1 != null && enemy1.enemy_hp == 10000))
         {
-            //戦闘開始時の画像を一定時間後に非表示させる
             Invoke("InactiveImage", activeUITime);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (EnemyController.enemy_state == "Dead")
+        // ★【変更】どちらかの敵の状態が"Dead"になったかをチェック
+        // (&& 演算子の短絡評価により、nullでもエラーにならない)
+        if ((enemy1 != null && enemy1.enemy_state == "Dead") || (enemy2 != null && enemy2.enemy_state == "Dead"))
         {
             Debug.Log("敵の討伐を感知！");
             StartCoroutine(HandleDeathAndSceneChange());
+            // ★ 一度検出したら、このコンポーネントを無効にして連続実行を防ぐ
+            this.enabled = false;
         }
     }
 
-    // 戦闘開始時の画像を非表示させる
     void InactiveImage()
     {
         startImage.SetActive(false);
     }
 
-    // シーン遷移前の演出付き処理
     private IEnumerator HandleDeathAndSceneChange()
     {
-        // 演出を入れる（ここは好きに作ってOK）
         Debug.Log("敵が倒れた... 演出開始！");
-
-        // 例：数秒の演出待ち時間（フェードやSEを想定）
         yield return new WaitForSeconds(time_changescene);
-
-        // シーン遷移（ChangeSceneスクリプトのLoadを使用）
         if (changeSceneManager != null)
         {
             changeSceneManager.Load(nextSceneName);

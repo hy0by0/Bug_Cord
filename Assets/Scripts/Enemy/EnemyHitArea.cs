@@ -39,7 +39,6 @@ public class EnemyHitArea : MonoBehaviour
             {
                 transform.root.gameObject.GetComponent<EnemyController>().HitNormal(player_attack.GetCalculatedDamage());
                 playerController1.Attack();
-                Debug.Log("当たりました1");
             }
             else if (hit_area_type == "weak")
             {
@@ -70,7 +69,6 @@ public class EnemyHitArea : MonoBehaviour
             {
                 transform.root.gameObject.GetComponent<EnemyController>().HitNormal(player_attack.GetCalculatedDamage());
                 playerController2.Attack();
-                Debug.Log("当たりました2");
 
             }
             else if (hit_area_type == "weak")

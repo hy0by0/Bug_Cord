@@ -408,7 +408,6 @@ public class PlayerController : MonoBehaviour
             myCursor.ResetAttackBuff();
         }
 
-        Debug.Log("全バフ効果をリセットしました。");
     }
 
 
@@ -475,5 +474,19 @@ public class PlayerController : MonoBehaviour
 
         // （ここでエフェクトを消す処理などを入れる）
         Debug.Log("スタン無効効果、終了。");
+    }
+
+    /// <summary>
+    /// このオブジェクトが無効になった、または破棄される時に呼ばれる
+    /// </summary>
+    void OnDisable()
+    {
+        // 次に、アクションマップ自体を無効化する（これがエラーを解決する処理）
+        if (inputActions != null)
+        {
+            // 有効になっている可能性のある全てのアクションマップを無効化する
+            if (inputActions.Player.enabled) inputActions.Player.Disable();
+            if (inputActions.Player2.enabled) inputActions.Player2.Disable();
+        }
     }
 }

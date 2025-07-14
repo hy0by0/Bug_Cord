@@ -26,7 +26,7 @@ public class Curcor : MonoBehaviour
     public bool shoot_reload_Flag = true;
     public bool shoot_allow = true;
 
-    float moveSpeed = 50f;
+    float moveSpeed = 20f;
 
     // --- シーン遷移関連---
     //遷移フラグ

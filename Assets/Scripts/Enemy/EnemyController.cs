@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 敵に関する処理全般を担うスクリプト。以下に２つのクラスがある。
 

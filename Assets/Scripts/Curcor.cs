@@ -204,7 +204,6 @@ public class Curcor : MonoBehaviour
             StartCoroutine(GoGameAfterDelay(time_wait_sceneChange)); // タイトルシーンで入力後、何秒後にシーン遷移させるかを設定
         }
 
-        Debug.Log("攻撃が当たりました: " + playerNumber);
     }
 
     // 攻撃判定オブジェクトを有効化する

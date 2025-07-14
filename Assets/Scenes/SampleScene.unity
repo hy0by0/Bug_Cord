@@ -5467,17 +5467,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f762fe34a47a0d44abdf75d741f8f1b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 0
   criticalEffectPrefab: {fileID: 8729074581977840526, guid: dac2672f3a1c2fd46880612ed9be4b8c, type: 3}
   hitEffectPrefab: {fileID: 7402612426004475247, guid: cd431f9a3ec71694a95574194c7dedba, type: 3}
+  enemy_hp: 10000
   uimanager: {fileID: 328830245}
+  enemy_state: Normal
   count_hit: 0
   count_hit_Flag: 5
+  activeDuration_HitBox: 8
   spawnPairs:
   - pairID: 1
     hitboxObject: {fileID: 579107277}
   - pairID: 2
     hitboxObject: {fileID: 928856078}
-  activeDuration_HitBox: 8
 --- !u!50 &1439537199
 Rigidbody2D:
   serializedVersion: 4
@@ -7263,6 +7266,7 @@ GameObject:
   - component: {fileID: 2105566272}
   - component: {fileID: 2105566271}
   - component: {fileID: 2105566270}
+  - component: {fileID: 2105566273}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7300,6 +7304,8 @@ MonoBehaviour:
   changeSceneManager: {fileID: 2105566270}
   nextSceneName: Result
   time_changescene: 2.5
+  enemy1: {fileID: 0}
+  enemy2: {fileID: 0}
 --- !u!4 &2105566272
 Transform:
   m_ObjectHideFlags: 0
@@ -7315,6 +7321,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2105566273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105566269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fadf8555af90177469017d82b474f3ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chanceTimeDuration: 5
+  mainSceneName: Main
 --- !u!1 &2106086768
 GameObject:
   m_ObjectHideFlags: 0

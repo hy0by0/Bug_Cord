@@ -142,6 +142,12 @@ public class Curcor : MonoBehaviour
             transform.position += (Vector3)stickInput * moveSpeed * Time.deltaTime;
         }
         // ※ マウス操作は不要のため削除
+
+        //ゲーム終了コマンド
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     void OnAttack()

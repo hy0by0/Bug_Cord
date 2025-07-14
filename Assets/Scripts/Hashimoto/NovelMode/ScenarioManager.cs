@@ -30,7 +30,9 @@ public class ScenarioManager : MonoBehaviour
 
     public Animator CharacterAnimator;
 
-    //[SerializeField, AddComponentMenu("‰¹ºƒ`ƒFƒ“ƒWƒƒ[")] private SoundManager soundManager;
+    public ChangeScene changeSceneManager;
+
+    //[SerializeField, AddComponentMenu("ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[")] private SoundManager soundManager;
 
     // Start is called before the first frame update
     void Start()
@@ -39,10 +41,10 @@ public class ScenarioManager : MonoBehaviour
         //testAction = new NewActions();
         //testAction.Enable();
 
-        testAction = new NewActions();   // ‡@ æ‚Éì‚é
-        testAction.Enable();             // ‡A —LŒø‰»‚·‚é
+        testAction = new NewActions();   // ï¿½@ ï¿½ï¿½Éï¿½ï¿½
+        testAction.Enable();             // ï¿½A ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        SetScenarioElement(scenarioIndex, textIndex); // ‡B ‚»‚ÌŒã‚ÉUI“™‚ğ‚¢‚¶‚é
+        SetScenarioElement(scenarioIndex, textIndex); // ï¿½B ï¿½ï¿½ï¿½ÌŒï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     // Update is called once per frame
@@ -50,12 +52,22 @@ public class ScenarioManager : MonoBehaviour
     {
         if (testAction.Player.Shot.triggered)
         {
-            if (scenarioDatas[scenarioIndex].scenario[textIndex].choiceflag == false)
+            if (textIndex < scenarioDatas[scenarioIndex].scenario.Count -1)
             {
-                textIndex++;
-                SetScenarioElement(scenarioIndex, textIndex);
-                ProgressinCheck(scenarioIndex);
+                if (scenarioDatas[scenarioIndex].scenario[textIndex].choiceflag == false)
+                {
+                    textIndex++;
+                    SetScenarioElement(scenarioIndex, textIndex);
+                    ProgressinCheck(scenarioIndex);
+                }
+                
             }
+            else //ã‚‚ã—ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒã™ã¹ã¦è¡¨ç¤ºã—ãã£ãŸã‚‰ã€å°å…¥ãŒçµ‚ã‚ã£ãŸã‚‰
+            {
+                Debug.Log("å°å…¥çµ‚ã‚ã‚Šï¼ï¼");
+                changeSceneManager.Load("Main"); //ã‚²ãƒ¼ãƒ ç”»é¢ã¸é·ç§»ã•ã›ã‚‹
+            }
+
         }
         //if (Input.GetKeyDown(KeyCode.A))
         //{
@@ -79,31 +91,31 @@ public class ScenarioManager : MonoBehaviour
 
         characterName.text = scenarioDatas[_scenarioIndex].scenario[_textIndex].CharacterName;
 
-        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].misakiflag == true)//unity‚¿‚á‚ñ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Às,‚¨‚æ‚Ñƒ~ƒTƒL‚¿‚á‚ñoŒ»’†
+        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].misakiflag == true)//unityï¿½ï¿½ï¿½ï¿½ï¿½ÌƒAï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s,ï¿½ï¿½ï¿½ï¿½Ñƒ~ï¿½Tï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½
         {
             CharacterAnimator.SetBool("moveFlag", true);
             characterImageTwo.gameObject.SetActive(true);
         }
-        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].misakiflag == false)//unity‚¿‚á‚ñ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“Às,‚¨‚æ‚Ñƒ~ƒTƒL‚¿‚á‚ñoŒ»’†
+        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].misakiflag == false)//unityï¿½ï¿½ï¿½ï¿½ï¿½ÌƒAï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s,ï¿½ï¿½ï¿½ï¿½Ñƒ~ï¿½Tï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½
         {
             CharacterAnimator.SetBool("moveFlag", false);
 
             characterImageTwo.gameObject.SetActive(false);
         }
 
-        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].choiceflag == true)//‘I‘ğˆƒpƒlƒ‹‚ªŠJ‚©‚ê‚½
+        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].choiceflag == true)//ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½pï¿½lï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ê‚½
         {
             ShowChoices(scenarioDatas[_scenarioIndex].scenario[_textIndex].choices);
         }
 
 
-        //if (scenarioDatas[_scenarioIndex].scenario[_textIndex].bgmchangeflag == true)//‹È‚ª•Ï‚í‚é
+        //if (scenarioDatas[_scenarioIndex].scenario[_textIndex].bgmchangeflag == true)//ï¿½È‚ï¿½ï¿½Ï‚ï¿½ï¿½
         //{
         //    soundManager.ChangeBGM();
         //}
     }
 
-    private void ShowChoices(string[] choices)//‘I‘ğˆ‚ğ•\¦‚³‚¹‚é
+    private void ShowChoices(string[] choices)//ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         //choicePanel.SetActive(true);
 
@@ -126,22 +138,22 @@ public class ScenarioManager : MonoBehaviour
         //}
     }
 
-    private void OnChoiceClicked(int choiceindex)//ƒ{ƒ^ƒ“‚ªƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«‚Ìˆ—
+    private void OnChoiceClicked(int choiceindex)//ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½Ìï¿½ï¿½ï¿½
     {
         switch (choiceindex)
         {
-            case 0://‘I‘ğˆ1‚ª‘I‚Î‚ê‚½
+            case 0://ï¿½Iï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Iï¿½Î‚ê‚½
                 textIndex++;
                 //SetScenarioElement(scenarioIndex, textIndex);
                 ProgressinCheck(scenarioIndex);
                 break;
-            case 1://‘I‘ğˆ2‚ª‘I‚Î‚ê‚½‚æ
+            case 1://ï¿½Iï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½Iï¿½Î‚ê‚½ï¿½ï¿½
                 textIndex = 0;
                 scenarioIndex++;
 
                 SetScenarioElement(scenarioIndex, textIndex);
                 break;
-            case 2://‘I‘ğˆ3‚ª‘I‚Î‚ê‚½‚æ
+            case 2://ï¿½Iï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½Iï¿½Î‚ê‚½ï¿½ï¿½
                 break;
 
         }

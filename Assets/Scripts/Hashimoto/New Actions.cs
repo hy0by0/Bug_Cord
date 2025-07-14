@@ -384,6 +384,17 @@ public partial class @NewActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""c0dd1bd0-2653-4aab-9057-0394fd0ab805"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""d4dac471-4a3f-4386-b1ba-b57351efeb68"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",

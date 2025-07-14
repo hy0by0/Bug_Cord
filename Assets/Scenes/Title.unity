@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 993020828}
+  fadeDuration: 1
 --- !u!1 &579858680
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,10 +289,9 @@ MonoBehaviour:
   goAtack: 0
   shoot_reload_Flag: 1
   shoot_allow: 1
-  hitbox: {fileID: 579858680}
+  time_wait_sceneChange: 1
   attackCooldown: 1
   buffedAttackSpeedMultiplier: 0.5
-  moveSpeed: 5
 --- !u!212 &668619030
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -839,6 +839,9 @@ MonoBehaviour:
   goAtack: 0
   shoot_reload_Flag: 1
   shoot_allow: 1
+  time_wait_sceneChange: 1
+  attackCooldown: 1
+  buffedAttackSpeedMultiplier: 0.5
 --- !u!212 &1011876620
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1156,3 +1159,4 @@ SceneRoots:
   - {fileID: 532626109}
   - {fileID: 676545523}
   - {fileID: 740639772}
+  - {fileID: 1634421674}

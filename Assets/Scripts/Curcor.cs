@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// マウスカーソルやコントローラーの入力に応じて照準を動かし、攻撃処理を行うクラス。
-/// タイトル画面とゲーム画面で、ボタンを押した際の挙動が変わる。
+/// タイトル画面とゲーム画面で、ボタンを押した際の挙動が変わる。（タイトル画面では、シーン遷移を行う処理を行う）
 /// （New Input System 対応版 / 攻撃クールダウン＆速度バフ機能付き）
 /// </summary>
 public class Curcor : MonoBehaviour
@@ -28,8 +28,11 @@ public class Curcor : MonoBehaviour
 
     float moveSpeed = 50f;
 
+    // --- シーン遷移関連---
     //遷移フラグ
     private static bool isSceneTransitioning = false;
+    // タイトル画面で入力後、次のシーンへ遷移させるまでの待機時間
+    public float time_wait_sceneChange = 0.7f;
 
     // --- 攻撃関連 ---
     // 攻撃時に有効化する当たり判定オブジェクト
@@ -175,7 +178,7 @@ public class Curcor : MonoBehaviour
             var screenFader = FindObjectOfType<ScreenFader>();
             if (screenFader != null) StartCoroutine(screenFader.BackBlack());
 
-            StartCoroutine(GoGameAfterDelay(2.0f));
+            StartCoroutine(GoGameAfterDelay(time_wait_sceneChange)); // タイトルシーンで入力後、何秒後にシーン遷移させるかを設定
         }
 
         Debug.Log("攻撃が当たりました: " + playerNumber);
@@ -225,7 +228,7 @@ public class Curcor : MonoBehaviour
     IEnumerator GoGameAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (this != null) SceneManager.LoadScene("SampleScene");
+        if (this != null) SceneManager.LoadScene("scenario"); //Titleシーンからの遷移先のシーン名に設定
     }
 
     // 攻撃のクールダウンを管理するコルーチン

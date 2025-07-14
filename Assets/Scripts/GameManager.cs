@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,8 +15,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //戦闘開始時の画像を一定時間後に非表示させる
-        Invoke("InactiveImage", activeUITime);
+        if (SceneManager.GetActiveScene().name == "SampleScene" || (SceneManager.GetActiveScene().name == "Main" && EnemyController.enemy_hp == 10000))
+        {
+            //戦闘開始時の画像を一定時間後に非表示させる
+            Invoke("InactiveImage", activeUITime);
+        }
     }
 
     // Update is called once per frame

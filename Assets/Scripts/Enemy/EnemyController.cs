@@ -45,9 +45,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject hitEffectPrefab;
 
 /////////////////////////////////////////////////////////////////////////////////// 
-//// 以下、敵のおパラメータ・ステータスに関する変数
+//// 以下、敵のパラメータ・ステータスに関する変数
 
-    public int enemy_hp = 10000; //敵の最大ＨＰを入力してね
+    public static int enemy_hp = 10000; //敵の最大ＨＰを入力してね
     [SerializeField] UIManager uimanager; //UIManagerクラスのメソッドを呼びだしたいため
     public static string enemy_state = "Normal"; //敵の状態。普通、ひより、死亡、の３段階は最低限考えたい。
 

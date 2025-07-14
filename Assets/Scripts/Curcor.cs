@@ -273,7 +273,6 @@ public class Curcor : MonoBehaviour
             attackSpeedRoutine = null;
         }
         currentAttackSpeedMultiplier = 1.0f;
-        Debug.Log("攻撃速度バフがリセットされました。");
     }
 
     // --- アイテム効果を受け取るためのメソッド群 ---

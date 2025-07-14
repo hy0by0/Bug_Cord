@@ -408,7 +408,6 @@ public class PlayerController : MonoBehaviour
             myCursor.ResetAttackBuff();
         }
 
-        Debug.Log("全バフ効果をリセットしました。");
     }
 
 

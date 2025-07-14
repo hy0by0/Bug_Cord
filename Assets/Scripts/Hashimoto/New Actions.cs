@@ -206,11 +206,33 @@ public partial class @NewActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""3470c257-2ab0-4419-8333-838d2f088fdc"",
+                    ""path"": ""<HID::HORI CO.,LTD. HORIPAD mini4>/hat"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""34c96285-6a17-4c27-ba57-455a92b9acdb"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";mouse&Gamepad"",
+                    ""action"": ""Cursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15897884-aaed-458f-85fd-da2775a0ceae"",
+                    ""path"": ""<HID::HORI CO.,LTD. HORIPAD mini4>/stick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Cursor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -230,6 +252,17 @@ public partial class @NewActions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""45da10e9-ca70-4d6b-ae46-08f1edaf013e"",
                     ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""697a18e5-5521-4920-80de-5cb7f83c5e86"",
+                    ""path"": ""<HID::HORI CO.,LTD. HORIPAD mini4>/button8"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

@@ -1757,7 +1757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9be82efcb29e424ba15925af9cbb1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
+  playerNumber: 2
   hitbox: {fileID: 585680106}
   ClickPosition: 0
   goAtack: 0
@@ -5377,7 +5377,7 @@ MonoBehaviour:
   startY: 0
   aimObject: {fileID: 415694872}
   buffedCooldownMultiplier: 0.5
-  playerNumber: 1
+  playerNumber: 2
 --- !u!95 &922459356
 Animator:
   serializedVersion: 5

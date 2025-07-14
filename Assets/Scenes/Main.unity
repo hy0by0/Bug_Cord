@@ -6291,7 +6291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d41bfaadf4d9ee4e9730a428b7237f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredHitsForChanceTime: 1
+  requiredHitsForChanceTime: 5
   chanceTimeSceneName: SampleScene
   enemyP1_ref: {fileID: 1439537198}
   enemyP2_ref: {fileID: 1896509099}

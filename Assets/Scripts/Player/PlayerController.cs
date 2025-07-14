@@ -249,11 +249,7 @@ public class PlayerController : MonoBehaviour
         else if (move.x > 0.5f)
             AttemptMove(1, 0);        // 右
 
-        // GetKeyDownはキーが押されたそのフレームのみtrueを返す
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) AttemptMove(0, 1);
-        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) AttemptMove(0, -1);
-        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) AttemptMove(-1, 0);
-        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) AttemptMove(1, 0);
+
     }
 
     /// <summary>

@@ -876,6 +876,7 @@ MonoBehaviour:
   enemy_hp_bar: {fileID: 251305818}
   enemy_hp_max: 10000
   enemy_hp_remain: 0
+  score_manager: {fileID: 0}
 --- !u!4 &328830246
 Transform:
   m_ObjectHideFlags: 0
@@ -918,13 +919,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384061579}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.24789661, w: 0.9687865}
-  m_LocalPosition: {x: -1.64, y: 3.4000003, z: 0}
-  m_LocalScale: {x: 0.982332, y: 1.2002, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.64, y: 3.45, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1439537196}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.706}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &384061581
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -961,7 +962,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 10.24, y: 10.24}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1026,8 +1027,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7482667652216324306, guid: 1ab0209f621a6aa4793ab8ef60d802ca, type: 3}
-  m_Color: {r: 1, g: 0.9924262, b: 0.7830188, a: 0.41568628}
+  m_Sprite: {fileID: 21300000, guid: d8c2b876dbcb6604d88f00df824775fd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1174,10 +1175,9 @@ MonoBehaviour:
   goAtack: 0
   shoot_reload_Flag: 1
   shoot_allow: 1
-  hitbox: {fileID: 585680106}
+  time_wait_sceneChange: 0.7
   attackCooldown: 1
   buffedAttackSpeedMultiplier: 0.001
-  moveSpeed: 5
 --- !u!212 &415694875
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1778,8 +1778,8 @@ MonoBehaviour:
   startX: 1
   startY: 0
   aimObject: {fileID: 569559010}
-  playerNumber: 1
   buffedCooldownMultiplier: 0.0001
+  playerNumber: 1
 --- !u!95 &564438823
 Animator:
   serializedVersion: 5
@@ -1837,10 +1837,9 @@ MonoBehaviour:
   goAtack: 0
   shoot_reload_Flag: 1
   shoot_allow: 1
-  hitbox: {fileID: 458840531}
+  time_wait_sceneChange: 0.7
   attackCooldown: 1
   buffedAttackSpeedMultiplier: 0.001
-  moveSpeed: 5
 --- !u!212 &569559013
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2044,7 +2043,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1439537196}
@@ -2085,7 +2084,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 10.24, y: 10.24}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2150,8 +2149,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7482667652216324306, guid: 1ab0209f621a6aa4793ab8ef60d802ca, type: 3}
-  m_Color: {r: 1, g: 0.9924262, b: 0.7830188, a: 0.41568628}
+  m_Sprite: {fileID: 21300000, guid: 5f297b1f9a021214f95a9f58882da8a3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3636,8 +3635,8 @@ MonoBehaviour:
   startX: 0
   startY: 0
   aimObject: {fileID: 415694872}
-  playerNumber: 2
   buffedCooldownMultiplier: 0.5
+  playerNumber: 2
 --- !u!95 &922459356
 Animator:
   serializedVersion: 5
@@ -5047,13 +5046,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228846085}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.3712048, w: 0.928551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.7, y: 3.68, z: 0}
-  m_LocalScale: {x: 0.85465854, y: 1.2055439, z: 2.764014}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1439537196}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -43.58}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1228846087
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5090,7 +5089,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 10.24, y: 10.24}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5155,8 +5154,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7482667652216324306, guid: 1ab0209f621a6aa4793ab8ef60d802ca, type: 3}
-  m_Color: {r: 1, g: 0.9924262, b: 0.7830188, a: 0.41568628}
+  m_Sprite: {fileID: 21300000, guid: d8c2b876dbcb6604d88f00df824775fd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5470,7 +5469,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   criticalEffectPrefab: {fileID: 8729074581977840526, guid: dac2672f3a1c2fd46880612ed9be4b8c, type: 3}
   hitEffectPrefab: {fileID: 7402612426004475247, guid: cd431f9a3ec71694a95574194c7dedba, type: 3}
-  enemy_hp: 2000
   uimanager: {fileID: 328830245}
   count_hit: 0
   count_hit_Flag: 5
@@ -6133,6 +6131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df88b5c9fff7b419432981c5812aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCursor: {fileID: 0}
   positionMarkers:
   - {fileID: 507706790}
   - {fileID: 1382393549}
@@ -6152,6 +6151,7 @@ MonoBehaviour:
   startX: 1
   startY: 1
   aimObject: {fileID: 415694872}
+  buffedCooldownMultiplier: 0.5
   playerNumber: 2
 --- !u!212 &1444042643
 SpriteRenderer:

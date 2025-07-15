@@ -6,18 +6,19 @@ public class ItemSpawner_main : MonoBehaviour
 {
     [Header("■ プレイヤー設定")]
     public PlayerID playerID;
-
-    [Header("■ 関連オブジェクト")]
     public PlayerController myPlayer;
 
     [Header("■ 配置設定")]
     public List<Transform> positionMarkers;
     public List<GameObject> itemPrefabs;
 
-    [Header("■ 時間設定")]
-    public float spawnInterval = 15.0f;
-    public float itemLifetime = 10.0f;
+    [Header("■ 弱点ヒット設定")]
+    public int weakHitThreshold = 5;
+    private int weakHitCount = 0;
+
+    [Header("■ 制限設定")]
     public int maxItems = 3;
+    public float itemLifetime = 10.0f;
 
     [Header("■ 遠近法（パース）設定")]
     public float frontRowScale = 1.0f;
@@ -25,89 +26,100 @@ public class ItemSpawner_main : MonoBehaviour
 
     private Dictionary<Vector2Int, GameObject> spawnedItems = new Dictionary<Vector2Int, GameObject>();
 
-    // ★★★【追加】このStart()関数が抜けていました ★★★
-    void Start()
+    // PlayerID → スポナー インスタンス を保持する辞書
+    private static Dictionary<PlayerID, ItemSpawner_main> spawners = new Dictionary<PlayerID, ItemSpawner_main>();
+
+    private void Awake()
     {
-        // プレイヤーがインスペクターで設定されているかチェック
-        if (myPlayer == null)
+        // シングルトンではなく辞書で管理
+        spawners[playerID] = this;
+        Debug.Log($"[ItemSpawner] Registered spawner for {playerID}");
+    }
+
+    /// <summary>
+    /// EnemyHitArea2D から呼び出し。弱点ヒットをカウントし、閾値到達でスポーン
+    /// </summary>
+    public static void NotifyWeakHit(PlayerID hitter)
+    {
+        // 攻撃したプレイヤーの逆側にスポーン
+        PlayerID targetID = (hitter == PlayerID.P1) ? PlayerID.P2 : PlayerID.P1;
+        if (spawners.TryGetValue(targetID, out var spawner))
         {
-            Debug.LogError("ItemSpawnerにプレイヤーが設定されていません！インスペクターを確認してください。", this);
-            enabled = false;
+            spawner.HandleWeakHit();
+        }
+        else
+        {
+            Debug.LogError($"[ItemSpawner] No spawner found for {targetID}");
+        }
+    }
+
+    private void HandleWeakHit()
+    {
+        weakHitCount++;
+        Debug.Log($"[ItemSpawner] {playerID} weakHits={weakHitCount}/{weakHitThreshold}");
+        if (weakHitCount >= weakHitThreshold)
+        {
+            weakHitCount = 0;
+            SpawnOneItem();
+        }
+    }
+
+    /// <summary>
+    /// ランダム空きマスに１つだけアイテムをスポーン
+    /// </summary>
+    private void SpawnOneItem()
+    {
+        if (spawnedItems.Count >= maxItems)
+        {
+            Debug.Log($"[ItemSpawner] maxItems reached ({spawnedItems.Count}/{maxItems})");
             return;
         }
 
-        // アイテム生成の繰り返し処理を開始
-        StartCoroutine(SpawnItemRoutine());
-    }
+        // 空き座標を収集
+        var occupied = new HashSet<Vector2Int>();
+        occupied.Add(new Vector2Int(myPlayer.GetCurrentX(), myPlayer.GetCurrentY()));
+        foreach (var kv in spawnedItems)
+            occupied.Add(kv.Key);
 
-    private IEnumerator SpawnItemRoutine()
-    {
-        while (true)
+        var empty = new List<int>();
+        for (int i = 0; i < positionMarkers.Count; i++)
         {
-            yield return new WaitForSeconds(spawnInterval);
-
-            if (spawnedItems.Count >= maxItems)
-            {
-                continue;
-            }
-
-            HashSet<Vector2Int> occupiedCoordinates = new HashSet<Vector2Int>();
-            occupiedCoordinates.Add(new Vector2Int(myPlayer.GetCurrentX(), myPlayer.GetCurrentY()));
-            foreach (Vector2Int itemCoords in spawnedItems.Keys)
-            {
-                occupiedCoordinates.Add(itemCoords);
-            }
-
-            List<int> availableIndexes = new List<int>();
-            for (int i = 0; i < positionMarkers.Count; i++)
-            {
-                Vector2Int currentCoords = new Vector2Int(i % 3, i / 3);
-                if (!occupiedCoordinates.Contains(currentCoords))
-                {
-                    availableIndexes.Add(i);
-                }
-            }
-
-            if (availableIndexes.Count > 0)
-            {
-                int randomIndexInList = Random.Range(0, availableIndexes.Count);
-                int positionIndex = availableIndexes[randomIndexInList];
-
-                Transform spawnPoint = positionMarkers[positionIndex];
-                int spawnY = positionIndex / 3;
-                int spawnX = positionIndex % 3;
-
-                int itemIndex = Random.Range(0, itemPrefabs.Count);
-                GameObject itemToSpawn = itemPrefabs[itemIndex];
-                GameObject newItem = Instantiate(itemToSpawn, spawnPoint.position, Quaternion.identity);
-
-                ItemController_main itemController = newItem.GetComponent<ItemController_main>();
-                if (itemController != null)
-                {
-                    itemController.Initialize(playerID, this);
-                }
-
-                Vector3 originalScale = newItem.transform.localScale;
-                float t = spawnY / 2.0f;
-                float scaleMultiplier = Mathf.Lerp(frontRowScale, backRowScale, t);
-                newItem.transform.localScale = originalScale * scaleMultiplier;
-
-                Vector2Int newCoords = new Vector2Int(spawnX, spawnY);
-                spawnedItems.Add(newCoords, newItem);
-
-                StartCoroutine(ItemLifetimeCoroutine(newItem, newCoords, itemLifetime));
-            }
+            var coord = new Vector2Int(i % 3, i / 3);
+            if (!occupied.Contains(coord)) empty.Add(i);
         }
+        if (empty.Count == 0) return;
+
+        // ランダム選択＆生成
+        int idx = empty[Random.Range(0, empty.Count)];
+        var marker = positionMarkers[idx];
+        int y = idx / 3;
+        int x = idx % 3;
+        var prefab = itemPrefabs[Random.Range(0, itemPrefabs.Count)];
+        var newItem = Instantiate(prefab, marker.position, Quaternion.identity);
+
+        // 初期化
+        var ctrl = newItem.GetComponent<ItemController_main>();
+        if (ctrl != null) ctrl.Initialize(playerID, this);
+
+        // スケーリング
+        float t = y / 2f;
+        newItem.transform.localScale *= Mathf.Lerp(frontRowScale, backRowScale, t);
+
+        var coordKey = new Vector2Int(x, y);
+        spawnedItems[coordKey] = newItem;
+        Debug.Log($"[ItemSpawner] Spawned item at {coordKey} for {playerID}");
+
+        StartCoroutine(DestroyAfterLifetime(newItem, coordKey));
     }
 
-    private IEnumerator ItemLifetimeCoroutine(GameObject item, Vector2Int coords, float lifetime)
+    private IEnumerator DestroyAfterLifetime(GameObject item, Vector2Int coords)
     {
-        yield return new WaitForSeconds(lifetime);
-
-        if (spawnedItems.ContainsKey(coords) && spawnedItems[coords] == item)
+        yield return new WaitForSeconds(itemLifetime);
+        if (spawnedItems.TryGetValue(coords, out var obj) && obj == item)
         {
             Destroy(item);
             spawnedItems.Remove(coords);
+            Debug.Log($"[ItemSpawner] Destroyed expired item at {coords}");
         }
     }
 }

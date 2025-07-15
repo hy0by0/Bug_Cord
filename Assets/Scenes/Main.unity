@@ -1890,9 +1890,9 @@ MonoBehaviour:
   - {fileID: 2127130691849892096, guid: cdb04ccd321ec884cb06e156717a2d89, type: 3}
   - {fileID: 2127130691849892096, guid: 75c6c4e64f19bb04d9b2da44b93c3404, type: 3}
   - {fileID: 2127130691849892096, guid: 4ffcf259e25a7b049a63400026677d2d, type: 3}
-  spawnInterval: 1
-  itemLifetime: 10
+  weakHitThreshold: 5
   maxItems: 9
+  itemLifetime: 10
   frontRowScale: 1
   backRowScale: 0.7
 --- !u!1 &458840531
@@ -2537,7 +2537,7 @@ MonoBehaviour:
   shoot_reload_Flag: 1
   shoot_allow: 1
   time_wait_sceneChange: 0.7
-  attackCooldown: 1
+  attackCooldown: 0
   buffedAttackSpeedMultiplier: 0.001
 --- !u!212 &569559013
 SpriteRenderer:
@@ -6243,9 +6243,9 @@ MonoBehaviour:
   - {fileID: 2127130691849892096, guid: 75c6c4e64f19bb04d9b2da44b93c3404, type: 3}
   - {fileID: 2127130691849892096, guid: cdb04ccd321ec884cb06e156717a2d89, type: 3}
   - {fileID: 2127130691849892096, guid: 4ffcf259e25a7b049a63400026677d2d, type: 3}
-  spawnInterval: 1
-  itemLifetime: 10
+  weakHitThreshold: 5
   maxItems: 3
+  itemLifetime: 10
   frontRowScale: 1
   backRowScale: 0.7
 --- !u!4 &985383949

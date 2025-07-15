@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class CountDownClock : MonoBehaviour
 {
-    public float timeInSeconds = 300f; // 倒计时总时间
+    public float timeInSeconds = 300f; // 初始备用值
     public Transform pinSec;           // 秒针
     public Transform pinMin;           // 分针
     public Image fillImage;            // 进度条（Image类型）
@@ -15,22 +14,28 @@ public class CountDownClock : MonoBehaviour
 
     void Start()
     {
-        maxTime = timeInSeconds;
+        if (GlobalTimeControl.Instance != null)
+        {
+            maxTime = GlobalTimeControl.Instance.globalTimeInSeconds;
+        }
+        else
+        {
+            maxTime = timeInSeconds;
+        }
     }
 
     void Update()
     {
+        
+
+        timeInSeconds = GlobalTimeControl.Instance.globalTimeInSeconds;
+
         if (timeInSeconds > 0f)
         {
-            timeInSeconds -= Time.deltaTime;
-            if (timeInSeconds < 0f)
-                timeInSeconds = 0f;
-
             UpdatePins();
             UpdateFill();
         }
 
-        // 倒计时结束，触发一次事件
         if (!hasEnded && timeInSeconds <= 0f)
         {
             hasEnded = true;
@@ -56,13 +61,8 @@ public class CountDownClock : MonoBehaviour
         }
     }
 
-    // 倒计时结束时调用，你可以在子类中重写或在Unity中手动调用其他行为
     public virtual void OnTimerEnd()
     {
         GameEndPanel.SetActive(true);
-    }
-    public void GameEnd()
-    {
-        SceneManager.LoadScene("Result");
     }
 }

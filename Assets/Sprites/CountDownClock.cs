@@ -16,7 +16,7 @@ public class CountDownClock : MonoBehaviour
     {
         if (GlobalTimeControl.Instance != null)
         {
-            maxTime = GlobalTimeControl.Instance.globalTimeInSeconds;
+            maxTime = GlobalTimeControl.Instance.totalTime_Static; // 使用不变的总时长
         }
         else
         {

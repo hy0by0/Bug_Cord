@@ -18,76 +18,82 @@ MonoBehaviour:
     characterImageTwo: {fileID: 21300000, guid: ce1679664dab69445b6616e509c021f9, type: 3}
     ScenarioText: "In a future world, AI and virtual networks governed much of human
       life.(\u672A\u6765\u306E\u4E16\u754C\u3002\u4EBA\u985E\u306E\u751F\u6D3B\u306F\u3001AI\u3068\u4EEE\u60F3\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u306B\u3088\u3063\u3066\u591A\u304F\u306E\u3082\u306E\u304C\u7BA1\u7406\u3055\u308C\u3066\u3044\u305F\u3002)"
-    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    CharacterName: 
     twoCharaflag: 0
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
     CharacterImage: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     ScenarioText: "But one day, deep within the system, code went haywire\u2014a
       bug\u2014and an anomalous entity known as \"Wizard\" was born.(\u3060\u304C\u3042\u308B\u65E5\u3001\u30B7\u30B9\u30C6\u30E0\u306E\u5965\u5E95\u3067\u30B3\u30FC\u30C9\u304C\u66B4\u8D70\uFF08\u30D0\u30B0\uFF09\u3057\u3001\u7570\u5E38\u306A\u5B58\u5728\u300E\u30A6\u30A3\u30B6\u30FC\u30C9\u300F\u304C\u8A95\u751F\u3059\u308B\u3002)"
-    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    CharacterName: 
     twoCharaflag: 1
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
     CharacterImage: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 6832fbfd7118a9842b30eadf9f9b9189, type: 3}
     ScenarioText: "Wizard hacked into urban infrastructure and electronic devices,
       corrupting the very fabric of reality.(\u30A6\u30A3\u30B6\u30FC\u30C9\u306F\u90FD\u5E02\u306E\u30A4\u30F3\u30D5\u30E9\u3084\u96FB\u5B50\u6A5F\u5668\u3092\u30CF\u30C3\u30AD\u30F3\u30B0\u3057\u3001\u73FE\u5B9F\u4E16\u754C\u305D\u306E\u3082\u306E\u3092\u4FB5\u98DF\u3002)"
-    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    CharacterName: 
     twoCharaflag: 0
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
     CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     ScenarioText: "It became an international cyber-terror incident, plunging the
       entire world into chaos.(\u4E16\u754C\u4E2D\u304C\u6DF7\u4E71\u306B\u9665\u308B\u201C\u56FD\u969B\u96FB\u5B50\u30C6\u30ED\u201D\u3068\u5316\u3057\u305F\u3002)"
-    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
+    CharacterName: 
     twoCharaflag: 0
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
-    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
-    characterImageTwo: {fileID: 21300000, guid: 9f889b102f08f40429a903e11db1f278, type: 3}
+    CharacterImage: {fileID: 21300000, guid: 4f90aee8f67cb7d44a19c9ad25e7884c, type: 3}
+    characterImageTwo: {fileID: 21300000, guid: c7bb553aec0a4504689b7ce72d853f03, type: 3}
     ScenarioText: "Humanity's last hope rested with two young people who could adapt
       to Wizard.(\u4EBA\u985E\u306B\u6B8B\u3055\u308C\u305F\u5E0C\u671B\u306F\u3001\u30A6\u30A3\u30B6\u30FC\u30C9\u306B\u9069\u5FDC\u3067\u304D\u308B2\u4EBA\u306E\u5C11\u5E74\u5C11\u5973\u3002)"
-    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
-    twoCharaflag: 0
+    CharacterName: 
+    twoCharaflag: 1
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
     CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 098906cd74d252b4ba124cd2bb54a9ab, type: 3}
     ScenarioText: "Now, weapons in hand, they set out to delete the rampaging Wizard...(\u4ECA\u3001\u5F7C\u3089\u306F\u6B66\u5668\u3092\u7247\u624B\u306B\u3001\u66B4\u8D70\u3059\u308B\u201C\u30A6\u30A3\u30B6\u30FC\u30C9\u201D\u3092\u6D88\u53BB\uFF08\u30C7\u30EA\u30FC\u30C8\uFF09\u3059\u308B\u2014\u2014\u3002)"
-    CharacterName: "\u30D7\u30EC\u30A4\u30E4\u30FC1"
-    twoCharaflag: 0
+    CharacterName: 
+    twoCharaflag: 1
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
     CharacterImage: {fileID: 21300000, guid: 9f889b102f08f40429a903e11db1f278, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     ScenarioText: "How are we supposed to defeat something like that?!\n(\u3042\u3093\u306A\u306E\u3069\u3046\u3084\u3063\u3066\u5012\u3059\u306E\uFF01\uFF1F)"
-    CharacterName: 
+    CharacterName: Girl
     twoCharaflag: 0
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
-    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
+    CharacterImage: {fileID: 21300000, guid: 4f90aee8f67cb7d44a19c9ad25e7884c, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     ScenarioText: "Wizard was born because its code became corrupted.(\u3042\u306E\u30A6\u30A4\u30B6\u30FC\u30C9\u306F\u30B3\u30FC\u30C9\uFF08\u30D7\u30ED\u30B0\u30E9\u30E0\uFF09\u304C\u58CA\u308C\u3066\u3057\u307E\u3063\u305F\u304B\u3089\u8A95\u751F\u3057\u305F\u3093\u3060\u3002)"
-    CharacterName: 
+    CharacterName: Boy
     twoCharaflag: 0
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
-    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
+    CharacterImage: {fileID: 21300000, guid: 4f90aee8f67cb7d44a19c9ad25e7884c, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     ScenarioText: "But the only things that can repair the Wizard's code are the
       gun and bazooka we're carrying...(\u3060\u304C\u30A6\u30A4\u30B6\u30FC\u30C9\u306E\u30B3\u30FC\u30C9\u3092\u4FEE\u5FA9\u3067\u304D\u308B\u306E\u306F\u50D5\u305F\u3061\u304C\u6301\u3063\u3066\u3044\u308B\u9283\u3068\u30D0\u30BA\u30FC\u30AB\u306E\u307F\u2026)"
-    CharacterName: 
+    CharacterName: Boy
     twoCharaflag: 0
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
     CharacterImage: {fileID: 21300000, guid: 9f889b102f08f40429a903e11db1f278, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     ScenarioText: "Got it! The future of the world is at stake!(\u308F\u304B\u3063\u305F\uFF01\u4E16\u754C\u306E\u672A\u6765\u304C\u304B\u304B\u3063\u3066\u3044\u308B\u3093\u3060\uFF01\uFF01)"
-    CharacterName: 
+    CharacterName: Girl
     twoCharaflag: 0
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
     CharacterImage: {fileID: 21300000, guid: 9f889b102f08f40429a903e11db1f278, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     ScenarioText: "We'll defeat Wizard before it can corrupt the entire world!(\u30A6\u30A4\u30B6\u30FC\u30C9\u306B\u4E16\u754C\u304C\u4FB5\u98DF\u3055\u308C\u308B\u524D\u306B\u79C1\u305F\u3061\u304C\u5012\u305D\u3046\uFF01)"
-    CharacterName: 
+    CharacterName: Girl
     twoCharaflag: 0
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
-    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
+    CharacterImage: {fileID: 21300000, guid: 4f90aee8f67cb7d44a19c9ad25e7884c, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     ScenarioText: "For now, practice makes perfect!(\u3068\u308A\u3042\u3048\u305A\u7FD2\u3046\u3088\u308A\u6163\u308C\u308D\uFF01\u3060\uFF01)"
+    CharacterName: Boy
+    twoCharaflag: 0
+  - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
+    CharacterImage: {fileID: 21300000, guid: 4f90aee8f67cb7d44a19c9ad25e7884c, type: 3}
+    characterImageTwo: {fileID: 21300000, guid: c7bb553aec0a4504689b7ce72d853f03, type: 3}
+    ScenarioText: '                                               Ready?'
     CharacterName: 
     twoCharaflag: 0

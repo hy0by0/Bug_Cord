@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 91068591}
   - component: {fileID: 91068590}
   m_Layer: 0
-  m_Name: ScoreController
+  m_Name: ScoreController(DontDestroyOnLoad)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1057,8 +1057,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 389, y: 216}
-  m_SizeDelta: {x: 62, y: 100}
+  m_AnchoredPosition: {x: 779.65, y: 432.25}
+  m_SizeDelta: {x: 123.63, y: 74.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &251305820
 MonoBehaviour:
@@ -2298,7 +2298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 564438822}
-  baseDamage: 1000
+  baseDamage: 10
   frontRowMultiplier: 1
   middleRowMultiplier: 1.1
   backRowMultiplier: 1.2
@@ -2434,7 +2434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &512121422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11726,8 +11726,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -376, y: 215}
-  m_SizeDelta: {x: 63, y: 100}
+  m_AnchoredPosition: {x: -751.05, y: 432.25}
+  m_SizeDelta: {x: 123.24, y: 102.89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1841815989
 MonoBehaviour:

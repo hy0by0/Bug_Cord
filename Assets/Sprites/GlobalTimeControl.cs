@@ -17,7 +17,7 @@ public class GlobalTimeControl : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            globalTimeInSeconds = totalTime_Static; // 初始化当前时间
+            globalTimeInSeconds = totalTime_Static; // 初始化当前时紒E
         }
         else
         {

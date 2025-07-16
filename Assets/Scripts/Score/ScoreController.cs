@@ -47,13 +47,13 @@ public class ScoreController : MonoBehaviour
     /// プレイヤーのスコアの加算関数
     /// (ポジションの位置の数値)
     /// </summary>
-    public void PlusScore(int damage, int playerID)
+    public void PlusScore(int damage, PlayerID playerID)
     {
-        if (playerID == 1)
+        if (playerID == PlayerID.P2)
         {
             m_BoyCountScore += damage;
         }
-        else if (playerID == 2)
+        else if (playerID == PlayerID.P1)
         {
             m_GirlCountScore += damage;
         }

@@ -16,6 +16,7 @@ public class ScoreController : MonoBehaviour
     [Header("スコアの画像を制御するスクリプト(Girl)")]
     public ScoreImage m_GirlScoreImage;
 
+    int m_Time;
     [Header("時間を加算するために必要なスクリプト")]
     public CountDownClock m_CountDownClock;
     private void Awake()
@@ -39,6 +40,7 @@ public class ScoreController : MonoBehaviour
         m_CountScorePlayer = 0;
         m_BoyCountScore = 0;
         m_GirlCountScore = 0;
+        m_Time = 0;
         m_BoyScoreImage.ShowNumber((int)m_CountScorePlayer);
         m_GirlScoreImage.ShowNumber((int)m_CountScorePlayer);
     }
@@ -91,10 +93,11 @@ public class ScoreController : MonoBehaviour
     
     public void FinalScore()
     {
+        m_Time = (int)m_CountDownClock.timeInSeconds;
         PlayerPrefs.SetInt("DamageScore", (int)m_CountScorePlayer);
         PlayerPrefs.SetInt("BoyDamageScore", (int)m_BoyCountScore);
         PlayerPrefs.SetInt("GirlDamageScore", (int)m_GirlCountScore);
-        PlayerPrefs.SetInt("TimeScore", (int)m_CountDownClock.timeInSeconds);
+        PlayerPrefs.SetInt("TimeScore", (int)m_Time);
         PlayerPrefs.Save();
     }
 }

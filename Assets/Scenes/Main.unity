@@ -2780,6 +2780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df88b5c9fff7b419432981c5812aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 0
   myCursor: {fileID: 569559011}
   positionMarkers:
   - {fileID: 507706790}
@@ -6202,6 +6203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df88b5c9fff7b419432981c5812aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 1
   myCursor: {fileID: 415694873}
   positionMarkers:
   - {fileID: 1345800911}

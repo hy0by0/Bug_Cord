@@ -276,7 +276,6 @@ public class EnemyController : MonoBehaviour
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.15f);
         spriteRenderer.color = originalColor;
-        FindObjectOfType<ScoreController>().MinusScore(50, playerID);
         flashCoroutine = null;
     }
 }

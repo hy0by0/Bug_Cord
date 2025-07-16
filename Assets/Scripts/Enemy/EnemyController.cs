@@ -94,6 +94,26 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Main")
+        {
+            // Mainシーンに戻ったらフラグとヒットカウントをリセット
+            rallyStartRequested = false;
+            count_hit = 0;
+        }
+    }
+
     // --- ヒット処理メソッド群 ---
 
     public void HitResist(int playerAtackdamage)
@@ -124,7 +144,7 @@ public class EnemyController : MonoBehaviour
     public void HitWeak(int playerAtackdamage)
     {
         Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
-        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.5f);
+        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.1f);
         enemy_hp -= enemy_damaged;
         if (uimanager != null) uimanager.DamagedBar(enemy_damaged);
         HandleDamage(enemy_damaged);
@@ -134,7 +154,7 @@ public class EnemyController : MonoBehaviour
     public void HitCritical(int playerAtackdamage)
     {
         Instantiate(criticalEffectPrefab, transform.position, Quaternion.identity);
-        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 2.0f);
+        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.3f);
         enemy_hp -= enemy_damaged;
         if (uimanager != null) uimanager.DamagedBar(enemy_damaged);
 

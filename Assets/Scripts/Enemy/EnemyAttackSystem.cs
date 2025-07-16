@@ -29,11 +29,19 @@ public class EnemyAttackSystem : MonoBehaviour
     [Tooltip("攻撃がヒットした際のスタン時間（秒）")]
     public float stunDuration = 1.5f;
 
+    [Header("■ その他設定")]
+    [Tooltip("攻撃予告と攻撃時のSE")]
+    public AudioClip attackWarningSound;
+    public AudioClip attackSound;
+    private AudioSource audioSource;
+
+
     /// <summary>
     /// コンポーネント初期化時の処理
     /// </summary>
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         // Inspectorでの設定が正しいか検証
         if (attentionMarks == null || attentionMarks.Count != 9 || attackEffectPrefab == null || playerController1 == null || playerController2 == null)
         {
@@ -68,6 +76,7 @@ public class EnemyAttackSystem : MonoBehaviour
             foreach (int index in chosenIndices)
             {
                 attentionMarks[index].SetActive(true);
+                audioSource.PlayOneShot(attackWarningSound);
             }
 
             // 3. プレイヤーの回避時間
@@ -82,6 +91,7 @@ public class EnemyAttackSystem : MonoBehaviour
 
                 // 攻撃エフェクトを予告と同じ位置に生成
                 Instantiate(attackEffectPrefab, attentionMarks[index].transform.position, Quaternion.identity);
+                audioSource.PlayOneShot(attackSound);
 
                 // 攻撃マスのグリッド座標を計算 (例: インデックス5 -> X:2, Y:1)
                 int attackX = index % 3;

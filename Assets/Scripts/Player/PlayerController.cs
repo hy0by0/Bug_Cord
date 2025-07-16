@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 /// <summary>
 /// 3x3グリッド上でのプレイヤーの移動、状態（スタン、クールタイム）、見た目を制御します。
@@ -49,6 +50,15 @@ public class PlayerController : MonoBehaviour
     [Header("俊足ブーツでのクールダウンの倍率設定")]
     [Tooltip("クールタイム短縮バフがかかった時の倍率（例: 0.5にすると半分の時間になる）")]
     [SerializeField] private float buffedCooldownMultiplier = 0.5f;
+
+    [Header("攻撃時のSE")]
+    [Tooltip("攻撃時に再生するサウンドエフェクト")]
+    [SerializeField] private AudioClip shot;
+    AudioSource audioSource;
+
+    [Header("攻撃を受けたときのSE")]
+    [Tooltip("攻撃を受けたときに再生するサウンドエフェクト")]
+    [SerializeField] private AudioClip hitSound;
     #endregion
 
 
@@ -100,6 +110,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         inputActions = new NewActions();
 
         Debug.Log("番号" + playerNumber);
@@ -208,6 +220,7 @@ public class PlayerController : MonoBehaviour
         if (!isStunImmune && !isStunned) // スタン免疫状態でないか、すでにスタンしていない場合のみ実行
         {
             StartCoroutine(StunCoroutine(duration));
+            audioSource.PlayOneShot(hitSound); // 攻撃を受けたときのSEを再生
         }
     }
 
@@ -217,6 +230,7 @@ public class PlayerController : MonoBehaviour
     public void Attack()
     {
         animator.SetTrigger("Attack1"); // Animatorの"Attack1"トリガーを起動
+        audioSource.PlayOneShot(shot);
     }
 
     /// <summary> 現在のX座標（列）を取得します (0-2) </summary>

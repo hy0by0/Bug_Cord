@@ -10,6 +10,8 @@ using UnityEngine.InputSystem.Users;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    [Header("■ チーム設定")]
+    public PlayerID playerID;
     #region インスペクターで設定する項目
     // =============== インスペクターで設定する項目 ===============
 
@@ -373,6 +375,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.15f); // 赤色でいる時間
         spriteRenderer.color = originalColor;
         flashCoroutine = null; // 自身の処理が終わったので参照をクリア
+        FindObjectOfType<ScoreController>().MinusScore(50, playerID);
     }
 
     /// <summary>

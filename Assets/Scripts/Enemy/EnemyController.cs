@@ -90,6 +90,7 @@ public class EnemyController : MonoBehaviour
             if (ChanceTimeChanger.Instance != null && ChanceTimeChanger.Instance.IsRallyActive)
             {
                 ChanceTimeChanger.Instance.EndRally();
+                FindObjectOfType<ScoreController>().FinalScore();
             }
         }
     }
@@ -139,6 +140,8 @@ public class EnemyController : MonoBehaviour
 
         // 3. ヒット回数をカウントアップ
         count_hit++;
+
+        FindObjectOfType<ScoreController>().PlusScore(enemy_damaged, playerID);
     }
 
     public void HitWeak(int playerAtackdamage)

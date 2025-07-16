@@ -54,13 +54,14 @@ public class ScenarioManager : MonoBehaviour
         {
             if (textIndex < scenarioDatas[scenarioIndex].scenario.Count -1)
             {
-                if (scenarioDatas[scenarioIndex].scenario[textIndex].choiceflag == false)
-                {
-                    textIndex++;
-                    SetScenarioElement(scenarioIndex, textIndex);
-                    ProgressinCheck(scenarioIndex);
-                }
-                
+                //if (scenarioDatas[scenarioIndex].scenario[textIndex].choiceflag == false)
+                //{
+
+                //}
+                textIndex++;
+                SetScenarioElement(scenarioIndex, textIndex);
+                ProgressinCheck(scenarioIndex);
+
             }
             else //もしインデックスがすべて表示しきったら、導入が終わったら
             {
@@ -72,12 +73,13 @@ public class ScenarioManager : MonoBehaviour
         {
             if (textIndex >0)
             {
-                if (scenarioDatas[scenarioIndex].scenario[textIndex].choiceflag == false)
-                {
-                    textIndex--;
-                    SetScenarioElement(scenarioIndex, textIndex);
-                    ProgressinCheck(scenarioIndex);
-                }
+                //if (scenarioDatas[scenarioIndex].scenario[textIndex].choiceflag == false)
+                //{
+
+                //}
+                textIndex--;
+                SetScenarioElement(scenarioIndex, textIndex);
+                ProgressinCheck(scenarioIndex);
 
             }
         }
@@ -90,7 +92,7 @@ public class ScenarioManager : MonoBehaviour
 
     private void SetScenarioElement(int _scenarioIndex, int _textIndex)
     {
-        Debug.Log($"ScenarioIndex: {_scenarioIndex}, TextIndex: {_textIndex}, animflag: {scenarioDatas[_scenarioIndex].scenario[_textIndex].misakiflag}");
+        Debug.Log($"ScenarioIndex: {_scenarioIndex}, TextIndex: {_textIndex}, animflag: {scenarioDatas[_scenarioIndex].scenario[_textIndex].twoCharaflag}");
 
         backGround.sprite = scenarioDatas[_scenarioIndex].scenario[_textIndex].BackGround;
 
@@ -103,22 +105,22 @@ public class ScenarioManager : MonoBehaviour
 
         characterName.text = scenarioDatas[_scenarioIndex].scenario[_textIndex].CharacterName;
 
-        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].misakiflag == true)//unity�����̃A�j���[�V�������s,����у~�T�L�����o����
+        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].twoCharaflag == true)//unity�����̃A�j���[�V�������s,����у~�T�L�����o����
         {
             CharacterAnimator.SetBool("moveFlag", true);
             characterImageTwo.gameObject.SetActive(true);
         }
-        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].misakiflag == false)//unity�����̃A�j���[�V�������s,����у~�T�L�����o����
+        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].twoCharaflag == false)//unity�����̃A�j���[�V�������s,����у~�T�L�����o����
         {
             CharacterAnimator.SetBool("moveFlag", false);
 
             characterImageTwo.gameObject.SetActive(false);
         }
 
-        if (scenarioDatas[_scenarioIndex].scenario[_textIndex].choiceflag == true)//�I�����p�l�����J���ꂽ
-        {
-            ShowChoices(scenarioDatas[_scenarioIndex].scenario[_textIndex].choices);
-        }
+        //if (scenarioDatas[_scenarioIndex].scenario[_textIndex].choiceflag == true)//�I�����p�l�����J���ꂽ
+        //{
+        //    ShowChoices(scenarioDatas[_scenarioIndex].scenario[_textIndex].choices);
+        //}
 
 
         //if (scenarioDatas[_scenarioIndex].scenario[_textIndex].bgmchangeflag == true)//�Ȃ��ς��

@@ -17,10 +17,10 @@ public class Scenario
     [TextArea]
     public string ScenarioText;
     public string CharacterName;
-    public string[] choices;
-    public bool misakiflag;//ミサキが登場しているか
-    public bool choiceflag;//選択肢が発生したか
-    public bool bgmchangeflag; //BGMが変わります
+    //public string[] choices;
+    public bool twoCharaflag;//ミサキが登場しているか
+    //public bool choiceflag;//選択肢が発生したか
+    //public bool bgmchangeflag; //BGMが変わります
 
 }
 

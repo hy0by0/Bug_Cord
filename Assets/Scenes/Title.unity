@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9be82efcb29e424ba15925af9cbb1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: {fileID: 8300000, guid: fd9d42613acaaba418d5229a73ca61db, type: 3}
+  title: {fileID: 8300000, guid: 26dcaeb4cfecec54da6d559a9ef6fe5f, type: 3}
   playerNumber: 1
   hitbox: {fileID: 579858680}
   ClickPosition: 0
@@ -699,7 +699,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acc840f1ed567524da843f94a151f1d8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.90188676, g: 0.90188676, b: 0.90188676, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -932,7 +932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9be82efcb29e424ba15925af9cbb1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: {fileID: 8300000, guid: fd9d42613acaaba418d5229a73ca61db, type: 3}
+  title: {fileID: 8300000, guid: 26dcaeb4cfecec54da6d559a9ef6fe5f, type: 3}
   playerNumber: 2
   hitbox: {fileID: 1250845042}
   ClickPosition: 0
@@ -984,7 +984,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 9f94ba4cb854c3b489168195f747fa54, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1286,9 +1286,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 90ad9f00c283f914d8978fb3d4d4bc36, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6748eb214576c2e4abf4e491ab957bc1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0

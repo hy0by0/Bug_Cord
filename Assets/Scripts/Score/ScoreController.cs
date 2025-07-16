@@ -47,6 +47,13 @@ public class ScoreController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        m_BoyScoreImage = GameObject.Find("BoyScore").GetComponent<ScoreImage>();
+        m_GirlScoreImage = GameObject.Find("GirlScore").GetComponent<ScoreImage>();
+        m_CountDownClock = GameObject.Find("GlobalTimeControl").GetComponent<GlobalTimeControl>();
+    }
+
 
     private void Start()
     {
@@ -108,6 +115,12 @@ public class ScoreController : MonoBehaviour
     
     public void FinalScore()
     {
+        Debug.Log((int)m_CountScorePlayer);
+        Debug.Log((int)m_BoyCountScore);
+        Debug.Log((int)m_GirlCountScore);
+        Debug.Log((int)m_CountDownClock.globalTimeInSeconds);
+
+
         m_Time = 100 * (int)m_CountDownClock.globalTimeInSeconds;
         PlayerPrefs.SetInt("DamageScore", (int)m_CountScorePlayer);
         PlayerPrefs.SetInt("BoyDamageScore", (int)m_BoyCountScore);

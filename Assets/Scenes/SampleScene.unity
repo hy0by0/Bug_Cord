@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 564438822}
-  baseDamage: 50
+  baseDamage: 15
   frontRowMultiplier: 1
   middleRowMultiplier: 1.1
   backRowMultiplier: 1.2
@@ -2483,7 +2483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 922459355}
-  baseDamage: 120
+  baseDamage: 33
   frontRowMultiplier: 1
   middleRowMultiplier: 1.1
   backRowMultiplier: 1.2
@@ -4177,7 +4177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df88b5c9fff7b419432981c5812aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
+  playerID: 1
   myCursor: {fileID: 415694873}
   positionMarkers:
   - {fileID: 507706790}

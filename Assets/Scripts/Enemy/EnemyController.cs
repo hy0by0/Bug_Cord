@@ -90,7 +90,7 @@ public class EnemyController : MonoBehaviour
             if (ChanceTimeChanger.Instance != null && ChanceTimeChanger.Instance.IsRallyActive)
             {
                 ChanceTimeChanger.Instance.EndRally();
-                FindObjectOfType<ScoreController>().FinalScore();
+ 
             }
         }
     }
@@ -261,7 +261,6 @@ public class EnemyController : MonoBehaviour
             targetPair.hitboxObject.SetActive(true);
         }
     }
-
     public void HideCriticalPoint()
     {
         CriticalHitBox_Spawnded targetPair = spawnPairs.Find(p => p.pairID == "1");

@@ -139,6 +139,8 @@ public class EnemyController : MonoBehaviour
 
         // 3. ヒット回数をカウントアップ
         count_hit++;
+
+        FindObjectOfType<ScoreController>().PlusScore(enemy_damaged, (int)playerID);
     }
 
     public void HitWeak(int playerAtackdamage)

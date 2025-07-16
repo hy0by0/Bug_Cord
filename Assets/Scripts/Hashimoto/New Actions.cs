@@ -490,7 +490,7 @@ public partial class @NewActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""64c9dae5-7f67-498b-b6d2-8bb1307f3e07"",
+                    ""id"": ""37e3aa53-d3da-4b8f-8fe4-894f4678f283"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -501,7 +501,7 @@ public partial class @NewActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c0dd1bd0-2653-4aab-9057-0394fd0ab805"",
+                    ""id"": ""4e5beae7-9fc7-42c9-9733-1460d10dfb13"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",

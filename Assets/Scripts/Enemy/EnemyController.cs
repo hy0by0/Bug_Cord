@@ -90,6 +90,7 @@ public class EnemyController : MonoBehaviour
             if (ChanceTimeChanger.Instance != null && ChanceTimeChanger.Instance.IsRallyActive)
             {
                 ChanceTimeChanger.Instance.EndRally();
+                FindObjectOfType<ScoreController>().FinalScore();
             }
         }
     }

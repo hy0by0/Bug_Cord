@@ -107,7 +107,7 @@ public class EnemyController : MonoBehaviour
     public void HitNormal(int playerAtackdamage)
     {
         // ヒットエフェクトなどの処理
-        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+
         if (flashCoroutine != null) StopCoroutine(flashCoroutine);
         flashCoroutine = StartCoroutine(FlashColorCoroutine());
 

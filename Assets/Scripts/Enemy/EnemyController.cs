@@ -89,8 +89,8 @@ public class EnemyController : MonoBehaviour
             enemy_state = "Dead";
             if (ChanceTimeChanger.Instance != null && ChanceTimeChanger.Instance.IsRallyActive)
             {
-                ChanceTimeChanger.Instance.EndRally();
                 FindObjectOfType<ScoreController>().FinalScore();
+                ChanceTimeChanger.Instance.EndRally();
             }
         }
     }

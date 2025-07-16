@@ -2298,7 +2298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 564438822}
-  baseDamage: 10
+  baseDamage: 10000
   frontRowMultiplier: 1
   middleRowMultiplier: 1.1
   backRowMultiplier: 1.2

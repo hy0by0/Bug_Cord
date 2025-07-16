@@ -1,16 +1,30 @@
 using UnityEngine;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class GlobalTimeControl : MonoBehaviour
 {
     public static GlobalTimeControl Instance { get; private set; }
 
-    public float globalTimeInSeconds = 300f;
+    public float totalTime_Static = 300f;
+    public float globalTimeInSeconds;
 
-    void Start()
+    
+
+    void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(this);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            globalTimeInSeconds = totalTime_Static; // 初始化当前时间
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
 
     void Update()
     {

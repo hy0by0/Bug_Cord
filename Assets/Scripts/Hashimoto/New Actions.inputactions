@@ -337,6 +337,61 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "91c9fac5-2fe7-4ee8-8fbb-6f8838fa2b4a",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move2",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "e7d9b49b-73c2-4f00-9b6f-813a3f3dd739",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move2",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "7e9931be-6ce7-46e4-9183-31cefbe233d2",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move2",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "2e9b5fa6-b0e3-49ab-9297-7d9a6558de9e",
+                    "path": "<Joystick>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move2",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "e6fdcdfb-39a1-4772-9376-135bc7d2bf9f",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move2",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "1542fda7-b995-44ea-a1d2-f4b9c368eb99",
                     "path": "<Gamepad>/rightStick",
@@ -370,6 +425,61 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "d90f4116-9e74-493e-bd4e-5c0a0cc14141",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cursor",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "b0197faf-1f2f-4e9c-b459-cafd71b6131b",
+                    "path": "<HID::Nintendo Wireless Gamepad>/hat/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "6d6c6c59-72b6-4971-b789-16c50cc21606",
+                    "path": "<HID::Nintendo Wireless Gamepad>/hat/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "69c6e9f8-050a-4fec-bcc8-8d417cab0f2f",
+                    "path": "<HID::Nintendo Wireless Gamepad>/hat/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "9ef01c67-710d-4ba5-b356-ae599c6452ad",
+                    "path": "<HID::Nintendo Wireless Gamepad>/hat/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "d4dac471-4a3f-4386-b1ba-b57351efeb68",
                     "path": "<Mouse>/rightButton",
@@ -384,6 +494,17 @@
                     "name": "",
                     "id": "4e834d4a-84bd-4bc9-9740-ed25d9f6bca6",
                     "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ddcf78b-a68d-498e-bbe9-7e34ef41e0fd",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button16",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

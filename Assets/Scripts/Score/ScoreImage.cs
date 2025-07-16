@@ -24,11 +24,15 @@ public class ScoreImage : MonoBehaviour
     public void ShowNumber(int m_number)
     {
         string m_str = m_number.ToString("D5");
+        if (m_number >= 0) {
 
-        for (int i = 0; i < m_ScoreImages.Count; i++)
-        {
-            int m_digit = int.Parse(m_str[i].ToString());
-            m_ScoreImages[i].sprite = m_Sprite.m_ScoreSprite[m_digit];
+            for (int i = 0; i < m_ScoreImages.Count; i++)
+            {
+                int m_digit = int.Parse(m_str[i].ToString());
+                m_ScoreImages[i].sprite = m_Sprite.m_ScoreSprite[m_digit];
+            }
+
         }
+
     }
 }

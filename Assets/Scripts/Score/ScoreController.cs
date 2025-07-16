@@ -56,7 +56,9 @@ public class ScoreController : MonoBehaviour
         m_Time = 0;
         m_BoyScoreImage.ShowNumber((int)m_CountScorePlayer);
         m_GirlScoreImage.ShowNumber((int)m_CountScorePlayer);
+
     }
+
 
     /// <summary>
     /// プレイヤーのスコアの加算関数

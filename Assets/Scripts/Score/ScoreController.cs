@@ -6,60 +6,95 @@ public class ScoreController : MonoBehaviour
 {
     [Header("スコアをカウントする変数")]
     public float m_CountScorePlayer;
+    [Header("Boyスコアをカウントする変数")]
+    public float m_BoyCountScore;
+    [Header("Girlスコアをカウントする変数")]
+    public float m_GirlCountScore;
 
-    [Header("プレイヤー1の攻撃を取得するスクリプト")]
-    public PlayerAttack m_Player1Attack;
-    [Header("プレイヤー2の攻撃を取得するスクリプト")]
-    public PlayerAttack m_Player2Attack;
+    [Header("スコアの画像を制御するスクリプト(Boy)")]
+    public ScoreImage m_BoyScoreImage;
+    [Header("スコアの画像を制御するスクリプト(Girl)")]
+    public ScoreImage m_GirlScoreImage;
 
-    [Header("スコアの画像を制御するスクリプト")]
-    public ScoreImage m_ScoreImage;
-
+    [Header("時間を加算するために必要なスクリプト")]
+    public CountDownClock m_CountDownClock;
     private void Awake()
     {
-        if (m_Player1Attack == null) m_Player1Attack = GetComponent<PlayerAttack>();
-        if (m_Player2Attack == null) m_Player2Attack = GetComponent<PlayerAttack>();
-        if (m_ScoreImage == null) m_ScoreImage = GetComponent<ScoreImage>();
+        if (m_BoyScoreImage == null) m_BoyScoreImage = GetComponent<ScoreImage>();
+        if (m_GirlScoreImage == null) m_GirlScoreImage = GetComponent<ScoreImage>();
+        if(m_CountDownClock==null)m_CountDownClock = GetComponent<CountDownClock>();
 
-        if (m_Player1Attack == null || m_Player2Attack == null || m_ScoreImage == null)
+        if (m_BoyScoreImage == null || m_GirlScoreImage == null)
         {
-            Debug.LogError("PlayerAttack または ScoreImage スクリプトが入っていません", this);
+            Debug.LogError("ScoreImage が設定されていません");
+        }
+        else if(m_CountDownClock == null)
+        {
+            Debug.LogError("CountDownClock が設定されていません");
         }
     }
 
     private void Start()
     {
         m_CountScorePlayer = 0;
-        m_ScoreImage.ShowNumber((int)m_CountScorePlayer);
+        m_BoyCountScore = 0;
+        m_GirlCountScore = 0;
+        m_BoyScoreImage.ShowNumber((int)m_CountScorePlayer);
+        m_GirlScoreImage.ShowNumber((int)m_CountScorePlayer);
     }
+
     /// <summary>
     /// プレイヤーのスコアの加算関数
     /// (ポジションの位置の数値)
     /// </summary>
-    public void PlusScore()
+    public void PlusScore(int damage, int playerID)
     {
-        m_CountScorePlayer += m_Player1Attack.GetCalculatedDamage();
-            m_CountScorePlayer += m_Player2Attack.GetCalculatedDamage();
-        Debug.Log(m_CountScorePlayer + "プラス");
-        m_ScoreImage.ShowNumber((int)m_CountScorePlayer);
+        if (playerID == 1)
+        {
+            m_BoyCountScore += damage;
+        }
+        else if (playerID == 2)
+        {
+            m_GirlCountScore += damage;
+        }
+
+        m_CountScorePlayer = m_BoyCountScore + m_GirlCountScore;
+
+        //ログと表示
+        Debug.Log($"Boy:{m_BoyCountScore} Girl:{m_GirlCountScore} 合計:{m_CountScorePlayer}");
+        m_BoyScoreImage.ShowNumber((int)m_BoyCountScore);
+        m_GirlScoreImage.ShowNumber((int)m_GirlCountScore);
     }
 
     /// <summary>
     /// プレイヤーのスコアの減算関数
     /// (ポジションの位置の数値)
     /// </summary>
-    public void MinusScore()
+    public void MinusScore(int damage, int playerID)
     {
-        m_CountScorePlayer -= m_Player1Attack.GetCalculatedDamage();
-        m_CountScorePlayer -= m_Player2Attack.GetCalculatedDamage();
-        Debug.Log(m_CountScorePlayer + "マイナス");
-        m_ScoreImage.ShowNumber((int)m_CountScorePlayer);
-    }
+        if (playerID == 1)
+        {
+            m_BoyCountScore -= damage;
+        }
+        else if (playerID == 2)
+        {
+            m_GirlCountScore -= damage;
+        }
 
+        m_CountScorePlayer = m_BoyCountScore + m_GirlCountScore;
+
+        //ログと表示
+        Debug.Log($"Boy:{m_BoyCountScore} Girl:{m_GirlCountScore} 合計:{m_CountScorePlayer}");
+        m_BoyScoreImage.ShowNumber((int)m_BoyCountScore);
+        m_GirlScoreImage.ShowNumber((int)m_GirlCountScore);
+    }
+    
     public void FinalScore()
     {
         PlayerPrefs.SetInt("DamageScore", (int)m_CountScorePlayer);
-        //PlayerPrefs.SetInt("TimeScore", (int)???);
+        PlayerPrefs.SetInt("BoyDamageScore", (int)m_BoyCountScore);
+        PlayerPrefs.SetInt("GirlDamageScore", (int)m_GirlCountScore);
+        PlayerPrefs.SetInt("TimeScore", (int)m_CountDownClock.timeInSeconds);
         PlayerPrefs.Save();
     }
 }

@@ -1890,7 +1890,7 @@ MonoBehaviour:
   - {fileID: 2127130691849892096, guid: cdb04ccd321ec884cb06e156717a2d89, type: 3}
   - {fileID: 2127130691849892096, guid: 75c6c4e64f19bb04d9b2da44b93c3404, type: 3}
   - {fileID: 2127130691849892096, guid: 4ffcf259e25a7b049a63400026677d2d, type: 3}
-  weakHitThreshold: 5
+  weakHitThreshold: 3
   maxItems: 9
   itemLifetime: 10
   frontRowScale: 1
@@ -6242,7 +6242,7 @@ MonoBehaviour:
   - {fileID: 2127130691849892096, guid: 75c6c4e64f19bb04d9b2da44b93c3404, type: 3}
   - {fileID: 2127130691849892096, guid: cdb04ccd321ec884cb06e156717a2d89, type: 3}
   - {fileID: 2127130691849892096, guid: 4ffcf259e25a7b049a63400026677d2d, type: 3}
-  weakHitThreshold: 5
+  weakHitThreshold: 2
   maxItems: 3
   itemLifetime: 10
   frontRowScale: 1
@@ -8082,7 +8082,7 @@ MonoBehaviour:
   playerID: 0
   criticalEffectPrefab: {fileID: 8729074581977840526, guid: dac2672f3a1c2fd46880612ed9be4b8c, type: 3}
   hitEffectPrefab: {fileID: 7402612426004475247, guid: cd431f9a3ec71694a95574194c7dedba, type: 3}
-  enemy_hp: 10000
+  enemy_hp: 5000
   enemy_state: Normal
   uimanager: {fileID: 129646156}
   count_hit: 0
@@ -10298,7 +10298,7 @@ MonoBehaviour:
   playerID: 1
   criticalEffectPrefab: {fileID: 8729074581977840526, guid: dac2672f3a1c2fd46880612ed9be4b8c, type: 3}
   hitEffectPrefab: {fileID: 7402612426004475247, guid: cd431f9a3ec71694a95574194c7dedba, type: 3}
-  enemy_hp: 10000
+  enemy_hp: 5000
   enemy_state: Normal
   uimanager: {fileID: 515723520}
   count_hit: 0

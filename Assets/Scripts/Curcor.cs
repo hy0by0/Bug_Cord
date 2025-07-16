@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class Curcor : MonoBehaviour
 {
+    public AudioClip title;
+    private AudioSource audioSource;
     // --- 未使用の変数 ---
     // private Vector3 screenPoint;
     // private Vector3 offset;
@@ -63,6 +65,9 @@ public class Curcor : MonoBehaviour
     // =================== Unity Callback ===================
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)Debug.LogError("AudioSource コンポーネントがありません。");
+
         int connectedGamepads = Gamepad.all.Count;
         Debug.Log("接続されているゲームパッドの数: " + connectedGamepads);
 
@@ -194,6 +199,8 @@ public class Curcor : MonoBehaviour
         }
         else if (currentScene == "Title")
         {
+            if (title != null)  audioSource.PlayOneShot(title);
+            
             if (isSceneTransitioning) return;
 
             isSceneTransitioning = true;

@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 123232133}
   - component: {fileID: 123232136}
   m_Layer: 0
-  m_Name: HitBox_critical_1
+  m_Name: HitBox_critical_1_P2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1050,7 +1050,7 @@ GameObject:
   - component: {fileID: 306945849}
   - component: {fileID: 306945848}
   m_Layer: 0
-  m_Name: HitBox_normal_3
+  m_Name: HitBox_normal_3_P1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1227,7 +1227,7 @@ GameObject:
   - component: {fileID: 318096251}
   - component: {fileID: 318096250}
   m_Layer: 0
-  m_Name: HitBox_normal_4
+  m_Name: HitBox_normal_4_P2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1483,7 +1483,7 @@ GameObject:
   - component: {fileID: 384061582}
   - component: {fileID: 384061584}
   m_Layer: 0
-  m_Name: HitBox_weak_1
+  m_Name: HitBox_weak_1_P1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2620,7 +2620,7 @@ GameObject:
   - component: {fileID: 579107280}
   - component: {fileID: 579107282}
   m_Layer: 0
-  m_Name: HitBox_critical_1
+  m_Name: HitBox_critical_1_P1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3081,7 +3081,7 @@ GameObject:
   - component: {fileID: 648017407}
   - component: {fileID: 648017406}
   m_Layer: 0
-  m_Name: HitBox_normal_2
+  m_Name: HitBox_normal_2_P1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3511,7 +3511,7 @@ GameObject:
   - component: {fileID: 749832533}
   - component: {fileID: 749832532}
   m_Layer: 0
-  m_Name: HitBox_normal_1
+  m_Name: HitBox_normal_1_P2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4342,7 +4342,7 @@ GameObject:
   - component: {fileID: 787060853}
   - component: {fileID: 787060852}
   m_Layer: 0
-  m_Name: HitBox_normal_4
+  m_Name: HitBox_normal_4_P1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4488,7 +4488,7 @@ GameObject:
   - component: {fileID: 790812237}
   - component: {fileID: 790812236}
   m_Layer: 0
-  m_Name: HitBox_resist_1
+  m_Name: HitBox_resist_1_P1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5095,7 +5095,7 @@ GameObject:
   - component: {fileID: 917884816}
   - component: {fileID: 917884815}
   m_Layer: 0
-  m_Name: HitBox_critical_2
+  m_Name: HitBox_critical_2_P2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5382,7 +5382,7 @@ GameObject:
   - component: {fileID: 928856081}
   - component: {fileID: 928856080}
   m_Layer: 0
-  m_Name: HitBox_critical_2
+  m_Name: HitBox_critical_2_P1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5529,7 +5529,7 @@ GameObject:
   - component: {fileID: 976750968}
   - component: {fileID: 976750969}
   m_Layer: 0
-  m_Name: HitBox_normal_1
+  m_Name: HitBox_normal_1_P1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6621,7 +6621,7 @@ GameObject:
   - component: {fileID: 1057824032}
   - component: {fileID: 1057824031}
   m_Layer: 0
-  m_Name: HitBox_normal_3
+  m_Name: HitBox_normal_3_P2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7233,7 +7233,7 @@ GameObject:
   - component: {fileID: 1228846088}
   - component: {fileID: 1228846090}
   m_Layer: 0
-  m_Name: HitBox_weak_2
+  m_Name: HitBox_weak_2_P1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7537,7 +7537,7 @@ GameObject:
   - component: {fileID: 1338328458}
   - component: {fileID: 1338328460}
   m_Layer: 0
-  m_Name: HitBox_weak_1
+  m_Name: HitBox_weak_1_P2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8836,7 +8836,7 @@ GameObject:
   - component: {fileID: 1469332049}
   - component: {fileID: 1469332048}
   m_Layer: 0
-  m_Name: HitBox_resist_1
+  m_Name: HitBox_resist_1_P2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9057,7 +9057,7 @@ GameObject:
   - component: {fileID: 1518444041}
   - component: {fileID: 1518444040}
   m_Layer: 0
-  m_Name: HitBox_normal_2
+  m_Name: HitBox_normal_2_P2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9976,7 +9976,7 @@ GameObject:
   - component: {fileID: 1838684597}
   - component: {fileID: 1838684599}
   m_Layer: 0
-  m_Name: HitBox_weak_2
+  m_Name: HitBox_weak_2_P2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

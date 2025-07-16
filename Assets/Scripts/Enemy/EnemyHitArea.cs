@@ -1,5 +1,6 @@
 // EnemyHitArea2D.cs
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 2D版 EnemyHitArea：
@@ -20,21 +21,52 @@ public class EnemyHitArea2D : MonoBehaviour
         PlayerAttack attackComp;
         PlayerController controller;
 
-        if (other.CompareTag("AttackPlayer1"))
+        // 今のシーン名を取得
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == "Main")
         {
-            playerIndex = 0;
-            attackComp = other.GetComponent<PlayerAttack>();
-            controller = playerController1;
+            // Main シーンではオブジェクト名も条件に入れる
+            if (other.CompareTag("AttackPlayer1") && gameObject.name.EndsWith("_P1"))
+            {
+                playerIndex = 0;
+                attackComp = other.GetComponent<PlayerAttack>();
+                controller = playerController1;
+            }
+            else if (other.CompareTag("AttackPlayer2") && gameObject.name.EndsWith("_P2"))
+            {
+                playerIndex = 1;
+                attackComp = other.GetComponent<PlayerAttack>();
+                controller = playerController2;
+            }
+            else
+            {
+                return;  // Main シーンで条件を満たさなければ無視
+            }
         }
-        else if (other.CompareTag("AttackPlayer2"))
+        else if (sceneName == "SampleScene")
         {
-            playerIndex = 1;
-            attackComp = other.GetComponent<PlayerAttack>();
-            controller = playerController2;
+            // SampleScene ではオブジェクト名のチェックなし
+            if (other.CompareTag("AttackPlayer1"))
+            {
+                playerIndex = 0;
+                attackComp = other.GetComponent<PlayerAttack>();
+                controller = playerController1;
+            }
+            else if (other.CompareTag("AttackPlayer2"))
+            {
+                playerIndex = 1;
+                attackComp = other.GetComponent<PlayerAttack>();
+                controller = playerController2;
+            }
+            else
+            {
+                return;  // SampleScene で条件を満たさなければ無視
+            }
         }
         else
         {
-            return;  // AttackPlayer1/2 以外は無視
+            return;  // 他のシーンでは処理しない場合
         }
 
         // ダメージ処理
@@ -51,13 +83,17 @@ public class EnemyHitArea2D : MonoBehaviour
                 break;
         }
 
-        controller.Attack();
-
-        // ★弱点攻撃(weak)のときだけ通知
-        if (hit_area_type == "weak")
+        if (controller != null)
         {
-            ItemSpawner_main.NotifyWeakHit(playerIndex == 0 ? PlayerID.P1 : PlayerID.P2);
+            controller.Attack();
 
+            // ★弱点攻撃(weak)のときだけ通知
+            if (hit_area_type == "weak")
+            {
+                ItemSpawner_main.NotifyWeakHit(playerIndex == 0 ? PlayerID.P1 : PlayerID.P2);
+
+            }
         }
+
     }
 }

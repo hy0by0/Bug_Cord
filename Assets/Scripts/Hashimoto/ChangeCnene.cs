@@ -29,25 +29,28 @@ public class ChangeCnene : MonoBehaviour
 
                 inputActions.Player.Enable();
                 inputActions.Player.Shot.performed += changeScene;
-              
-
-            //if (Input.GetMouseButtonDown(0) || Input.GetButton("btnA")) 
-            //{
-            //    ScreenFader screenFader = FindObjectOfType<ScreenFader>();
-
-            //    if (screenFader != null)
-            //    {
-            //        StartCoroutine(screenFader.BackBlack());
-            //    }
-
-            //    Invoke(nameof(GoTItle), 2.0f);
-
-            //}
+             
+            if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) 
+            {
+                changeSceneEnter();
+            }
         }
     }
 
 
     void changeScene(InputAction.CallbackContext ctx)
+    {
+        ScreenFader screenFader = FindObjectOfType<ScreenFader>();
+
+        if (screenFader != null)
+        {
+            StartCoroutine(screenFader.BackBlack());
+        }
+
+        Invoke(nameof(GoTItle), 2.0f);
+    }
+
+    void changeSceneEnter()
     {
         ScreenFader screenFader = FindObjectOfType<ScreenFader>();
 

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenario:
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
-    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
-    characterImageTwo: {fileID: 21300000, guid: ce1679664dab69445b6616e509c021f9, type: 3}
+    CharacterImage: {fileID: 21300000, guid: 4f90aee8f67cb7d44a19c9ad25e7884c, type: 3}
+    characterImageTwo: {fileID: 0}
     ScenarioText: "In a future world, AI and virtual networks governed much of human
       life.\n(\u672A\u6765\u306E\u4E16\u754C\u3002\u4EBA\u985E\u306E\u751F\u6D3B\u306F\u3001AI\u3068\u4EEE\u60F3\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u306B\u3088\u3063\u3066\u591A\u304F\u306E\u3082\u306E\u304C\u7BA1\u7406\u3055\u308C\u3066\u3044\u305F\u3002)"
     CharacterName: 
@@ -35,7 +35,7 @@ MonoBehaviour:
     CharacterName: 
     twoCharaflag: 0
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
-    CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
+    CharacterImage: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     characterImageTwo: {fileID: 21300000, guid: 59dd4022760324944908700fcbe3a4ae, type: 3}
     ScenarioText: "It became an international cyber-terror incident, plunging the
       entire world into chaos.\n(\u4E16\u754C\u4E2D\u304C\u6DF7\u4E71\u306B\u9665\u308B\u201C\u56FD\u969B\u96FB\u5B50\u30C6\u30ED\u201D\u3068\u5316\u3057\u305F\u3002)"
@@ -50,7 +50,7 @@ MonoBehaviour:
     twoCharaflag: 1
   - BackGround: {fileID: 21300000, guid: a1b0da84f2b01e64e92493ef6603ec69, type: 3}
     CharacterImage: {fileID: 21300000, guid: d17782f367ca07d4999e5e1595bd69a9, type: 3}
-    characterImageTwo: {fileID: 21300000, guid: 098906cd74d252b4ba124cd2bb54a9ab, type: 3}
+    characterImageTwo: {fileID: 21300000, guid: 759078517c717334a81ec18704d43978, type: 3}
     ScenarioText: "Now, weapons in hand, they set out to delete the rampaging Wizard...\n(\u4ECA\u3001\u5F7C\u3089\u306F\u6B66\u5668\u3092\u7247\u624B\u306B\u3001\u66B4\u8D70\u3059\u308B\u201C\u30A6\u30A3\u30B6\u30FC\u30C9\u201D\u3092\u6D88\u53BB\uFF08\u30C7\u30EA\u30FC\u30C8\uFF09\u3059\u308B\u2014\u2014\u3002)"
     CharacterName: 
     twoCharaflag: 1

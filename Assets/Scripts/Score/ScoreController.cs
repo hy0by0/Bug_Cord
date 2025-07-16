@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScoreController : MonoBehaviour
 {
+    public static ScoreController Instance { get; private set; }
+
     [Header("スコアをカウントする変数")]
     public float m_CountScorePlayer;
     [Header("Boyスコアをカウントする変数")]
@@ -33,7 +35,18 @@ public class ScoreController : MonoBehaviour
         {
             Debug.LogError("CountDownClock が設定されていません");
         }
+
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
 
     private void Start()
     {

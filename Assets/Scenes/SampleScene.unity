@@ -1549,7 +1549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &512121422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1848,6 +1848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df88b5c9fff7b419432981c5812aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 0
   myCursor: {fileID: 569559011}
   positionMarkers:
   - {fileID: 507706790}
@@ -3811,9 +3812,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CountScorePlayer: 0
-  m_Player1Attack: {fileID: 458840534}
-  m_Player2Attack: {fileID: 585680108}
-  m_ScoreImage: {fileID: 880604397}
+  m_BoyCountScore: 0
+  m_GirlCountScore: 0
+  m_BoyScoreImage: {fileID: 0}
+  m_GirlScoreImage: {fileID: 0}
+  m_CountDownClock: {fileID: 0}
 --- !u!4 &864487626
 Transform:
   m_ObjectHideFlags: 0
@@ -4174,6 +4177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df88b5c9fff7b419432981c5812aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 0
   myCursor: {fileID: 415694873}
   positionMarkers:
   - {fileID: 507706790}
@@ -7093,6 +7097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df88b5c9fff7b419432981c5812aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 0
   myCursor: {fileID: 0}
   positionMarkers:
   - {fileID: 507706790}

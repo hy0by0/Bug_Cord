@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class ScenarioManager : MonoBehaviour
 {
-    //[SerializeField] private GameObject choicePanel;
-
-    //[SerializeField] private Button[] choiceButtons;
 
     [SerializeField] private ScenarioData[] scenarioDatas;
 
@@ -20,7 +17,6 @@ public class ScenarioManager : MonoBehaviour
 
     [SerializeField] private Text characterName;
 
-    //[SerializeField] private SceneController scenecontroller;
 
     public int scenarioIndex;
 
@@ -32,15 +28,8 @@ public class ScenarioManager : MonoBehaviour
 
     public ChangeScene changeSceneManager;
 
-    //[SerializeField, AddComponentMenu("�����`�F���W���[")] private SoundManager soundManager;
-
-    // Start is called before the first frame update
     void Start()
     {
-        //SetScenarioElement(scenarioIndex, textIndex);
-        //testAction = new NewActions();
-        //testAction.Enable();
-
         testAction = new NewActions();   // �@ ��ɍ��
         testAction.Enable();             // �A �L��������
 
@@ -54,10 +43,6 @@ public class ScenarioManager : MonoBehaviour
         {
             if (textIndex < scenarioDatas[scenarioIndex].scenario.Count -1)
             {
-                //if (scenarioDatas[scenarioIndex].scenario[textIndex].choiceflag == false)
-                //{
-
-                //}
                 textIndex++;
                 SetScenarioElement(scenarioIndex, textIndex);
                 ProgressinCheck(scenarioIndex);
@@ -73,21 +58,14 @@ public class ScenarioManager : MonoBehaviour
         {
             if (textIndex >0)
             {
-                //if (scenarioDatas[scenarioIndex].scenario[textIndex].choiceflag == false)
-                //{
-
-                //}
+ 
                 textIndex--;
                 SetScenarioElement(scenarioIndex, textIndex);
                 ProgressinCheck(scenarioIndex);
 
             }
         }
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    textIndex++;
-        //    SetScenarioElement(scenarioIndex, textIndex);
-        //}
+
     }
 
     private void SetScenarioElement(int _scenarioIndex, int _textIndex)
@@ -117,39 +95,6 @@ public class ScenarioManager : MonoBehaviour
             characterImageTwo.gameObject.SetActive(false);
         }
 
-        //if (scenarioDatas[_scenarioIndex].scenario[_textIndex].choiceflag == true)//�I�����p�l�����J���ꂽ
-        //{
-        //    ShowChoices(scenarioDatas[_scenarioIndex].scenario[_textIndex].choices);
-        //}
-
-
-        //if (scenarioDatas[_scenarioIndex].scenario[_textIndex].bgmchangeflag == true)//�Ȃ��ς��
-        //{
-        //    soundManager.ChangeBGM();
-        //}
-    }
-
-    private void ShowChoices(string[] choices)//�I������\��������
-    {
-        //choicePanel.SetActive(true);
-
-        //for (int i = 0; i < choiceButtons.Length; i++)
-        //{
-        //    if (i < choices.Length)
-        //    {
-        //        choiceButtons[i].gameObject.SetActive(true);
-        //        choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = choices[i];
-
-        //        int index = i;
-
-        //        choiceButtons[i].onClick.RemoveAllListeners();
-        //        choiceButtons[i].onClick.AddListener(() => OnChoiceClicked(index));
-        //    }
-        //    else
-        //    {
-        //        choiceButtons[i].gameObject.SetActive(false);
-        //    }
-        //}
     }
 
     private void OnChoiceClicked(int choiceindex)//�{�^�����N���b�N���ꂽ�Ƃ��̏���
@@ -180,17 +125,6 @@ public class ScenarioManager : MonoBehaviour
         if (textIndex < scenarioDatas[_scenarioIndex].scenario.Count)
         {
             SetScenarioElement(_scenarioIndex, textIndex);
-        }
-        else
-        {
-            //scenecontroller.FadeOut();
-
-            //textIndex = 0;
-            //scenarioIndex++;
-
-            //SetScenarioElement(scenarioIndex, textIndex);
-
-
         }
     }
 }

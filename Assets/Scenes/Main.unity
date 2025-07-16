@@ -8711,7 +8711,7 @@ MonoBehaviour:
   - {fileID: 1041392047}
   attackEffectPrefab: {fileID: 2922394331798362088, guid: fadeaa9f6154a334db1a1fdd84e06538, type: 3}
   playerController1: {fileID: 564438822}
-  playerController2: {fileID: 922459355}
+  playerController2: {fileID: 564438822}
   interval: 6
   displayDuration: 2
   glowCount: 3
@@ -10262,7 +10262,7 @@ MonoBehaviour:
   - {fileID: 1319177003}
   - {fileID: 1123901063}
   attackEffectPrefab: {fileID: 2922394331798362088, guid: fadeaa9f6154a334db1a1fdd84e06538, type: 3}
-  playerController1: {fileID: 564438822}
+  playerController1: {fileID: 922459355}
   playerController2: {fileID: 922459355}
   interval: 6
   displayDuration: 2

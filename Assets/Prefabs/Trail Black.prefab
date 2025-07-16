@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5941333931439599313}
   - component: {fileID: 3479728572899209413}
   - component: {fileID: 1300861552387930630}
+  - component: {fileID: 3330522731976311504}
   m_Layer: 0
   m_Name: Trail Black
   m_TagString: Untagged
@@ -4889,3 +4890,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3330522731976311504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2922394331798362088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a06401a9d1cd04493295f86dbf94ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 3

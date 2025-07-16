@@ -1,240 +1,279 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-// 敵に関する処理全般を担うスクリプト。以下に２つのクラスがある。
-
-// 敵の行動パターンの一覧のenum ここに追加したりしてください。これは実装しきれませんでした。
-
+// ★【修正】消えていたクラス定義を元に戻しました
 public enum EnemyState
 {
-    Normal,
-    Stan,
-    Alert,
-    Dead,
-    Attack,
-    Cooldown,
-    Special
+    Normal, Stan, Alert, Dead, Attack, Cooldown, Special
 }
-
-
-// 特定条件で出現させるクリティカル当たり判定オブジェクトを格納する場所 inspector上に追加・変更をしていってください。
 [System.Serializable]
 public class CriticalHitBox_Spawnded
 {
-    public string pairID;  // 呼びだす当たり判定オブジェクトのペアの識別用変数
-    public GameObject hitboxObject;       // 出現させる当たり判定
+    public string pairID;
+    public GameObject hitboxObject;
 }
 
 
-
-// EnemyHitAreaスクリプトからダメージを受け取る。HPに関してはUIManagerクラスを呼びだして変更を反映させたりもしている。
 public class EnemyController : MonoBehaviour
 {
+    [Header("■ チーム設定")]
+    public PlayerID playerID;
 
-//// 以下、敵グラフィック関連の変数
-
-    private Animator animator; // Animatorコンポーネントを取得するための変数
-
-    private SpriteRenderer spriteRenderer; // オブジェクトの画像コンポーネントを保持するための変数
-    private Color originalColor;
-
-    private Coroutine flashCoroutine;    // 実行中の色変更コルーチンを保持するための変数
-
+    [Header("■ グラフィック関連")]
     [SerializeField] private GameObject criticalEffectPrefab;
     [SerializeField] private GameObject hitEffectPrefab;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    private Coroutine flashCoroutine;
 
-/////////////////////////////////////////////////////////////////////////////////// 
-//// 以下、敵のおパラメータ・ステータスに関する変数
+    [Header("■ ステータス")]
+    // ★ 'static' を削除し、各敵が個別のHPと状態を持つようにします
+    public int enemy_hp = 10000;
+    public string enemy_state = "Normal";
 
-    public int enemy_hp = 10000; //敵の最大ＨＰを入力してね
-    [SerializeField] UIManager uimanager; //UIManagerクラスのメソッドを呼びだしたいため
-    public static string enemy_state = "Normal"; //敵の状態。普通、ひより、死亡、の３段階は最低限考えたい。
+    [SerializeField] UIManager uimanager;
 
-///////////////////////////////////////////////////////////////////////////////////   
-//// 以下、特定条件でクリティカル当たり判定オブジェを出現させるための変数
+    [Header("■ クリティカルヒット関連")]
+    public int count_hit = 0;
+    public int count_hit_Flag = 5;
+    public List<CriticalHitBox_Spawnded> spawnPairs;
+    public float activeDuration_HitBox = 8f;
 
-    public int count_hit = 0; //受けた攻撃回数をカウントするための変数。攻撃回数を条件にした処理を起こすため。
-    public int count_hit_Flag = 5; //クリティカル当たり判定オブジェが出てくるまでの攻撃回数。攻撃回数がこれに達するとクリティカル当たり判定オブジェが発生するようにする
+    // --- 内部変数 ---
+    private bool hasSpawned = false;
+    private bool rallyStartRequested = false;
 
-    public List<CriticalHitBox_Spawnded> spawnPairs;     // 複数の「クリティカル当たり判定オブジェクト」(ここに、出現させたいクリティカルの当たり判定オブジェと識別名称を入力
-    public float activeDuration_HitBox = 8f;        // クリティカル当たり判定が出現している時間
-    private bool hasSpawned = false;         // 一度だけ実行されるように制御 (連続で発生してしまわないようにするために必要)
-
-
-    ///////////////////////////////////////////////////////////////////////////////////   
-    //// 以下からがEnemyContorollerクラスのメソッドの記述
-
-    // Start is called before the first frame update
     void Start()
     {
-
-        spriteRenderer = GetComponent<SpriteRenderer>();// オブジェクトの画像コンポーネントを取得(攻撃時に赤色へ敵を変えるため)
+        spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
 
-
-        //UIManagerへ最大ＨＰの値を反映させる(比率を合わせるために)
-        uimanager.enemy_hp_max = enemy_hp;
-        uimanager.enemy_hp_remain = enemy_hp;
-
-        // 受けた攻撃回数の初期化
+        // UIManagerの仕様に合わせて初期化
+        if (uimanager != null)
+        {
+            uimanager.enemy_hp_max = this.enemy_hp;
+            uimanager.enemy_hp_remain = this.enemy_hp;
+        }
         count_hit = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // 以下のＩＦ文の内容を変えることで、クリティカル当たり判定オブジェを出現させる条件を変更できます。
-        if (!hasSpawned && count_hit >= count_hit_Flag)
+        if (enemy_state == "Dead") return;
+
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // --- ChanceTime(SampleScene)の場合：従来の攻撃回数でクリティカルが出現 ---
+        if (currentSceneName == "SampleScene")
         {
-            //呼びだしたいクリティカル当たり判定オブジェをメソッドから呼びだす。特定のタイミングで呼びだしたいときもこの記述を使ってください。
-            SpawnPairByID("1"); //この記述内の入力を変えることで、複数クリティカル当たり判定オブジェを扱う場合でも、呼び分けられます
+            if (!hasSpawned && count_hit >= count_hit_Flag)
+            {
+                SpawnPairByID("1");
+            }
+        }
+        // --- Mainシーンの場合：ラリー形式のクリティカル ---
+        else if (currentSceneName == "Main")
+        {
+            if (ChanceTimeChanger.Instance != null && !ChanceTimeChanger.Instance.IsRallyActive && !rallyStartRequested && count_hit >= count_hit_Flag)
+            {
+                rallyStartRequested = true;
+                ChanceTimeChanger.Instance.StartRally(this.playerID);
+            }
         }
 
         if (enemy_hp <= 0)
         {
             enemy_state = "Dead";
+            if (ChanceTimeChanger.Instance != null && ChanceTimeChanger.Instance.IsRallyActive)
+            {
+                ChanceTimeChanger.Instance.EndRally();
+            }
         }
     }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-    //以下のメソッド内からＱＲに関する記載を削除しました。
-    // 特定ＩＤのクリティカル当たり判定オブジェを出現させることを要請するメソッド
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Main")
+        {
+            // Mainシーンに戻ったらフラグとヒットカウントをリセット
+            rallyStartRequested = false;
+            count_hit = 0;
+        }
+    }
+
+    // --- ヒット処理メソッド群 ---
+
+    public void HitResist(int playerAtackdamage)
+    {
+        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 0.5f);
+        enemy_hp -= enemy_damaged;
+        if (uimanager != null) uimanager.DamagedBar(enemy_damaged);
+        count_hit++;
+    }
+
+    public void HitNormal(int playerAtackdamage)
+    {
+        // ヒットエフェクトなどの処理
+
+        if (flashCoroutine != null) StopCoroutine(flashCoroutine);
+        flashCoroutine = StartCoroutine(FlashColorCoroutine());
+
+        // ★ 1. まず、ここでダメージ量を計算し、ローカル変数 enemy_damaged を宣言（作成）する
+        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.0f);
+
+        // ★ 2. 作成した enemy_damaged 変数を、引数として HandleDamage に渡す
+        HandleDamage(enemy_damaged);
+
+        // 3. ヒット回数をカウントアップ
+        count_hit++;
+    }
+
+    public void HitWeak(int playerAtackdamage)
+    {
+        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.1f);
+        enemy_hp -= enemy_damaged;
+        if (uimanager != null) uimanager.DamagedBar(enemy_damaged);
+        HandleDamage(enemy_damaged);
+        count_hit++;
+    }
+
+    public void HitCritical(int playerAtackdamage)
+    {
+        Instantiate(criticalEffectPrefab, transform.position, Quaternion.identity);
+        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.3f);
+        enemy_hp -= enemy_damaged;
+        if (uimanager != null) uimanager.DamagedBar(enemy_damaged);
+
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "Main" && ChanceTimeChanger.Instance != null)
+        {
+            HideCriticalPoint();
+            ChanceTimeChanger.Instance.ReportCriticalHitAndSwitch(this.playerID);
+        }
+        enemy_state = "stan";
+
+        HandleDamage(enemy_damaged);
+        count_hit++;
+    }
+
+        /// <summary>
+    /// ダメージ関連の共通処理を行うメソッド
+    /// </summary>
+    private void HandleDamage(int damage) // damage という名前で enemy_damaged の値を受け取る
+    {
+        // 自身のHPを減らす
+        enemy_hp -= damage;
+
+        // UIマネージャーに通知する
+        if (uimanager != null)
+        {
+            uimanager.DamagedBar(damage);
+        }
+
+        // もし現在のシーンがチャンスタイムなら、与えたダメージを監督に報告する
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            if (ChanceTimeChanger.Instance != null)
+            {
+                ChanceTimeChanger.DamageDealtInChanceTime += damage;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 外部からHPを直接設定するためのメソッド (ChanceTimeChangerが使用)
+    /// </summary>
+    public void SetHealth(int newHealth)
+    {
+        Debug.Log($"[{playerID}] SetHealthが呼ばれました。新しいHP: {newHealth}");
+
+        // 1. この敵のHPの値を、受け取った新しい値に更新する
+        enemy_hp = newHealth;
+
+        // 2. UIManagerにも最新の状態を教える
+        if (uimanager != null)
+        {
+            // UIManagerが持っている残りHPの変数も、新しい値に直接設定する
+            uimanager.enemy_hp_remain = newHealth;
+
+            // ★ UIManagerの仕様上、DamagedBarを呼ばないとHPバーが更新されないため、
+            //    ダメージ量0で呼び出して、表示だけを強制的に更新させる
+            uimanager.DamagedBar(0);
+        }
+    }
+
+    /// <summary>
+    /// 外部からダメージを直接与えるためのメソッド (ChanceTimeChangerが使用)
+    /// </summary>
+    public void TakeDamage(int damage)
+    {
+        enemy_hp -= damage;
+        if (uimanager != null)
+        {
+            uimanager.DamagedBar(damage);
+        }
+    }
+
+    // --- クリティカルポイント関連メソッド ---
+
     public void SpawnPairByID(string id)
     {
         if (hasSpawned) return;
-
         CriticalHitBox_Spawnded targetPair = spawnPairs.Find(p => p.pairID == id);
-
         if (targetPair != null)
         {
-            // 以下のコルーチンを呼びだし、特定の(ID:targetPair)当たり判定オブジェの出現処理を実行させる
             StartCoroutine(SpawnHitboxCoroutine(targetPair));
-        }
-        else
-        {
-            Debug.LogWarning($"ID '{id}' のペアが見つかりませんでした。");
         }
     }
 
-
-    //以下のコルーチンからＱＲに関する記載を削除しました。
-    // 入力されたクリティカル当たり判定オブジェクトを実際に出現させるコルーチン
     private IEnumerator SpawnHitboxCoroutine(CriticalHitBox_Spawnded pair)
     {
         hasSpawned = true;
-        if (pair.hitboxObject != null) //ここもＱＲ部分を消す
-        {
-            pair.hitboxObject.SetActive(true);
-        }
-
-        // 一定時間後にクリティカル当たり判定を非表示
+        if (pair.hitboxObject != null) pair.hitboxObject.SetActive(true);
         yield return new WaitForSeconds(activeDuration_HitBox);
-
-        pair.hitboxObject.SetActive(false);
-
-        // 以上の全てが終わった後、ヒットカウントをリセット
+        if (pair.hitboxObject != null) pair.hitboxObject.SetActive(false);
         count_hit = 0;
-        hasSpawned = false; // 次の出現に備える
+        hasSpawned = false;
     }
 
+    public void ShowCriticalPoint()
+    {
+        CriticalHitBox_Spawnded targetPair = spawnPairs.Find(p => p.pairID == "1");
+        if (targetPair != null && targetPair.hitboxObject != null)
+        {
+            targetPair.hitboxObject.SetActive(true);
+        }
+    }
 
-    // 色を一定時間変更して元に戻すコルーチン
+    public void HideCriticalPoint()
+    {
+        CriticalHitBox_Spawnded targetPair = spawnPairs.Find(p => p.pairID == "1");
+        if (targetPair != null && targetPair.hitboxObject != null)
+        {
+            targetPair.hitboxObject.SetActive(false);
+        }
+    }
+
     private IEnumerator FlashColorCoroutine()
     {
-        // 1. スプライトの色を赤に変更する
+        if (spriteRenderer == null) yield break;
         spriteRenderer.color = Color.red;
-
-        // 2. 指定した秒数だけ処理を待つ
         yield return new WaitForSeconds(0.15f);
-
-        // 3. Start()で保存しておいた「本来の色」に戻す
         spriteRenderer.color = originalColor;
-
-        // 4. 処理が終わったので、保持していたコルーチン情報をnullにする
         flashCoroutine = null;
     }
-
-
-    //以下、あたった部位ごとに受ける処理を変えるための処理群。必要に応じてメソッドを変更したり、コピペして追加してください。
-    // 防御が硬いところにあたった時に呼び出す
-    public void HitResist(int playerAtackdamage)
-    {
-        Debug.Log("効果はいまひとつ");
-        //Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);// ヒットエフェクトを生，効果は今一つでもエフェクトは出すならコメントアウトを外す
-
-
-        //受けるダメージを計算し、敵のＨＰとＵＩに反映
-        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 0.5f); //ダメージ式は、ここを変更してください。
-        enemy_hp -= enemy_damaged;
-        //UIのＨＰバーにUIManagerのメソッドを呼び出すことで反映させる。受けたダメージ量を入力
-        uimanager.DamagedBar(enemy_damaged);
-
-        //攻撃回数をカウントしておく
-        count_hit ++;
-        
-    }
-
-    // 普通の当たり判定のところにあたった時に呼び出す
-    public void HitNormal(int playerAtackdamage)
-    {
-        Debug.Log("ダメージが入った");
-        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);// ヒットエフェクトを生成
-
-        if (flashCoroutine != null)        // もし既に色の変更コルーチンが実行中なら、それを停止する
-        {
-            StopCoroutine(flashCoroutine);
-        }
-        flashCoroutine = StartCoroutine(FlashColorCoroutine());        // 新しく色の変更コルーチンを開始し、その情報を変数に保存する
-
-        //受けるダメージを計算し、敵のＨＰとＵＩに反映
-        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.0f); //ダメージ式は、ここを変更してください。
-        enemy_hp -= enemy_damaged;
-        //UIのＨＰバーにUIManagerのメソッドを呼び出すことで反映させる。受けたダメージ量を入力
-        uimanager.DamagedBar(enemy_damaged);
-
-        //攻撃回数をカウントしておく
-        count_hit ++;
-    }
-
-    // 攻撃が通りやすい当たり判定のところにあたった時に呼び出す
-    public void HitWeak(int playerAtackdamage)
-    {
-        Debug.Log("急所に当たった");
-        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);// ヒットエフェクトを生成
-
-        //受けるダメージを計算し、敵のＨＰとＵＩに反映
-        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 1.5f); //ダメージ式は、ここを変更してください。
-        enemy_hp -= enemy_damaged;
-        //UIのＨＰバーにUIManagerのメソッドを呼び出すことで反映させる。受けたダメージ量を入力
-        uimanager.DamagedBar(enemy_damaged);
-
-        //攻撃回数をカウントしておく
-        count_hit ++;
-    }
-
-
-
-    // 敵の致命的弱点当たり判定のところにあたった時に呼び出す。
-    // ヒットした時、敵を「ひるみ状態」へ遷移させる。
-    public void HitCritical(int playerAtackdamage)
-    {
-        Debug.Log("効果は抜群だ！今がチャンスだ！");
-        Instantiate(criticalEffectPrefab, transform.position, Quaternion.identity);// クリティカルエフェクトを生成
-
-        Animator animator = GetComponent<Animator>();
-        animator.SetTrigger("Critical"); // "Trigger"にはパラメータ名が入ります
-
-        //受けるダメージを計算し、敵のＨＰとＵＩに反映
-        int enemy_damaged = Mathf.RoundToInt(playerAtackdamage * 2.0f); //ダメージ式は、ここを変更してください。
-        enemy_hp -= enemy_damaged;
-        //UIのＨＰバーにUIManagerのメソッドを呼び出すことで反映させる。受けたダメージ量を入力
-        uimanager.DamagedBar(enemy_damaged);
-
-        // 敵の状態を「ひるみ状態」へ遷移させるための処理を以下に。
-        enemy_state = "stan"; //まだ未実装。
-    }
-
-
-    
 }

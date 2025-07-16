@@ -1,79 +1,99 @@
-using System.Collections;
-using System.Collections.Generic;
+// EnemyHitArea2D.cs
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-// 敵の各当たり判定で受け取ったプレイヤー攻撃について、EnemyControllerへダメージ量と当たった部位を伝えるクラス。
-// このスクリプトを付与下オブジェクトは必ず敵オブジェクト(EnemyControllerがついてるオブジェ)の子にすること！
-public class EnemyHitArea : MonoBehaviour
+/// <summary>
+/// 2D版 EnemyHitArea：
+/// ・Collider2D＋OnTriggerEnter2D で判定
+/// ・弱点を攻撃(hit_area_type=="weak")されたときだけ ItemSpawner_main に通知
+/// </summary>
+public class EnemyHitArea2D : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController1;
     [SerializeField] private PlayerController playerController2;
-    public string hit_area_type = "critical"; //ここで、このあたり判定の部位の設定を行うこと！
 
+    [Header("当たり判定タイプ (normal | resist | weak | critical)")]
+    public string hit_area_type = "weak";
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        //プレイヤーの攻撃を感知したときの処理
-        //この当たり判定がどの当たり判定かに応じて処理を変える（防御力とか、敵をひよりにさせるかなど）
-        if (collider.tag == "AttackPlayer1")
+        int playerIndex;
+        PlayerAttack attackComp;
+        PlayerController controller;
+
+        // 今のシーン名を取得
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == "Main")
         {
-
-            // ここでプレイヤーの攻撃判定から攻撃力の値を受け取る
-            PlayerAttack player_attack = collider.GetComponent<PlayerAttack>();
-
-            //この当たり判定がどの当たり判定かに応じて処理を変える（防御力とか、敵をひよりにさせるかなど
-            if (hit_area_type == "resist")
+            // Main シーンではオブジェクト名も条件に入れる
+            if (other.CompareTag("AttackPlayer1") && gameObject.name.EndsWith("_P1"))
             {
-                transform.root.gameObject.GetComponent<EnemyController>().HitResist(player_attack.GetCalculatedDamage());
-                playerController1.Attack();
+                playerIndex = 0;
+                attackComp = other.GetComponent<PlayerAttack>();
+                controller = playerController1;
             }
-            else if (hit_area_type == "normal")
+            else if (other.CompareTag("AttackPlayer2") && gameObject.name.EndsWith("_P2"))
             {
-                transform.root.gameObject.GetComponent<EnemyController>().HitNormal(player_attack.GetCalculatedDamage());
-                playerController1.Attack();
+                playerIndex = 1;
+                attackComp = other.GetComponent<PlayerAttack>();
+                controller = playerController2;
             }
-            else if (hit_area_type == "weak")
+            else
             {
-                transform.root.gameObject.GetComponent<EnemyController>().HitWeak(player_attack.GetCalculatedDamage());
-                playerController1.Attack();
+                return;  // Main シーンで条件を満たさなければ無視
             }
-            else if (hit_area_type == "critical")
-            {
-                transform.root.gameObject.GetComponent<EnemyController>().HitCritical(player_attack.GetCalculatedDamage());
-                playerController1.Attack();
-            }
-
-
         }
-        if (collider.tag == "AttackPlayer2")
+        else if (sceneName == "SampleScene")
         {
-
-            // ここでプレイヤーの攻撃判定から攻撃力の値を受け取る
-            PlayerAttack player_attack = collider.GetComponent<PlayerAttack>();
-
-            //この当たり判定がどの当たり判定かに応じて処理を変える（防御力とか、敵をひよりにさせるかなど
-            if (hit_area_type == "resist")
+            // SampleScene ではオブジェクト名のチェックなし
+            if (other.CompareTag("AttackPlayer1"))
             {
-                transform.root.gameObject.GetComponent<EnemyController>().HitResist(player_attack.GetCalculatedDamage());
-                playerController2.Attack();
+                playerIndex = 0;
+                attackComp = other.GetComponent<PlayerAttack>();
+                controller = playerController1;
             }
-            else if (hit_area_type == "normal")
+            else if (other.CompareTag("AttackPlayer2"))
             {
-                transform.root.gameObject.GetComponent<EnemyController>().HitNormal(player_attack.GetCalculatedDamage());
-                playerController2.Attack();
+                playerIndex = 1;
+                attackComp = other.GetComponent<PlayerAttack>();
+                controller = playerController2;
             }
-            else if (hit_area_type == "weak")
+            else
             {
-                transform.root.gameObject.GetComponent<EnemyController>().HitWeak(player_attack.GetCalculatedDamage());
-                playerController2.Attack();
+                return;  // SampleScene で条件を満たさなければ無視
             }
-            else if (hit_area_type == "critical")
-            {
-                transform.root.gameObject.GetComponent<EnemyController>().HitCritical(player_attack.GetCalculatedDamage());
-                playerController2.Attack();
-            }
-
         }
+        else
+        {
+            return;  // 他のシーンでは処理しない場合
+        }
+
+        // ダメージ処理
+        var enemyCtrl = GetComponentInParent<EnemyController>();
+        int dmg = attackComp.GetCalculatedDamage();
+        switch (hit_area_type)
+        {
+            case "normal": enemyCtrl.HitNormal(dmg); break;
+            case "resist": enemyCtrl.HitResist(dmg); break;
+            case "weak": enemyCtrl.HitWeak(dmg); break;
+            case "critical": enemyCtrl.HitCritical(dmg); break;
+            default:
+                Debug.LogWarning($"Unknown hit_area_type: {hit_area_type}");
+                break;
+        }
+
+        if (controller != null)
+        {
+            controller.Attack();
+
+            // ★弱点攻撃(weak)のときだけ通知
+            if (hit_area_type == "weak")
+            {
+                ItemSpawner_main.NotifyWeakHit(playerIndex == 0 ? PlayerID.P1 : PlayerID.P2);
+
+            }
+        }
+
     }
-
 }

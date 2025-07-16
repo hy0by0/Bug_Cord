@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering.LookDev;
+//using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +9,7 @@ public class ScreenFader : MonoBehaviour
     [Header("<=== Image ===>")]
     [SerializeField] Image fadePanel;
 
-    float fadeDuration = 2f;  // ƒtƒF[ƒhŠÔ
+    public float fadeDuration = 1.0f;  // ãƒ•ã‚§ãƒ¼ãƒ‰ã•ã›ã‚‹æ™‚é–“ã‚’è¨­å®šã—ã¦ãã ã•ã„
     // Start is called before the first frame update
     void Start()
     {
@@ -25,20 +25,20 @@ public class ScreenFader : MonoBehaviour
     public IEnumerator BackBlack()
     {
         fadePanel.gameObject.SetActive(true);
-        //fadePanel.enabled = true;                 // ƒpƒlƒ‹‚ğ—LŒø‰»
-        float elapsedTime = 0.0f;                 // Œo‰ßŠÔ‚ğ‰Šú‰»
-        Color startColor = fadePanel.color;       // ƒtƒF[ƒhƒpƒlƒ‹‚ÌŠJnF‚ğæ“¾
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // ƒtƒF[ƒhƒpƒlƒ‹‚ÌÅIF‚ğİ’è
+        //fadePanel.enabled = true;                 // ï¿½pï¿½lï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½
+        float elapsedTime = 0.0f;                 // ï¿½oï¿½ßï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        Color startColor = fadePanel.color;       // ï¿½tï¿½Fï¿½[ï¿½hï¿½pï¿½lï¿½ï¿½ï¿½ÌŠJï¿½nï¿½Fï¿½ï¿½ï¿½æ“¾
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // ï¿½tï¿½Fï¿½[ï¿½hï¿½pï¿½lï¿½ï¿½ï¿½ÌÅIï¿½Fï¿½ï¿½İ’ï¿½
 
-        // ƒtƒF[ƒhƒAƒEƒgƒAƒjƒ[ƒVƒ‡ƒ“‚ğÀs
+        // ï¿½tï¿½Fï¿½[ï¿½hï¿½Aï¿½Eï¿½gï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s
         while (elapsedTime < fadeDuration)
         {
-            elapsedTime += Time.deltaTime;                        // Œo‰ßŠÔ‚ğ‘‚â‚·
-            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // ƒtƒF[ƒh‚Ìis“x‚ğŒvZ
-            fadePanel.color = Color.Lerp(startColor, endColor, t); // ƒpƒlƒ‹‚ÌF‚ğ•ÏX‚µ‚ÄƒtƒF[ƒhƒAƒEƒg
-            yield return null;                                     // 1ƒtƒŒ[ƒ€‘Ò‹@
+            elapsedTime += Time.deltaTime;                        // ï¿½oï¿½ßï¿½ï¿½Ô‚ğ‘‚â‚·
+            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // ï¿½tï¿½Fï¿½[ï¿½hï¿½Ìiï¿½sï¿½xï¿½ï¿½ï¿½vï¿½Z
+            fadePanel.color = Color.Lerp(startColor, endColor, t); // ï¿½pï¿½lï¿½ï¿½ï¿½ÌFï¿½ï¿½ÏXï¿½ï¿½ï¿½Äƒtï¿½Fï¿½[ï¿½hï¿½Aï¿½Eï¿½g
+            yield return null;                                     // 1ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ò‹@
         }
 
-        fadePanel.color = endColor;  // ƒtƒF[ƒh‚ªŠ®—¹‚µ‚½‚çÅIF‚Éİ’è
+        fadePanel.color = endColor;  // ï¿½tï¿½Fï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÅIï¿½Fï¿½Éİ’ï¿½
     }
 }

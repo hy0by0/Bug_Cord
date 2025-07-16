@@ -18,12 +18,12 @@ public class ScoreController : MonoBehaviour
 
     int m_Time;
     [Header("時間を加算するために必要なスクリプト")]
-    public CountDownClock m_CountDownClock;
+    public GlobalTimeControl m_CountDownClock;
     private void Awake()
     {
         if (m_BoyScoreImage == null) m_BoyScoreImage = GetComponent<ScoreImage>();
         if (m_GirlScoreImage == null) m_GirlScoreImage = GetComponent<ScoreImage>();
-        if(m_CountDownClock==null)m_CountDownClock = GetComponent<CountDownClock>();
+        if(m_CountDownClock==null)m_CountDownClock = GetComponent<GlobalTimeControl>();
 
         if (m_BoyScoreImage == null || m_GirlScoreImage == null)
         {
@@ -93,7 +93,7 @@ public class ScoreController : MonoBehaviour
     
     public void FinalScore()
     {
-        m_Time = (int)m_CountDownClock.timeInSeconds;
+        m_Time = 100 * (int)m_CountDownClock.globalTimeInSeconds;
         PlayerPrefs.SetInt("DamageScore", (int)m_CountScorePlayer);
         PlayerPrefs.SetInt("BoyDamageScore", (int)m_BoyCountScore);
         PlayerPrefs.SetInt("GirlDamageScore", (int)m_GirlCountScore);

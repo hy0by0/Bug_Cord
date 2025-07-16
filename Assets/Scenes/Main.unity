@@ -525,7 +525,7 @@ MonoBehaviour:
   m_GirlCountScore: 0
   m_BoyScoreImage: {fileID: 1682064820}
   m_GirlScoreImage: {fileID: 763377335}
-  m_CountDownClock: {fileID: 1549192774}
+  m_CountDownClock: {fileID: 1127103753}
 --- !u!4 &91068592
 Transform:
   m_ObjectHideFlags: 0
@@ -2298,7 +2298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 564438822}
-  baseDamage: 10
+  baseDamage: 1000
   frontRowMultiplier: 1
   middleRowMultiplier: 1.1
   backRowMultiplier: 1.2

@@ -26,8 +26,6 @@ public class CountDownClock : MonoBehaviour
 
     void Update()
     {
-        
-
         timeInSeconds = GlobalTimeControl.Instance.globalTimeInSeconds;
 
         if (timeInSeconds > 0f)

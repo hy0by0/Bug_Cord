@@ -25,10 +25,11 @@ public class ResultManager : MonoBehaviour
     private void Start()
     {
         m_DamageScore = PlayerPrefs.GetInt("DamageScore");
+        Debug.Log("DamageScore: " + m_DamageScore);
 
         //ScoreControllerスクリプトのTimeが不明なためコメント化
-        m_TimeScore=PlayerPrefs.GetInt("TimeScore");
-
+        m_TimeScore =PlayerPrefs.GetInt("TimeScore");
+        Debug.Log("TimeScore: " + m_TimeScore);
         if (m_1stScore > 0)
             m_1stScore = PlayerPrefs.GetInt("1stScore",0);
 

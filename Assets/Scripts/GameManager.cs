@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator HandleDeathAndSceneChange()
     {
+        FindObjectOfType<ScoreController>().FinalScore();
         Debug.Log("敵が倒れた... 演出開始！");
         yield return new WaitForSeconds(time_changescene);
         if (changeSceneManager != null)

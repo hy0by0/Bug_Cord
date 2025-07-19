@@ -28,12 +28,16 @@ public class ScenarioManager : MonoBehaviour
 
     public ChangeScene changeSceneManager;
 
+    private GlobalTimeControl timeControl;
+
     void Start()
     {
         testAction = new NewActions();   // �@ ��ɍ��
         testAction.Enable();             // �A �L��������
 
         SetScenarioElement(scenarioIndex, textIndex); // �B ���̌��UI����������
+
+        timeControl = GameObject.Find("GlobalTime(DontDestroyOnLoad)").GetComponent<GlobalTimeControl>();
     }
 
     // Update is called once per frame
@@ -52,6 +56,12 @@ public class ScenarioManager : MonoBehaviour
             {
                 Debug.Log("導入終わり！！");
                 changeSceneManager.Load("Main"); //ゲーム画面へ遷移させる
+                ScoreController.m_CountScorePlayer = 0;
+                ScoreController.m_BoyCountScore = 0;
+                ScoreController.m_GirlCountScore = 0;
+                ScoreController.m_Time = 0;
+                ScoreController.m_CountScorePlayer = 0; //スコアを初期化
+                timeControl.globalTimeInSeconds = 300; //タイマーを初期化
             }
 
         }else if (testAction.Player.Back.triggered)

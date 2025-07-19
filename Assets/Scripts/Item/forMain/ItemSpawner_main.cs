@@ -71,7 +71,6 @@ public class ItemSpawner_main : MonoBehaviour
     {
         if (spawnedItems.Count >= maxItems)
         {
-            Debug.Log($"[ItemSpawner] maxItems reached ({spawnedItems.Count}/{maxItems})");
             return;
         }
 

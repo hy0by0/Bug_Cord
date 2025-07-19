@@ -73,6 +73,11 @@ public class Curcor : MonoBehaviour
 
         // カーソルの初期位置を画面中央（X:0, Y:0, Z:0）に設定
         transform.position = Vector3.zero;
+
+        if (SceneManager.GetActiveScene().name == "Title")
+        {
+            isSceneTransitioning = false;
+        }
     }
 
     private void OnCursorPerformed(InputAction.CallbackContext ctx)

@@ -39,11 +39,13 @@ public class ChanceTimeChanger : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        isRallyActive = false;
     }
 
     void OnDisable()
@@ -60,6 +62,10 @@ public class ChanceTimeChanger : MonoBehaviour
             // ★【追加】復元処理が終わったら、フラグをリセットして次回のチャンスタイムに備える
             hasBeenInChanceTime = false;
         }
+
+        var enemies = FindObjectsOfType<EnemyController>();
+        enemyP1_ref = enemies.FirstOrDefault(e => e.playerID == PlayerID.P1);
+        enemyP2_ref = enemies.FirstOrDefault(e => e.playerID == PlayerID.P2);
     }
 
     private IEnumerator RestoreEnemiesState()

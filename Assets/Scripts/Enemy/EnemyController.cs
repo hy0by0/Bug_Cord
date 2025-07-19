@@ -98,6 +98,10 @@ public class EnemyController : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        hasSpawned = false;
+        count_hit = 0;
+        rallyStartRequested = false;
     }
 
     void OnDisable()
